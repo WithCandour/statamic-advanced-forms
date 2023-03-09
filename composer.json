@@ -1,0 +1,29 @@
+{
+    "name": "withcandour/statamic-advanced-forms",
+    "description": "",
+    "version": "0.0.1",
+    "type": "statamic-addon",
+    "authors": [
+        {
+            "name": "Candour",
+            "email": "devs@withcandour.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WithCandour\\StatamicAdvancedForms\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Advanced Forms",
+            "description": "Juice up your forms with this Statamic addon."
+        },
+        "laravel": {
+            "providers": [
+                "WithCandour\\StatamicAdvancedForms\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {}
+}
