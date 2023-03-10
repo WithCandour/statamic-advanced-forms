@@ -2,18 +2,12 @@
 
 namespace WithCandour\StatamicAdvancedForms\Actions\Forms;
 
-use Illuminate\Support\Facades\App;
 use Statamic\Actions\Action;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
-use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository;
+use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 
 class DeleteFormsAction extends Action
 {
-        /**
-     * @var FormsRepository|null
-     */
-    protected ?FormsRepository $repository = null;
-
     protected $dangerous = true;
 
     public static function title()
@@ -51,22 +45,10 @@ class DeleteFormsAction extends Action
 
     public function run($items, $values)
     {
-        $items->each(function ($form) {
-            $this->repository()->delete($form);
-        });
-    }
-
-    /**
-     * Get an instance of the forms repository.
-     *
-     * @return FormsRepository
-     */
-    protected function repository(): FormsRepository
-    {
-        if (!$this->repository) {
-            $this->repository = App::make(FormsRepository::class);
-        }
-
-        return $this->repository;
+        $items
+            ->filter()
+            ->each(function ($form) {
+                FormFacade::delete($form);
+            });
     }
 }

@@ -3,19 +3,14 @@
 namespace WithCandour\StatamicAdvancedForms\Http\Controllers\CP;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Facades\Action;
-use Statamic\Facades\User;
+use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
-use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository;
 
 class FormsController extends Controller
 {
-    /**
-     * @var FormsRepository|null
-     */
-    protected ?FormsRepository $repository = null;
 
     public function index(Request $request)
     {
@@ -25,8 +20,7 @@ class FormsController extends Controller
             Column::make('title')->label(__('Title')),
         ];
 
-        $forms = $this->repository()
-            ->all()
+        $forms = FormFacade::all()
             ->map(function (Form $form) {
                 return [
                     'id' => $form->id(),
@@ -52,19 +46,16 @@ class FormsController extends Controller
             [
                 'forms' => $forms,
                 'initialColumns' => $columns,
-                'actionUrl' => cp_route('advanced-forms.forms.actions.run'),
+                'actionUrl' => cp_route('advanced-forms.actions.run'),
             ]
         );
     }
 
     public function create()
     {
-        return view(
-            'advanced-forms::cp.forms.create',
-            [
+        $this->authorize('create advanced forms');
 
-            ]
-        );
+        return view('advanced-forms::cp.forms.create');
     }
 
     public function store(Request $request)
@@ -76,7 +67,7 @@ class FormsController extends Controller
             'handle' => 'required|alpha_dash',
         ]);
 
-        $form = $this->repository()->make($data['handle']);
+        $form = FormFacade::make($data['handle']);
         $form->title($data['title']);
 
         $form->save();
@@ -88,17 +79,79 @@ class FormsController extends Controller
         ];
     }
 
-    /**
-     * Get an instance of the forms repository.
-     *
-     * @return FormsRepository
-     */
-    protected function repository(): FormsRepository
+    public function show($id)
     {
-        if (!$this->repository) {
-            $this->repository = App::make(FormsRepository::class);
+        $this->authorize('access advanced forms');
+
+        if (!$formModel = FormFacade::find($id)) {
+            return $this->pageNotFound();
         }
 
-        return $this->repository;
+        $breadcrumb = Breadcrumbs::make([
+            [
+                'text' => __('advanced-forms::messages.title'),
+                'url' => cp_route('advanced-forms.index'),
+            ]
+        ]);
+
+        $form = [
+            'id' => $formModel->id(),
+            'handle' => $formModel->handle(),
+        ];
+
+        return view('advanced-forms::cp.forms.show', [
+            'title' => $formModel->title(),
+            'form' => $form,
+            'breadcrumb' => $breadcrumb,
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $this->authorize('edit advanced forms');
+
+        if (!$formModel = FormFacade::find($id)) {
+            return $this->pageNotFound();
+        }
+
+        $breadcrumb = Breadcrumbs::make([
+            [
+                'text' => __('advanced-forms::messages.title'),
+                'url' => cp_route('advanced-forms.index'),
+            ],
+            [
+                'text' => $formModel->title(),
+                'url' => $formModel->showUrl(),
+            ]
+        ]);
+
+        return view('advanced-forms::cp.forms.edit', [
+            'title' => __('advanced-forms::forms.edit'),
+            'form' => $formModel,
+            'breadcrumb' => $breadcrumb,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->authorize('edit advanced forms');
+
+        if (!$formModel = FormFacade::find($id)) {
+            return $this->pageNotFound();
+        }
+
+        $data = $request->validate([
+            'title' => 'required',
+        ]);
+
+        $formModel->title($data['title']);
+
+        $formModel->save();
+
+        session()->flash('message', __('advanced-forms::forms.updated'));
+
+        return [
+            'redirect' => $formModel->showUrl(),
+        ];
     }
 }

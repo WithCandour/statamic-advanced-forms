@@ -100,19 +100,50 @@ class ServiceProvider extends AddonServiceProvider
      */
     public function bootPermissions(): self
     {
-        Permission::group('advanced-forms', __('advanced-forms.messages.title'), function () {
+        Permission::group('advanced-forms', __('advanced-forms::messages.title'), function () {
             Permission::register('access advanced forms', function ($permission) {
                 $permission->children([
-                    Permission::make('view advanced forms')
-                        ->label('View forms'),
                     Permission::make('create advanced forms')
                         ->label('Create forms'),
-                    Permission::make('edit advanced forms')
-                        ->label('Edit forms'),
                     Permission::make('delete advanced forms')
                         ->label('Delete forms'),
+
+                    Permission::register('access advanced forms submissions')
+                        ->label('View submissions')
+                        ->children([
+                            Permission::make('delete advanced forms submissions')
+                                ->label('Delete submissions'),
+                        ]),
+
+                    Permission::make('edit advanced forms fields')
+                        ->label('Edit form fields'),
+
+                    Permission::register('access advanced forms feeds')
+                        ->label('View feeds')
+                        ->children([
+                            Permission::make('create advanced forms feeds')
+                                ->label('Create feeds'),
+                            Permission::make('edit advanced forms feeds')
+                                ->label('Edit feeds'),
+                            Permission::make('delete advanced forms feeds')
+                                ->label('Delete feeds'),
+                        ]),
+
+                    Permission::make('access advanced forms notifications')
+                        ->label('View notifications')
+                        ->children([
+                            Permission::make('create advanced forms notifications')
+                                ->label('Create notifications'),
+                            Permission::make('edit advanced forms notifications')
+                                ->label('Edit notifications'),
+                            Permission::make('delete advanced forms notifications')
+                                ->label('Delete notifications'),
+                        ]),
+
+                    Permission::make('download advanced forms assets')
+                        ->label('Download files'),
                 ]);
-            })->label('Access advanced forms');
+            })->label('View forms');
         });
 
         return $this;

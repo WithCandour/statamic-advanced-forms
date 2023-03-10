@@ -1,6 +1,6 @@
 <template>
     <data-list :visible-columns="columns" :columns="columns" :rows="items">
-        <div class="card p-0 relative" slot-scope="{ filteredRows: rows }">
+        <div class="card p-0 relative">
             <data-list-bulk-actions
                 class="rounded"
                 :url="actionUrl"
@@ -12,7 +12,7 @@
                 <template slot="cell-title" slot-scope="{ row: form }">
                     <a :href="form.show_url">{{ form.title }}</a>
                 </template>
-                <template slot="actions" slot-scope="{ row: form, index }">
+                <template slot="actions" slot-scope="{ row: form }">
                     <dropdown-list>
                         <data-list-inline-actions
                             :item="form.id"

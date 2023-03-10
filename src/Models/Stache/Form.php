@@ -2,12 +2,11 @@
 
 namespace WithCandour\StatamicAdvancedForms\Models\Stache;
 
-use Illuminate\Support\Facades\App;
 use Statamic\Data\ExistsAsFile;
 use Statamic\Facades\Stache;
 use Statamic\Support\Traits\FluentlyGetsAndSets;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
-use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository;
+use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Models\AbstractForm;
 
 class Form extends AbstractForm implements Contract
@@ -16,11 +15,6 @@ class Form extends AbstractForm implements Contract
 
     protected $title;
     protected $handle;
-
-    /**
-     * @var FormsRepository|null
-     */
-    protected ?FormsRepository $repository = null;
 
     public function id(): string
     {
@@ -65,9 +59,9 @@ class Form extends AbstractForm implements Contract
      */
     public function save(): self
     {
-        $isNew = \is_null($this->repository()->find($this->id()));
+        $isNew = \is_null(FormFacade::find($this->id()));
 
-        $this->repository()->save($this);
+        FormFacade::save($this);
 
         return $this;
     }
@@ -79,20 +73,6 @@ class Form extends AbstractForm implements Contract
         ];
 
         return $data;
-    }
-
-    /**
-     * Get an instance of the forms repository.
-     *
-     * @return FormsRepository
-     */
-    protected function repository(): FormsRepository
-    {
-        if (!$this->repository) {
-            $this->repository = App::make(FormsRepository::class);
-        }
-
-        return $this->repository;
     }
 
 }

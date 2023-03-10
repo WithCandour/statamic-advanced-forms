@@ -3,6 +3,7 @@
 
 
 @section('content')
+
     @unless($forms->isEmpty())
 
         <div class="flex items-center mb-3">
@@ -17,7 +18,7 @@
 
     @else
         @include('statamic::partials.empty-state', [
-            'title' => __('Forms'),
+            'title' => __('advanced-forms::messages.title'),
             'description' => __('advanced-forms::messages.form_configure_intro'),
             'svg' => 'empty/form',
             'button_text' => __('Create Form'),
