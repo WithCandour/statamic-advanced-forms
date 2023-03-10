@@ -9,9 +9,9 @@ abstract class AbstractForm implements Contract
     /**
      * @inheritDoc
      */
-    public function editUrl(): string
+    public function showUrl(): string
     {
-        return cp_route('advanced-forms.edit', $this->handle());
+        return cp_route('advanced-forms.show', $this->handle());
     }
 
     /**

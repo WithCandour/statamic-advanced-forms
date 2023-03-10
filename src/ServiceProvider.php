@@ -6,6 +6,7 @@ use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Permission;
 use Statamic\Facades\Stache;
 use Statamic\Providers\AddonServiceProvider;
+use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
@@ -37,6 +38,10 @@ class ServiceProvider extends AddonServiceProvider
         'cp' => __DIR__ . '/../routes/cp.php',
     ];
 
+    protected $scripts = [
+        __DIR__ . '/../public/js/advanced-forms.js',
+    ];
+
     /**
      * @inheritDoc
      */
@@ -51,7 +56,8 @@ class ServiceProvider extends AddonServiceProvider
         $this
             ->bootStache()
             ->bootNav()
-            ->bootPermissions();
+            ->bootPermissions()
+            ->bootActions();
     }
 
     /**
@@ -108,6 +114,18 @@ class ServiceProvider extends AddonServiceProvider
                 ]);
             })->label('Access advanced forms');
         });
+
+        return $this;
+    }
+
+    /**
+     * Register our custom actions.
+     *
+     * @return self
+     */
+    public function bootActions(): self
+    {
+        DeleteFormsAction::register();
 
         return $this;
     }

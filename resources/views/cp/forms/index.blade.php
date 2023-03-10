@@ -5,7 +5,15 @@
 @section('content')
     @unless($forms->isEmpty())
 
+        <div class="flex items-center mb-3">
+            <h1 class="flex-1">{{ __('advanced-forms::messages.title') }}</h1>
+            <a href="{{ cp_route('advanced-forms.create') }}" class="btn-primary">{{ __('Create Form') }}</a>
+        </div>
 
+        <advanced-forms-listing
+            :initial-columns="{{ json_encode($initialColumns) }}"
+            action-url="{{ $actionUrl }}"
+        ></advanced-forms-listing>
 
     @else
         @include('statamic::partials.empty-state', [

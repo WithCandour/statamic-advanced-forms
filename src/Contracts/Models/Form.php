@@ -35,11 +35,11 @@ interface Form
     public function save(): self;
 
     /**
-     * Get the edit url of the form.
+     * Get the show url of the form.
      *
      * @return string
      */
-    public function editUrl(): string;
+    public function showUrl(): string;
 
     /**
      * Get the delete url of the form.
