@@ -83,7 +83,7 @@ class FormsController extends Controller
     {
         $this->authorize('access advanced forms');
 
-        if (!$formModel = FormFacade::find($id)) {
+        if (!$form = FormFacade::find($id)) {
             return $this->pageNotFound();
         }
 
@@ -94,14 +94,11 @@ class FormsController extends Controller
             ]
         ]);
 
-        $form = [
-            'id' => $formModel->id(),
-            'handle' => $formModel->handle(),
-        ];
-
         return view('advanced-forms::cp.forms.show', [
-            'title' => $formModel->title(),
+            'title' => $form->title(),
             'form' => $form,
+            'fields_page_count' => $form->blueprint()->sections()->count(),
+            'fields_field_count' => $form->blueprint()->fields()->all()->count(),
             'breadcrumb' => $breadcrumb,
         ]);
     }
@@ -110,7 +107,7 @@ class FormsController extends Controller
     {
         $this->authorize('edit advanced forms');
 
-        if (!$formModel = FormFacade::find($id)) {
+        if (!$form = FormFacade::find($id)) {
             return $this->pageNotFound();
         }
 
@@ -120,14 +117,14 @@ class FormsController extends Controller
                 'url' => cp_route('advanced-forms.index'),
             ],
             [
-                'text' => $formModel->title(),
-                'url' => $formModel->showUrl(),
+                'text' => $form->title(),
+                'url' => $form->showUrl(),
             ]
         ]);
 
         return view('advanced-forms::cp.forms.edit', [
             'title' => __('advanced-forms::forms.edit'),
-            'form' => $formModel,
+            'form' => $form,
             'breadcrumb' => $breadcrumb,
         ]);
     }
@@ -136,7 +133,7 @@ class FormsController extends Controller
     {
         $this->authorize('edit advanced forms');
 
-        if (!$formModel = FormFacade::find($id)) {
+        if (!$form = FormFacade::find($id)) {
             return $this->pageNotFound();
         }
 
@@ -144,14 +141,14 @@ class FormsController extends Controller
             'title' => 'required',
         ]);
 
-        $formModel->title($data['title']);
+        $form->title($data['title']);
 
-        $formModel->save();
+        $form->save();
 
         session()->flash('message', __('advanced-forms::forms.updated'));
 
         return [
-            'redirect' => $formModel->showUrl(),
+            'redirect' => $form->showUrl(),
         ];
     }
 }

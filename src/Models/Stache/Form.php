@@ -26,7 +26,9 @@ class Form extends AbstractForm implements Contract
      */
     public function handle(?string $handle = null)
     {
-        return $this->fluentlyGetOrSet('handle')->args(func_get_args());
+        return $this
+            ->fluentlyGetOrSet('handle')
+            ->args(func_get_args());
     }
 
     /**
@@ -38,6 +40,19 @@ class Form extends AbstractForm implements Contract
             ->fluentlyGetOrSet('title')
             ->getter(function ($title) {
                 return $title ?? ucfirst($this->handle);
+            })
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function paginatedFields(?bool $value = null)
+    {
+        return $this
+            ->fluentlyGetOrSet('paginated_fields')
+            ->getter(function ($value) {
+                return $value ?? false;
             })
             ->args(func_get_args());
     }
@@ -70,6 +85,7 @@ class Form extends AbstractForm implements Contract
     {
         $data = [
             'title' => $this->title(),
+            'paginated_fields' => $this->paginatedFields(),
         ];
 
         return $data;

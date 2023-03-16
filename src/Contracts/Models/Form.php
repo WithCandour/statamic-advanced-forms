@@ -2,6 +2,8 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
+use Statamic\Fields\Blueprint;
+
 interface Form
 {
     /**
@@ -28,11 +30,19 @@ interface Form
     public function title(?string $title = null);
 
     /**
-     * Save the form.
+     * Get the form fields blueprint.
      *
-     * @return void
+     * @return \Statamic\Fields\Blueprint
      */
-    public function save(): self;
+    public function blueprint(): Blueprint;
+
+    /**
+     * Get or set whether the fields are paginated for this form.
+     *
+     * @param bool|null $value
+     * @return bool|void
+     */
+    public function paginatedFields(?bool $value = null);
 
     /**
      * Get the show url of the form.
@@ -47,4 +57,11 @@ interface Form
      * @return string
      */
     public function deleteUrl(): string;
+
+    /**
+     * Save the form.
+     *
+     * @return void
+     */
+    public function save(): self;
 }

@@ -2,9 +2,11 @@
 
 namespace WithCandour\StatamicAdvancedForms;
 
+use Illuminate\Support\Facades\View;
 use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Permission;
 use Statamic\Facades\Stache;
+use Statamic\Http\View\Composers\FieldComposer;
 use Statamic\Providers\AddonServiceProvider;
 use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
@@ -57,7 +59,8 @@ class ServiceProvider extends AddonServiceProvider
             ->bootStache()
             ->bootNav()
             ->bootPermissions()
-            ->bootActions();
+            ->bootActions()
+            ->bootViewComposers();
     }
 
     /**
@@ -157,6 +160,18 @@ class ServiceProvider extends AddonServiceProvider
     public function bootActions(): self
     {
         DeleteFormsAction::register();
+
+        return $this;
+    }
+
+    /**
+     * Register view composers.
+     *
+     * @return self
+     */
+    public function bootViewComposers(): self
+    {
+        View::composer(['advanced-forms::cp.fields.index'], FieldComposer::class);
 
         return $this;
     }

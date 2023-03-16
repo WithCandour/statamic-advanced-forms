@@ -2,6 +2,8 @@
 
 namespace WithCandour\StatamicAdvancedForms\Models;
 
+use Statamic\Facades\Blueprint as BlueprintFacade;
+use Statamic\Fields\Blueprint;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
 
 abstract class AbstractForm implements Contract
@@ -12,6 +14,17 @@ abstract class AbstractForm implements Contract
     public function getRouteKeyName(): string
     {
         return 'id';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function blueprint(): Blueprint
+    {
+        $blueprint = BlueprintFacade::find('advanced-forms.' . $this->handle()) ??
+            Blueprint::makeFromFields([])->setHandle($this->handle())->setNamespace('advanced-forms');
+
+        return $blueprint;
     }
 
     /**
