@@ -13,6 +13,7 @@ class Form extends AbstractForm implements Contract
 {
     use ExistsAsFile, FluentlyGetsAndSets;
 
+    protected $id;
     protected $title;
     protected $handle;
 

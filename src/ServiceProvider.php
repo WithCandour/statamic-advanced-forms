@@ -10,10 +10,16 @@ use Statamic\Http\View\Composers\FieldComposer;
 use Statamic\Providers\AddonServiceProvider;
 use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\Aggregates\NotificationsStore as NotificationsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
+use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
+use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
+use WithCandour\StatamicAdvancedForms\Stache\Stores\Aggregates\NotificationsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 
 class ServiceProvider extends AddonServiceProvider
@@ -23,7 +29,9 @@ class ServiceProvider extends AddonServiceProvider
      */
     public $singletons = [
         FormsStoreContract::class => FormsStore::class,
+        NotificationsStoreContract::class => NotificationsStore::class,
         FormsRepositoryContract::class => FormsRepository::class,
+        NotificationsRepositoryContract::class => NotificationsRepository::class,
     ];
 
     /**
@@ -31,6 +39,7 @@ class ServiceProvider extends AddonServiceProvider
      */
     public $bindings = [
         FormContract::class => Form::class,
+        NotificationContract::class => Notification::class,
     ];
 
     /**

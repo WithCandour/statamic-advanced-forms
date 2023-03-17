@@ -13,9 +13,9 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
         Route::patch('advanced-forms/{advanced_form}/fields', 'FieldsController@update')->name('advanced-forms.fields.update');
 
         Route::resource('advanced-forms.notifications', 'NotificationsController')
-            ->only(['create', 'update', 'edit', 'destroy']);
+            ->only(['create', 'store', 'update', 'edit', 'destroy']);
 
         Route::resource('advanced-forms.feeds', 'FeedsController')
-            ->only(['create', 'update', 'edit', 'destroy']);
+            ->only(['create', 'store', 'update', 'edit', 'destroy']);
 
     });

@@ -10,7 +10,12 @@ return [
 
             'forms' => [
                 'class' => Stores\FormsStore::class,
-                'directory' => 'resources/advanced-forms/forms'
+                'directory' => resource_path('advanced-forms'),
+            ],
+
+            'notifications' => [
+                'class' => Stores\Aggregates\NotificationsStore::class,
+                'directory' => resource_path('advanced-forms'),
             ],
 
         ],
