@@ -13,13 +13,13 @@ use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
-use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\Aggregates\NotificationsStore as NotificationsStoreContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
-use WithCandour\StatamicAdvancedForms\Stache\Stores\Aggregates\NotificationsStore;
+use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 
 class ServiceProvider extends AddonServiceProvider

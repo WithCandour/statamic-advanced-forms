@@ -2,6 +2,7 @@
 
 namespace WithCandour\StatamicAdvancedForms\Models\Stache;
 
+use Statamic\Data\ContainsData;
 use Statamic\Data\ExistsAsFile;
 use Statamic\Facades\Stache;
 use Statamic\Support\Traits\FluentlyGetsAndSets;
@@ -12,7 +13,7 @@ use WithCandour\StatamicAdvancedForms\Models\AbstractNotification;
 
 class Notification extends AbstractNotification implements Contract
 {
-    use ExistsAsFile, FluentlyGetsAndSets;
+    use ExistsAsFile, FluentlyGetsAndSets, ContainsData;
 
     protected $id;
     protected $title;
@@ -50,10 +51,8 @@ class Notification extends AbstractNotification implements Contract
      */
     public function path(): string
     {
-        return vsprintf('%s/%s/%s/%s.%s', [
+        return vsprintf('%s/%s.%s', [
             rtrim(Stache::store('advanced-forms.notifications')->directory(), '/'),
-            $this->form()->id(),
-            'notifications',
             $this->id(),
             'yaml',
         ]);
@@ -76,7 +75,7 @@ class Notification extends AbstractNotification implements Contract
             'form' => $this->form()->id(),
         ];
 
-        return $data;
+        return array_merge($data, $this->data()->all());
     }
 
 }

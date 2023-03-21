@@ -14,8 +14,8 @@ return [
             ],
 
             'notifications' => [
-                'class' => Stores\Aggregates\NotificationsStore::class,
-                'directory' => resource_path('advanced-forms'),
+                'class' => Stores\NotificationsStore::class,
+                'directory' => resource_path('advanced-forms/notifications'),
             ],
 
         ],

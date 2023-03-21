@@ -4,7 +4,6 @@ namespace WithCandour\StatamicAdvancedForms\Repositories\Stache;
 
 use Illuminate\Support\Collection;
 use Statamic\Stache\Stache;
-use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as Contract;
@@ -30,9 +29,15 @@ class NotificationsRepository implements Contract
     /**
      * @inheritDoc
      */
-    public function make(): Notification
+    public function make(?string $id = null): Notification
     {
-        return app(Notification::class);
+        $notification = app(Notification::class);
+
+        if (!empty($id)) {
+            $notification->id($id);
+        }
+
+        return $notification;
     }
 
     /**
@@ -49,9 +54,7 @@ class NotificationsRepository implements Contract
      */
     public function find(string $id): ?Notification
     {
-        ray($this->store->stores());
-        return null;
-        // return $this->store->getItem(Str::ensureLeft($id, 'notifications_'));
+        return $this->store->getItem($id);
     }
 
     /**
@@ -73,7 +76,7 @@ class NotificationsRepository implements Contract
             $notification->id($this->stache->generateId());
         }
 
-        $this->store->store($notification->form()->id())->save($notification);
+        $this->store->save($notification);
         return $notification;
     }
 

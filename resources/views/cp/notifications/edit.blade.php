@@ -1,13 +1,10 @@
 @extends('statamic::layout')
-@section('title', __('Configure Taxonomy'))
+@section('title', __('advanced-forms::notifications.configure'))
 
 @section('content')
 
     <header class="mb-3">
-        @include('statamic::partials.breadcrumb', [
-            'url' => cp_route('taxonomies.show', $taxonomy->handle()),
-            'title' => $taxonomy->title()
-        ])
+        <breadcrumbs :crumbs='@json($breadcrumb)'></breadcrumbs>
         <h1>@yield('title')</h1>
     </header>
 
@@ -15,7 +12,7 @@
         :blueprint="{{ json_encode($blueprint) }}"
         :initial-values="{{ json_encode($values) }}"
         :meta="{{ json_encode($meta) }}"
-        url="{{ cp_route('advanced-forms.notifications.update', ['advanced-form' => $form->id(), 'notification' => $notification->id()]) }}"
+        url="{{ cp_route('advanced-forms.notifications.update', ['advanced_form' => $form->id(), 'notification' => $notification->id()]) }}"
     ></advanced-forms-notification-edit-form>
 
 @stop

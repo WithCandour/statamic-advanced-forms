@@ -39,9 +39,6 @@ class Form extends AbstractForm implements Contract
     {
         return $this
             ->fluentlyGetOrSet('title')
-            ->getter(function ($title) {
-                return $title ?? ucfirst($this->handle);
-            })
             ->args(func_get_args());
     }
 

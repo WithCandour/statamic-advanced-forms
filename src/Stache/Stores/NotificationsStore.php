@@ -6,17 +6,18 @@ use SplFileInfo;
 use Statamic\Facades\Path;
 use Statamic\Facades\YAML;
 use Statamic\Stache\Stores\BasicStore;
-use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as Contract;
+use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as Contract;
 use WithCandour\StatamicAdvancedForms\Facades\Form;
+use WithCandour\StatamicAdvancedForms\Facades\Notification;
 
-class FormsStore extends BasicStore implements Contract
+class NotificationsStore extends BasicStore implements Contract
 {
     /**
      * @inheritDoc
      */
     public function key()
     {
-        return 'advanced-forms.forms';
+        return 'advanced-forms.notifications';
     }
 
     /**
@@ -34,16 +35,26 @@ class FormsStore extends BasicStore implements Contract
     public function makeItemFromFile($path, $contents)
     {
         $relative = str_after($path, $this->directory);
-        $handle = str_before($relative, '.yaml');
+        $id = str_before($relative, '.yaml');
 
         $data = YAML::file($path)->parse($contents);
 
-        $form = Form::make($handle)
-            ->title($data['title'] ?? null);
+        $notification = Notification::make($id)
+            ->title($data['title']);
 
-        $form->paginatedFields($data['paginated_fields']);
+        $notification->form(Form::find($data['form']));
+        $notification->data($data);
 
-        return $form;
+        return $notification;
+    }
+
+    protected function storeIndexes()
+    {
+        return [
+            'id',
+            'form',
+            'enabled',
+        ];
     }
 
 }

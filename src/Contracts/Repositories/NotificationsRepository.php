@@ -11,7 +11,7 @@ interface NotificationsRepository
     /**
      * Create a new notification.
      */
-    public function make(): Notification;
+    public function make(?string $id = null): Notification;
 
     /**
      * Return all notifications from the filesystem.
