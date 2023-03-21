@@ -15,10 +15,16 @@ interface Notification
     /**
      * Get or set the notification title.
      *
-     * @param string|null $handle
-     * @return string|void
+     * @return string
      */
-    public function title(?string $title = null);
+    public function title();
+
+    /**
+     * Get whether this notification is enabled
+     *
+     * @return bool
+     */
+    public function enabled(): bool;
 
     /**
      * Get or set the form for this notification.
@@ -48,4 +54,18 @@ interface Notification
      * @return void
      */
     public function save(): self;
+
+    /**
+     * Set a data key for this notification.
+     *
+     * @return self
+     */
+    public function set($key, $value);
+
+    /**
+     * Get a data key for this notification.
+     *
+     * @return mixed
+     */
+    public function get($key, $fallback = null);
 }

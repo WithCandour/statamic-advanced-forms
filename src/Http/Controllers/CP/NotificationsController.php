@@ -4,14 +4,47 @@ namespace WithCandour\StatamicAdvancedForms\Http\Controllers\CP;
 
 use Illuminate\Http\Request;
 use Statamic\CP\Breadcrumbs;
+use Statamic\CP\Column;
+use Statamic\Facades\Action;
 use Statamic\Facades\Blueprint;
-use Statamic\Facades\YAML;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Facades\Notification as NotificationFacade;
 
 class NotificationsController extends Controller
 {
+    public function index(string $formId)
+    {
+        $this->authorize('view advanced forms notifications');
+
+        if (!$form = FormFacade::find($formId)) {
+            return $this->pageNotFound();
+        }
+
+        $columns = [
+            Column::make('title')->label(__('Title')),
+        ];
+
+        $notifications = \collect($form->notifications())
+            ->map(function (Notification $notification) {
+                return [
+                    'id' => $notification->id(),
+                    'title' => $notification->title(),
+                    'enabled' => $notification->enabled(),
+                    'edit_url' => $notification->editUrl(),
+                    'actions' => Action::for($notification)
+                ];
+            })->values();
+
+
+        return [
+            'meta' => [
+                'columns' => $columns,
+            ],
+            'data' => $notifications,
+        ];
+    }
+
     public function create(string $formId)
     {
         $this->authorize('create advanced forms notifications');
@@ -38,7 +71,7 @@ class NotificationsController extends Controller
          */
         $notification = NotificationFacade::make();
 
-        $notification->title($request->title);
+        $notification->set('title', $request->title);
         $notification->form($form);
 
         $notification->save();
@@ -62,10 +95,14 @@ class NotificationsController extends Controller
             return $this->pageNotFound();
         }
 
+        $initialValues = \array_merge(
+            ['title' => $notification->title()],
+            \collect($notification->data())->toArray(),
+        );
 
         $fields = ($blueprint = $this->editFormBlueprint())
             ->fields()
-            ->addValues($notification->data()->toArray())
+            ->addValues($initialValues)
             ->preProcess();
 
         $breadcrumb = Breadcrumbs::make([

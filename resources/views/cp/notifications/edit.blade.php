@@ -13,6 +13,7 @@
         :initial-values="{{ json_encode($values) }}"
         :meta="{{ json_encode($meta) }}"
         url="{{ cp_route('advanced-forms.notifications.update', ['advanced_form' => $form->id(), 'notification' => $notification->id()]) }}"
+        form-url="{{ $form->showUrl() }}"
     ></advanced-forms-notification-edit-form>
 
 @stop

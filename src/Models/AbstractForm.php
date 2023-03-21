@@ -5,6 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Models;
 use Statamic\Facades\Blueprint as BlueprintFacade;
 use Statamic\Fields\Blueprint;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
+use WithCandour\StatamicAdvancedForms\Facades\Notification;
 
 abstract class AbstractForm implements Contract
 {
@@ -25,6 +26,15 @@ abstract class AbstractForm implements Contract
             Blueprint::makeFromFields([])->setHandle($this->handle())->setNamespace('advanced-forms');
 
         return $blueprint;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function notifications(): array
+    {
+        return Notification::findByForm($this)
+            ->all();
     }
 
     /**

@@ -29,11 +29,9 @@ class Notification extends AbstractNotification implements Contract
     /**
      * @inheritDoc
      */
-    public function title(?string $title = null)
+    public function title()
     {
-        return $this
-            ->fluentlyGetOrSet('title')
-            ->args(func_get_args());
+        return $this->get('title', $this->id());
     }
 
     /**
@@ -44,6 +42,14 @@ class Notification extends AbstractNotification implements Contract
         return $this
             ->fluentlyGetOrSet('form')
             ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function enabled(): bool
+    {
+        return $this->get('enabled', false);
     }
 
     /**
@@ -70,12 +76,13 @@ class Notification extends AbstractNotification implements Contract
 
     public function fileData()
     {
-        $data = [
-            'title' => $this->title(),
+        $default = [
             'form' => $this->form()->id(),
         ];
 
-        return array_merge($data, $this->data()->all());
+        $data = \collect($this->data())->all();
+
+        return array_merge($default, $data);
     }
 
 }

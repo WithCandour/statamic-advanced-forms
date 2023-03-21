@@ -1,6 +1,8 @@
 <template>
     <data-list :visible-columns="columns" :columns="columns" :rows="items">
         <div class="card p-0 relative">
+            <div v-show="items.length === 0" class="p-3 text-center text-grey-50" v-text="__('No results')" />
+
             <data-list-bulk-actions
                 class="rounded"
                 :url="actionUrl"

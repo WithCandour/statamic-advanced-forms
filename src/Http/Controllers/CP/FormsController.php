@@ -37,7 +37,7 @@ class FormsController extends Controller
                 'meta' => [
                     'columns' => $columns,
                 ],
-                'data' => $forms
+                'data' => $forms,
             ];
         }
 
@@ -87,6 +87,8 @@ class FormsController extends Controller
             return $this->pageNotFound();
         }
 
+        $notifications = $form->notifications();
+
         $breadcrumb = Breadcrumbs::make([
             [
                 'text' => __('advanced-forms::messages.title'),
@@ -97,6 +99,11 @@ class FormsController extends Controller
         return view('advanced-forms::cp.forms.show', [
             'title' => $form->title(),
             'form' => $form,
+            'notifications' => \collect($notifications),
+            'notifications_initial_columns' => [
+                Column::make('title')->label(__('Title')),
+            ],
+            'notifications_action_url' => cp_route('advanced-forms.notifications.actions.run'),
             'fields_page_count' => $form->blueprint()->sections()->count(),
             'fields_field_count' => $form->blueprint()->fields()->all()->count(),
             'breadcrumb' => $breadcrumb,

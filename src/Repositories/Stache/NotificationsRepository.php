@@ -62,8 +62,9 @@ class NotificationsRepository implements Contract
      */
     public function findByForm(Form $form): Collection
     {
-        $ids = $this->store->index('form')->items()->flip()->get($form->id());
-        return \collect($ids)
+        return $this->store->index('form')->items()
+            ->filter(fn (Form $stacheForm) => $stacheForm->id() === $form->id())
+            ->keys()
             ->map(fn ($id) => $this->find($id));
     }
 

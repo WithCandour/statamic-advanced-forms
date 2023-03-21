@@ -9,6 +9,9 @@ use Statamic\Facades\Stache;
 use Statamic\Http\View\Composers\FieldComposer;
 use Statamic\Providers\AddonServiceProvider;
 use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Notifications\DeleteNotificationsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Notifications\DisableNotificationsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Notifications\EnableNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
@@ -169,6 +172,9 @@ class ServiceProvider extends AddonServiceProvider
     public function bootActions(): self
     {
         DeleteFormsAction::register();
+        EnableNotificationsAction::register();
+        DisableNotificationsAction::register();
+        DeleteNotificationsAction::register();
 
         return $this;
     }

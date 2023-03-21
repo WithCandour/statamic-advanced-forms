@@ -12,4 +12,13 @@ return [
 
     'enabled' => 'Enabled',
     'enabled_instruct' => 'Set to `false` to prevent this notification from being sent.',
+
+    'disable' => 'Disable',
+    'disable-confirm' => 'Are you sure you want to disable this notification?|Are you sure you want to disable :count notifications?',
+
+    'enable' => 'Enable',
+    'enable-confirm' => 'Are you sure you want to enable this notification?|Are you sure you want to enable :count notifications?',
+
+    'delete' => 'Delete|Delete :count notifications?',
+    'delete-confirm' => 'Are you sure you want to delete this notification?|Are you sure you want to delete :count notifications?',
 ];

@@ -13,7 +13,10 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
         Route::patch('advanced-forms/{advanced_form}/fields', 'FieldsController@update')->name('advanced-forms.fields.update');
 
         Route::resource('advanced-forms.notifications', 'NotificationsController')
-            ->only(['create', 'store', 'update', 'edit', 'destroy']);
+            ->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
+
+        Route::post('advanced-forms/notifications/actions', 'Actions\\NotificationActionController@run')->name('advanced-forms.notifications.actions.run');
+        Route::post('advanced-forms/notifications/actions/list', 'Actions\\NotificationActionController@bulkActions')->name('advanced-forms.notifications.actions.bulk');
 
         Route::resource('advanced-forms.feeds', 'FeedsController')
             ->only(['create', 'store', 'update', 'edit', 'destroy']);

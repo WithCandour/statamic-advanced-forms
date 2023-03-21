@@ -37,6 +37,13 @@ interface Form
     public function blueprint(): Blueprint;
 
     /**
+     * Get a list of notifications for this form.
+     *
+     * @return \WithCandour\StatamicAdvancedForms\Contracts\Models\Notification[]
+     */
+    public function notifications(): array;
+
+    /**
      * Get or set whether the fields are paginated for this form.
      *
      * @param bool|null $value

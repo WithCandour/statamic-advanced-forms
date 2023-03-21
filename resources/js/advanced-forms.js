@@ -3,6 +3,7 @@ import Listing from './components/cp/forms/Listing';
 import FormPublishForm from './components/cp/forms/PublishForm';
 import FieldsBuilder from './components/cp/fields/Builder';
 import NotificationsEditForm from './components/cp/notifications/EditForm';
+import NotificationsListing from './components/cp/notifications/Listing';
 
 Statamic.booting(() => {
     Statamic.component('advanced-forms-core-create', CreateForm);
@@ -13,4 +14,6 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-fields-builder', FieldsBuilder);
 
     Statamic.component('advanced-forms-notification-edit-form', NotificationsEditForm);
+
+    Statamic.component('advanced-forms-notifications-listing', NotificationsListing);
 });

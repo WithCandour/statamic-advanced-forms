@@ -39,9 +39,7 @@ class NotificationsStore extends BasicStore implements Contract
 
         $data = YAML::file($path)->parse($contents);
 
-        $notification = Notification::make($id)
-            ->title($data['title']);
-
+        $notification = Notification::make($id);
         $notification->form(Form::find($data['form']));
         $notification->data($data);
 
