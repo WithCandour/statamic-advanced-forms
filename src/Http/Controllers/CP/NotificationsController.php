@@ -7,6 +7,7 @@ use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Facades\Action;
 use Statamic\Facades\Blueprint;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Facades\Notification as NotificationFacade;
@@ -100,7 +101,7 @@ class NotificationsController extends Controller
             \collect($notification->data())->toArray(),
         );
 
-        $fields = ($blueprint = $this->editFormBlueprint())
+        $fields = ($blueprint = $this->editFormBlueprint($form))
             ->fields()
             ->addValues($initialValues)
             ->preProcess();
@@ -142,7 +143,7 @@ class NotificationsController extends Controller
 
         $data = $request->except(['form']);
 
-        $fields = $this->editFormBlueprint()->fields()->addValues($data);
+        $fields = $this->editFormBlueprint($form)->fields()->addValues($data);
 
         $fields->validate();
         $values = $fields->process()->values()->all();
@@ -159,7 +160,7 @@ class NotificationsController extends Controller
         ];
     }
 
-    protected function editFormBlueprint()
+    protected function editFormBlueprint(Form $form)
     {
         $sections = [
             'name' => [
@@ -178,6 +179,51 @@ class NotificationsController extends Controller
                     ]
                 ],
             ],
+            'email' => [
+                'display' => 'Email settings',
+                'fields' => [
+                    'send_to_type' => [
+                        'display' => 'Send to',
+                        'type' => 'radio',
+                        'inline' => true,
+                        'default' => 'email',
+                        'options' => [
+                            'email' => 'Email Address',
+                            'form_field' => 'Select a Field'
+                        ],
+                        'validate' => 'required'
+                    ],
+                    'send_to_email' => [
+                        'display' => 'Send-To Email Address',
+                        'instructions' => 'Enter a comma separated list of recipient email addresses.',
+                        'type' => 'text',
+                        'placeholder' => 'example@example.com',
+                        'if' => [
+                            'send_to_type' => 'equals email'
+                        ],
+                        'validate' => 'required_if:send_to_type,email'
+                    ],
+                    'send_to_field' => [
+                        'display' => 'Send-To Field',
+                        'instructions' => 'Select an email field to use as the recipient email address.',
+                        'type' => 'advanced_forms_field_select',
+                        'form' => $form->id(),
+                        'input_type_requirement' => [
+                            'email'
+                        ],
+                        'if' => [
+                            'send_to_type' => 'equals form_field'
+                        ],
+                        'validate' => 'required_if:send_to_type,form_field'
+                    ],
+                    'email_subject' => [
+                        'display' => 'Subject line',
+                        'instructions' => 'Use curly brackets to use submitted value.<br>For example: **New `{{ enquiry_subject }}` enquiry**',
+                        'type' => 'text',
+                        'validate' => 'required',
+                    ]
+                ]
+            ]
         ];
 
         return Blueprint::makeFromSections($sections);

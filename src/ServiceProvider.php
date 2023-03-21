@@ -18,6 +18,8 @@ use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as 
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
@@ -43,6 +45,14 @@ class ServiceProvider extends AddonServiceProvider
     public $bindings = [
         FormContract::class => Form::class,
         NotificationContract::class => Notification::class,
+    ];
+
+    /**
+     * @inheritDoc
+     */
+    protected $fieldtypes = [
+        AdvancedFormsFieldtype::class,
+        AdvancedFormsFieldSelectFieldtype::class,
     ];
 
     /**
