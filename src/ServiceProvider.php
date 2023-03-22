@@ -15,6 +15,7 @@ use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DeleteNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DisableNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\EnableNotificationsAction;
+use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository as FeedTypeRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as FeedContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
@@ -24,6 +25,9 @@ use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsReposi
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FeedsStore as FeedsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
+use WithCandour\StatamicAdvancedForms\Feeds\FeedType;
+use WithCandour\StatamicAdvancedForms\Feeds\FeedTypeRepository;
+use WithCandour\StatamicAdvancedForms\FeedTypes\AdvancedFormsExampleFeedType;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
@@ -48,6 +52,7 @@ class ServiceProvider extends AddonServiceProvider
         FormsRepositoryContract::class => FormsRepository::class,
         FeedsRepositoryContract::class => FeedsRepository::class,
         NotificationsRepositoryContract::class => NotificationsRepository::class,
+        FeedTypeRepositoryContract::class => FeedTypeRepository::class,
     ];
 
     /**
@@ -65,6 +70,13 @@ class ServiceProvider extends AddonServiceProvider
     protected $fieldtypes = [
         AdvancedFormsFieldtype::class,
         AdvancedFormsFieldSelectFieldtype::class,
+    ];
+
+    /**
+     * @var array
+     */
+    protected $feedTypes = [
+        AdvancedFormsExampleFeedType::class,
     ];
 
     /**
@@ -94,6 +106,7 @@ class ServiceProvider extends AddonServiceProvider
             ->bootNav()
             ->bootPermissions()
             ->bootActions()
+            ->bootExtensions()
             ->bootViewComposers();
     }
 
@@ -211,7 +224,38 @@ class ServiceProvider extends AddonServiceProvider
      */
     public function bootViewComposers(): self
     {
+        // This ensures we have the fieldtypes in the JS for our blueprint builder.
         View::composer(['advanced-forms::cp.fields.index'], FieldComposer::class);
+
+        return $this;
+    }
+
+    /**
+     * Register our custom extensions with Statamic
+     * - this enables us to use the RegistersItself trait.
+     *
+     * @return self
+     */
+    public function bootExtensions()
+    {
+        $types = [
+            'advanced_forms_feed_types' => [
+                'class' => FeedType::class,
+                // TODO: Add functionality to automatically register feed types in the app directory
+                // 'directory' => 'AdvancedForms/FeedTypes',
+                'extensions' => $this->feedTypes,
+            ],
+        ];
+
+        foreach($types as $key => $type) {
+            $this->app->bind('statamic.' . $key, function($app) use ($type) {
+                return $app['statamic.extensions'][$type['class']];
+            });
+
+            foreach ($type['extensions'] as $extension) {
+                $extension::register();
+            }
+        }
 
         return $this;
     }
