@@ -19,6 +19,8 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
         Route::post('advanced-forms/notifications/actions/list', 'Actions\\NotificationActionController@bulkActions')->name('advanced-forms.notifications.actions.bulk');
 
         Route::resource('advanced-forms.feeds', 'FeedsController')
-            ->only(['create', 'store', 'update', 'edit', 'destroy']);
+            ->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
 
+        Route::post('advanced-forms/feeds/actions', 'Actions\\FeedActionController@run')->name('advanced-forms.feeds.actions.run');
+        Route::post('advanced-forms/feeds/actions/list', 'Actions\\FeedActionController@bulkActions')->name('advanced-forms.feeds.actions.bulk');
     });

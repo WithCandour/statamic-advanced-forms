@@ -9,13 +9,13 @@ class Notification extends Facade
 {
     /**
      * @method static \Illuminate\Support\Collection all()
-     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Form|null find(string $id)
-     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Form|null findByHandle(string $handle)
-     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Form make(string $handle)
-     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Form save(WithCandour\StatamicAdvancedForms\Contracts\Form $form)
-     * @method static void delete(\WithCandour\StatamicAdvancedForms\Contracts\Form $form)
+     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Notification|null find(string $id)
+     * @method static \Illuminate\Support\Collection findByForm(WithCandour\StatamicAdvancedForms\Contracts\Form $form)
+     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Notification make(string $handle)
+     * @method static \WithCandour\StatamicAdvancedForms\Contracts\Notification save(WithCandour\StatamicAdvancedForms\Contracts\Notification $feed)
+     * @method static void delete(\WithCandour\StatamicAdvancedForms\Contracts\Notification $feed)
      *
-     * @see \WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository
+     * @see \WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository
      */
     protected static function getFacadeAccessor()
     {

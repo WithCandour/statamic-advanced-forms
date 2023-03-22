@@ -8,24 +8,33 @@ use Statamic\Facades\Permission;
 use Statamic\Facades\Stache;
 use Statamic\Http\View\Composers\FieldComposer;
 use Statamic\Providers\AddonServiceProvider;
+use WithCandour\StatamicAdvancedForms\Actions\Feeds\DeleteFeedsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Feeds\DisableFeedsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Feeds\EnableFeedsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DeleteNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DisableNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\EnableNotificationsAction;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as FeedContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedsRepository as FeedsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
-use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FeedsStore as FeedsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
+use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
+use WithCandour\StatamicAdvancedForms\Repositories\Stache\FeedsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
-use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
+use WithCandour\StatamicAdvancedForms\Stache\Stores\FeedsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
+use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -34,8 +43,10 @@ class ServiceProvider extends AddonServiceProvider
      */
     public $singletons = [
         FormsStoreContract::class => FormsStore::class,
+        FeedsStoreContract::class => FeedsStore::class,
         NotificationsStoreContract::class => NotificationsStore::class,
         FormsRepositoryContract::class => FormsRepository::class,
+        FeedsRepositoryContract::class => FeedsRepository::class,
         NotificationsRepositoryContract::class => NotificationsRepository::class,
     ];
 
@@ -45,6 +56,7 @@ class ServiceProvider extends AddonServiceProvider
     public $bindings = [
         FormContract::class => Form::class,
         NotificationContract::class => Notification::class,
+        FeedContract::class => Feed::class,
     ];
 
     /**
@@ -182,6 +194,9 @@ class ServiceProvider extends AddonServiceProvider
     public function bootActions(): self
     {
         DeleteFormsAction::register();
+        EnableFeedsAction::register();
+        DisableFeedsAction::register();
+        DeleteFeedsAction::register();
         EnableNotificationsAction::register();
         DisableNotificationsAction::register();
         DeleteNotificationsAction::register();

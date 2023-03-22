@@ -44,6 +44,13 @@ interface Form
     public function notifications(): array;
 
     /**
+     * Get a list of feeds for this form.
+     *
+     * @return \WithCandour\StatamicAdvancedForms\Contracts\Models\Feed[]
+     */
+    public function feeds(): array;
+
+    /**
      * Get or set whether the fields are paginated for this form.
      *
      * @param bool|null $value

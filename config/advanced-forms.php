@@ -18,6 +18,11 @@ return [
                 'directory' => resource_path('advanced-forms/notifications'),
             ],
 
+            'feeds' => [
+                'class' => Stores\FeedsStore::class,
+                'directory' => resource_path('advanced-forms/feeds'),
+            ],
+
         ],
 
     ],

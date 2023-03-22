@@ -41,18 +41,18 @@
         </a>
     </div>
     @if($notifications->isEmpty())
-    <div class="text-center border-2 border-dashed rounded-md p-3">
-        <h3 class="mb-1 text-grey text-sm">No notifcations configured</h3>
-        <a href="{{ cp_route('advanced-forms.notifications.create',  $form->id()) }}" class="btn-primary">
-            {{ __('Create') }}
-        </a>
-    </div>
+        <div class="text-center border-2 border-dashed rounded-md p-3">
+            <h3 class="mb-1 text-grey text-sm">No notifcations configured</h3>
+            <a href="{{ cp_route('advanced-forms.notifications.create',  $form->id()) }}" class="btn-primary">
+                {{ __('Create') }}
+            </a>
+        </div>
     @else
-    <advanced-forms-notifications-listing
-        :initial-columns="{{ json_encode($notifications_initial_columns) }}"
-        form-id="{{ $form->id() }}"
-        action-url="{{ $notifications_action_url }}"
-    ></advanced-forms-notifications-listing>
+        <advanced-forms-notifications-listing
+            :initial-columns="{{ json_encode($notifications_initial_columns) }}"
+            form-id="{{ $form->id() }}"
+            action-url="{{ $notifications_action_url }}"
+        ></advanced-forms-notifications-listing>
     @endif
 </div>
 <div class="card p-2 mb-3">
@@ -64,15 +64,23 @@
                 <p class="text-sm text-grey">{{ __('advanced-forms::feeds.introduction') }}</p>
             </div>
         </div>
-        <a href="{{ cp_route('advanced-forms.notifications.create',  $form->id()) }}" class="btn-primary">
-            {{ __('Create') }}
-        </a>
-    </div>
-    <div class="text-center border-2 border-dashed rounded-md p-3">
-        <h3 class="mb-1 text-grey text-sm">No feeds configured</h3>
         <a href="{{ cp_route('advanced-forms.feeds.create',  $form->id()) }}" class="btn-primary">
             {{ __('Create') }}
         </a>
     </div>
+    @if($feeds->isEmpty())
+        <div class="text-center border-2 border-dashed rounded-md p-3">
+            <h3 class="mb-1 text-grey text-sm">No feeds configured</h3>
+            <a href="{{ cp_route('advanced-forms.feeds.create',  $form->id()) }}" class="btn-primary">
+                {{ __('Create') }}
+            </a>
+        </div>
+    @else
+        <advanced-forms-feeds-listing
+            :initial-columns="{{ json_encode($feeds_initial_columns) }}"
+            form-id="{{ $form->id() }}"
+            action-url="{{ $feeds_action_url }}"
+        ></advanced-forms-feeds-listing>
+    @endif
 </div>
 @endsection

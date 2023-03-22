@@ -28,7 +28,7 @@ class DeleteNotificationsAction extends Action
     public function visibleToBulk($items)
     {
         return \collect($items)
-            ->all(function ($item) {
+            ->every(function ($item) {
                 return $item instanceof Notification;
             });
     }

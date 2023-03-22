@@ -5,6 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Models;
 use Statamic\Facades\Blueprint as BlueprintFacade;
 use Statamic\Fields\Blueprint;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
+use WithCandour\StatamicAdvancedForms\Facades\Feed;
 use WithCandour\StatamicAdvancedForms\Facades\Notification;
 
 abstract class AbstractForm implements Contract
@@ -34,6 +35,15 @@ abstract class AbstractForm implements Contract
     public function notifications(): array
     {
         return Notification::findByForm($this)
+            ->all();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function feeds(): array
+    {
+        return Feed::findByForm($this)
             ->all();
     }
 

@@ -21,15 +21,18 @@
                 />
 
                 <data-list-table :allow-bulk-actions="true">
-                    <template slot="cell-title" slot-scope="{ row: form }">
-                        <a :href="form.show_url">{{ form.title }}</a>
+                    <template slot="cell-title" slot-scope="{ row: feed }">
+                        <div class="flex items-center">
+                            <div class="little-dot mr-1" :class="getEnabledClass(feed)" />
+                            <a :href="feed.edit_url">{{ feed.title }}</a>
+                        </div>
                     </template>
-                    <template slot="actions" slot-scope="{ row: form }">
+                    <template slot="actions" slot-scope="{ row: feed }">
                         <dropdown-list>
                             <data-list-inline-actions
-                                :item="form.id"
+                                :item="feed.id"
                                 :url="actionUrl"
-                                :actions="form.actions"
+                                :actions="feed.actions"
                                 @started="actionStarted"
                                 @completed="actionCompleted"
                             />
@@ -44,11 +47,19 @@
 <script>
 export default {
     mixins: [Listing],
-    props: ['initialColumns'],
+
+    props: ['initialColumns', 'formId'],
+
     data() {
         return {
             columns: this.initialColumns,
-            requestUrl: cp_url('advanced-forms'),
+            requestUrl: cp_url(`advanced-forms/${this.formId}/feeds`),
+        }
+    },
+
+    methods: {
+        getEnabledClass(feed) {
+            return feed.enabled ? 'bg-green' : 'bg-grey-40'
         }
     }
 }

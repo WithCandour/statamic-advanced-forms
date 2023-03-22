@@ -223,7 +223,14 @@ class NotificationsController extends Controller
                         'validate' => 'required',
                     ]
                 ]
+            ],
+            'conditions' => [
+                'display' => 'Conditions',
+                'fields' => [
+
+                ]
             ]
+
         ];
 
         return Blueprint::makeFromSections($sections);
