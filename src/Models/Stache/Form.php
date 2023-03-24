@@ -6,6 +6,7 @@ use Statamic\Data\ExistsAsFile;
 use Statamic\Facades\Stache;
 use Statamic\Support\Traits\FluentlyGetsAndSets;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
+use WithCandour\StatamicAdvancedForms\Events\AdvancedFormsFormSaved;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Models\AbstractForm;
 
@@ -72,9 +73,9 @@ class Form extends AbstractForm implements Contract
      */
     public function save(): self
     {
-        $isNew = \is_null(FormFacade::find($this->id()));
-
         FormFacade::save($this);
+
+        AdvancedFormsFormSaved::dispatch($this);
 
         return $this;
     }

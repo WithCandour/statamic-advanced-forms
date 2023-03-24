@@ -8,6 +8,7 @@ use Statamic\Facades\Stache;
 use Statamic\Support\Traits\FluentlyGetsAndSets;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as Contract;
+use WithCandour\StatamicAdvancedForms\Events\AdvancedFormsNotificationSaved;
 use WithCandour\StatamicAdvancedForms\Facades\Notification as NotificationFacade;
 use WithCandour\StatamicAdvancedForms\Models\AbstractNotification;
 
@@ -70,6 +71,8 @@ class Notification extends AbstractNotification implements Contract
     public function save(): self
     {
         NotificationFacade::save($this);
+
+        AdvancedFormsNotificationSaved::dispatch($this);
 
         return $this;
     }

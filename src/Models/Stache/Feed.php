@@ -9,6 +9,7 @@ use Statamic\Support\Traits\FluentlyGetsAndSets;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedType;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as Contract;
+use WithCandour\StatamicAdvancedForms\Events\AdvancedFormsNotificationSaved;
 use WithCandour\StatamicAdvancedForms\Facades\Feed as FeedFacade;
 use WithCandour\StatamicAdvancedForms\Models\AbstractFeed;
 
@@ -82,6 +83,8 @@ class Feed extends AbstractFeed implements Contract
     public function save(): self
     {
         FeedFacade::save($this);
+
+        AdvancedFormsNotificationSaved::dispatch($this);
 
         return $this;
     }

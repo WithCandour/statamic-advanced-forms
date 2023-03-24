@@ -4,6 +4,7 @@ namespace WithCandour\StatamicAdvancedForms;
 
 use Illuminate\Support\Facades\View;
 use Statamic\Facades\CP\Nav;
+use Statamic\Facades\Git;
 use Statamic\Facades\Permission;
 use Statamic\Facades\Stache;
 use Statamic\Http\View\Composers\FieldComposer;
@@ -25,6 +26,7 @@ use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsReposi
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FeedsStore as FeedsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
+use WithCandour\StatamicAdvancedForms\Events;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedType;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\FeedTypes\AdvancedFormsExampleFeedType;
@@ -107,7 +109,8 @@ class ServiceProvider extends AddonServiceProvider
             ->bootPermissions()
             ->bootActions()
             ->bootExtensions()
-            ->bootViewComposers();
+            ->bootViewComposers()
+            ->bootGit();
     }
 
     /**
@@ -254,6 +257,28 @@ class ServiceProvider extends AddonServiceProvider
 
             foreach ($type['extensions'] as $extension) {
                 $extension::register();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Register addon events with git listener.
+     *
+     * @return self
+     */
+    public function bootGit(): self
+    {
+        if (\config('statamic.git.enabled')) {
+            $events = [
+                Events\AdvancedFormsFeedSaved::class,
+                Events\AdvancedFormsFormSaved::class,
+                Events\AdvancedFormsNotificationSaved::class,
+            ];
+
+            foreach ($events as $event) {
+                Git::listen($event);
             }
         }
 
