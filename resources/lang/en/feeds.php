@@ -7,6 +7,9 @@ return [
     'create' => 'Create feed',
     'create_introduction' => 'Create an external feed which will process the submission data.',
     'create_title_instructions' => '',
+    'type' => 'Feed Type',
+    'choose_type' => 'Choose feed type',
+
 
     'configure' => 'Configure feed',
 

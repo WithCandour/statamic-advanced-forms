@@ -47,4 +47,18 @@ interface FeedType
      * @return void
      */
     public function processSubmission(Submission $submission, Feed $feed): void;
+
+    /**
+     * Return a snippet of text to be used when creating the feed.
+     *
+     * @return string
+     */
+    public function createTitle(): string;
+
+    /**
+     * Return a snippet of intrpductory text to be used when creating the feed.
+     *
+     * @return string
+     */
+    public function createIntroduction(): string;
 }

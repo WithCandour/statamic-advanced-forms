@@ -9,6 +9,7 @@ use Statamic\Stache\Stores\BasicStore;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FeedsStore as Contract;
 use WithCandour\StatamicAdvancedForms\Facades\Form;
 use WithCandour\StatamicAdvancedForms\Facades\Feed;
+use WithCandour\StatamicAdvancedForms\Facades\FeedType;
 
 class FeedsStore extends BasicStore implements Contract
 {
@@ -41,6 +42,7 @@ class FeedsStore extends BasicStore implements Contract
 
         $feed = Feed::make($id);
         $feed->form(Form::find($data['form']));
+        $feed->type(FeedType::find($data['type']));
         $feed->data($data);
 
         return $feed;

@@ -36,7 +36,7 @@ class FeedTypeRepository implements Contract
      */
     public function handles(): Collection
     {
-        return $this->classes()->map(function (FeedType $feedType) {
+        return $this->classes()->map(function ($feedType) {
             return $feedType::handle();
         });
     }
@@ -46,7 +46,7 @@ class FeedTypeRepository implements Contract
      */
     public function selectable(): Collection
     {
-        return $this->classes()->filter(function (FeedType $feedType) {
+        return $this->classes()->filter(function ($feedType) {
             return $feedType::selectable();
         });
     }

@@ -15,7 +15,7 @@ abstract class FeedType implements Contract
         handle as protected traitHandle;
     }
 
-    protected static string $title;
+    protected static $title;
     protected static $binding = 'advanced_forms_feed_types';
 
     /**
@@ -54,5 +54,21 @@ abstract class FeedType implements Contract
     public function blueprint(Form $form): ?Blueprint
     {
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createTitle(): string
+    {
+        return __('advanced-forms::feeds.create');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createIntroduction(): string
+    {
+        return __('advanced-forms::feeds.create_introduction');
     }
 }

@@ -7,10 +7,12 @@ use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Facades\Action;
 use Statamic\Facades\Blueprint;
+use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Facades\Feed as FeedFacade;
+use WithCandour\StatamicAdvancedForms\Http\Requests\CP\CreateFeedRequest;
 
 class FeedsController extends Controller
 {
@@ -24,6 +26,7 @@ class FeedsController extends Controller
 
         $columns = [
             Column::make('title')->label(__('Title')),
+            Column::make('type')->label(__('advanced-forms::feeds.type')),
         ];
 
         $feeds = \collect($form->feeds())
@@ -31,6 +34,7 @@ class FeedsController extends Controller
                 return [
                     'id' => $feed->id(),
                     'title' => $feed->title(),
+                    'type' => $feed->type()->title(),
                     'enabled' => $feed->enabled(),
                     'edit_url' => $feed->editUrl(),
                     'actions' => Action::for($feed)
@@ -46,7 +50,7 @@ class FeedsController extends Controller
         ];
     }
 
-    public function create(string $formId)
+    public function create(string $formId, Request $request)
     {
         $this->authorize('create advanced forms feeds');
 
@@ -54,12 +58,26 @@ class FeedsController extends Controller
             return $this->pageNotFound();
         }
 
+        if (!$request->has('type')) {
+            return $this->pageNotFound();
+        }
+
+        /**
+         * @var FeedTypeRepository
+         */
+        $feedTypes = app(FeedTypeRepository::class);
+        $selectedType = $feedTypes->find($request->get('type'));
+
         return view('advanced-forms::cp.feeds.create', [
             'form' => $form,
+            'title' => $selectedType->createTitle(),
+            'introduction' => $selectedType->createIntroduction(),
+            'type' => $selectedType->handle(),
+            'type_name' => $selectedType->title(),
         ]);
     }
 
-    public function store(string $formId, Request $request)
+    public function store(string $formId, CreateFeedRequest $request)
     {
         $this->authorize('create advanced forms feeds');
 
@@ -74,6 +92,9 @@ class FeedsController extends Controller
 
         $feed->set('title', $request->title);
         $feed->form($form);
+
+        $feedType = app(FeedTypeRepository::class)->find($request->type);
+        $feed->type($feedType);
 
         $feed->save();
 

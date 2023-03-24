@@ -2,6 +2,8 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
+use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedType;
+
 interface Feed
 {
     /**
@@ -33,6 +35,14 @@ interface Feed
      * @return Form|void
      */
     public function form(?Form $form = null);
+
+    /**
+     * Get or set the feed type to use for this feed.
+     *
+     * @param FeedType $type
+     * @return FeedType|void
+     */
+    public function type(?FeedType $type = null);
 
     /**
      * Get the edit url of the feed.

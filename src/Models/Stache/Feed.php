@@ -6,6 +6,7 @@ use Statamic\Data\ContainsData;
 use Statamic\Data\ExistsAsFile;
 use Statamic\Facades\Stache;
 use Statamic\Support\Traits\FluentlyGetsAndSets;
+use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedType;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as Contract;
 use WithCandour\StatamicAdvancedForms\Facades\Feed as FeedFacade;
@@ -18,6 +19,7 @@ class Feed extends AbstractFeed implements Contract
     protected $id;
     protected $title;
     protected $form;
+    protected $type;
 
     public function id(?string $id = null)
     {
@@ -41,6 +43,16 @@ class Feed extends AbstractFeed implements Contract
     {
         return $this
             ->fluentlyGetOrSet('form')
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function type(?FeedType $type = null)
+    {
+        return $this
+            ->fluentlyGetOrSet('type')
             ->args(func_get_args());
     }
 
@@ -78,11 +90,11 @@ class Feed extends AbstractFeed implements Contract
     {
         $default = [
             'form' => $this->form()->id(),
+            'type' => $this->type()->handle(),
         ];
 
         $data = \collect($this->data())->all();
 
         return array_merge($default, $data);
     }
-
 }

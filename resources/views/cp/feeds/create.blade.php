@@ -1,14 +1,15 @@
 @extends('statamic::layout')
-@section('title', __('Create Form'))
+@section('title', $title)
 
 @section('content')
 
-    <advanced-forms-core-create
+    <advanced-forms-feed-create-form
         route="{{ cp_route('advanced-forms.feeds.store', [ 'advanced_form' => $form->id() ]) }}"
-        heading="{{ __('advanced-forms::feeds.create') }}"
-        introduction="{{ __('advanced-forms::feeds.create_introduction') }}"
-        title_instructions="{{ __('advanced-forms::feeds.create_title_instructions') }}"
+        heading="{{ $title }}"
+        introduction="{{ $introduction }}"
         button_label="{{ __('advanced-forms::feeds.create') }}"
-    ></advanced-forms-core-create>
+        feed_type="{{ $type }}"
+        feed_type_name="{{ $type_name }}"
+    ></advanced-forms-feed-create-form>
 
 @endsection

@@ -2,10 +2,12 @@
 
 namespace WithCandour\StatamicAdvancedForms\Http\Controllers\CP;
 
+use Facades\Statamic\Fields\FieldtypeRepository;
 use Illuminate\Http\Request;
 use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Facades\Action;
+use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 
@@ -97,6 +99,23 @@ class FormsController extends Controller
             ]
         ]);
 
+
+        /**
+         * @var FeedTypeRepository
+         */
+        $feedTypes = app(FeedTypeRepository::class);
+        $selectableFeedTypes = $feedTypes
+            ->selectable()
+            ->sortBy(fn (string $feedType) => $feedType::title())
+            ->map(function (string $feedType, string $handle) {
+                return [
+                    'title' => $feedType::title(),
+                    'handle' => $handle
+                ];
+            })
+            ->values()
+            ->toArray();
+
         return view('advanced-forms::cp.forms.show', [
             'title' => $form->title(),
             'form' => $form,
@@ -112,6 +131,7 @@ class FormsController extends Controller
             'feeds_action_url' => cp_route('advanced-forms.feeds.actions.run'),
             'fields_page_count' => $form->blueprint()->sections()->count(),
             'fields_field_count' => $form->blueprint()->fields()->all()->count(),
+            'feed_types' => $selectableFeedTypes,
             'breadcrumb' => $breadcrumb,
         ]);
     }

@@ -64,16 +64,20 @@
                 <p class="text-sm text-grey">{{ __('advanced-forms::feeds.introduction') }}</p>
             </div>
         </div>
-        <a href="{{ cp_route('advanced-forms.feeds.create',  $form->id()) }}" class="btn-primary">
-            {{ __('Create') }}
-        </a>
+        <advanced-forms-create-button
+            url="{{ cp_route('advanced-forms.feeds.create', $form->id()) }}"
+            :feed-types="{{ json_encode($feed_types) }}"
+            button-class="btn-primary"
+        />
     </div>
     @if($feeds->isEmpty())
         <div class="text-center border-2 border-dashed rounded-md p-3">
             <h3 class="mb-1 text-grey text-sm">No feeds configured</h3>
-            <a href="{{ cp_route('advanced-forms.feeds.create',  $form->id()) }}" class="btn-primary">
-                {{ __('Create') }}
-            </a>
+            <advanced-forms-create-button
+                url="{{ cp_route('advanced-forms.feeds.create', $form->id()) }}"
+                :feed-types="{{ json_encode($feed_types) }}"
+                button-class="btn-primary"
+            />
         </div>
     @else
         <advanced-forms-feeds-listing

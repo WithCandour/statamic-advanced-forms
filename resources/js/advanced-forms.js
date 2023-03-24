@@ -4,8 +4,10 @@ import FormPublishForm from './components/cp/forms/PublishForm';
 import FieldsBuilder from './components/cp/fields/Builder';
 import NotificationsEditForm from './components/cp/notifications/EditForm';
 import NotificationsListing from './components/cp/notifications/Listing';
+import FeedsCreateForm from './components/cp/feeds/CreateForm';
 import FeedsEditForm from './components/cp/feeds/EditForm';
 import FeedsListing from './components/cp/feeds/Listing';
+import FeedCreateButton from './components/cp/feeds/CreateButton';
 
 Statamic.booting(() => {
     Statamic.component('advanced-forms-core-create', CreateForm);
@@ -18,6 +20,8 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-notification-edit-form', NotificationsEditForm);
     Statamic.component('advanced-forms-notifications-listing', NotificationsListing);
 
+    Statamic.component('advanced-forms-feed-create-form', FeedsCreateForm);
     Statamic.component('advanced-forms-feed-edit-form', FeedsEditForm);
     Statamic.component('advanced-forms-feeds-listing', FeedsListing);
+    Statamic.component('advanced-forms-create-button', FeedCreateButton);
 });

@@ -48,7 +48,7 @@ return [
 
     'disabled_feed_types' => [
 
-        // 'advanced_forms_test',
+        // 'advanced_forms_example',
 
     ],
 
