@@ -29,6 +29,7 @@
                     </template>
                     <template slot="actions" slot-scope="{ row: notification }">
                         <dropdown-list>
+                            <dropdown-item :text="__('Edit')" :redirect="notification.edit_url" />
                             <data-list-inline-actions
                                 :item="notification.id"
                                 :url="actionUrl"

@@ -29,6 +29,7 @@
                     </template>
                     <template slot="actions" slot-scope="{ row: feed }">
                         <dropdown-list>
+                            <dropdown-item :text="__('Edit')" :redirect="feed.edit_url" />
                             <data-list-inline-actions
                                 :item="feed.id"
                                 :url="actionUrl"

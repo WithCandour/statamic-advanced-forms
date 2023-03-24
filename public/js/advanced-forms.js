@@ -875,7 +875,12 @@ var render = function render() {
       key: "actions",
       fn: function fn(_ref2) {
         var feed = _ref2.row;
-        return [_c("dropdown-list", [_c("data-list-inline-actions", {
+        return [_c("dropdown-list", [_c("dropdown-item", {
+          attrs: {
+            text: _vm.__("Edit"),
+            redirect: feed.edit_url
+          }
+        }), _vm._v(" "), _c("data-list-inline-actions", {
           attrs: {
             item: feed.id,
             url: _vm.actionUrl,
@@ -887,7 +892,7 @@ var render = function render() {
           }
         })], 1)];
       }
-    }], null, false, 533126144)
+    }], null, false, 1116317618)
   })], 1)]) : _vm._e()], 1);
 };
 var staticRenderFns = [];
@@ -1233,7 +1238,12 @@ var render = function render() {
       key: "actions",
       fn: function fn(_ref2) {
         var notification = _ref2.row;
-        return [_c("dropdown-list", [_c("data-list-inline-actions", {
+        return [_c("dropdown-list", [_c("dropdown-item", {
+          attrs: {
+            text: _vm.__("Edit"),
+            redirect: notification.edit_url
+          }
+        }), _vm._v(" "), _c("data-list-inline-actions", {
           attrs: {
             item: notification.id,
             url: _vm.actionUrl,
@@ -1245,7 +1255,7 @@ var render = function render() {
           }
         })], 1)];
       }
-    }], null, false, 709361711)
+    }], null, false, 1883942866)
   })], 1)]) : _vm._e()], 1);
 };
 var staticRenderFns = [];
