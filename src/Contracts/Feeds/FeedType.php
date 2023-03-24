@@ -32,12 +32,12 @@ interface FeedType
     public static function selectable(): bool;
 
     /**
-     * Get the blueprint for the config fields in this feed.
+     * Get the config sections for use in this feed type.
      *
      * @param \WithCandour\StatamicAdvancedForms\Contracts\Models\Form $form
-     * @return \Statamic\Fields\Blueprint|null
+     * @return array|null
      */
-    public function blueprint(Form $form): ?Blueprint;
+    public function configSections(Form $form): ?array;
 
     /**
      * Process a submission for this feed type.

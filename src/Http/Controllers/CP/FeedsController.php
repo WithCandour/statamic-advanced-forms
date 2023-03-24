@@ -122,7 +122,7 @@ class FeedsController extends Controller
             \collect($feed->data())->toArray(),
         );
 
-        $fields = ($blueprint = $this->editFormBlueprint($form))
+        $fields = ($blueprint = $feed->blueprint())
             ->fields()
             ->addValues($initialValues)
             ->preProcess();
@@ -164,7 +164,10 @@ class FeedsController extends Controller
 
         $data = $request->except(['form']);
 
-        $fields = $this->editFormBlueprint($form)->fields()->addValues($data);
+        $fields = $feed
+            ->blueprint($form)
+            ->fields()
+            ->addValues($data);
 
         $fields->validate();
         $values = $fields->process()->values()->all();
@@ -179,29 +182,5 @@ class FeedsController extends Controller
         return [
             'redirect' => $form->showUrl(),
         ];
-    }
-
-    protected function editFormBlueprint(Form $form)
-    {
-        $sections = [
-            'name' => [
-                'display' => __('Name'),
-                'fields' => [
-                    'title' => [
-                        'display' => __('Title'),
-                        'type' => 'text',
-                        'validate' => 'required',
-                    ],
-                    'enabled' => [
-                        'display' => __('advanced-forms::feeds.enabled'),
-                        'type' => 'toggle',
-                        'instructions' => __('advanced-forms::feeds.enabled_instruct'),
-                        'default' => true,
-                    ]
-                ],
-            ],
-        ];
-
-        return Blueprint::makeFromSections($sections);
     }
 }

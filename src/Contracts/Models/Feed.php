@@ -2,6 +2,7 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
+use Statamic\Fields\Blueprint;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedType;
 
 interface Feed
@@ -43,6 +44,13 @@ interface Feed
      * @return FeedType|void
      */
     public function type(?FeedType $type = null);
+
+    /**
+     * Get the blueprint for the config options in this feed.
+     *
+     * @return Blueprint
+     */
+    public function blueprint(): Blueprint;
 
     /**
      * Get the edit url of the feed.

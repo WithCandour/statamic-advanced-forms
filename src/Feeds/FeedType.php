@@ -4,7 +4,6 @@ namespace WithCandour\StatamicAdvancedForms\Feeds;
 
 use Statamic\Extend\HasHandle;
 use Statamic\Extend\RegistersItself;
-use Statamic\Fields\Blueprint;
 use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedType as Contract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
@@ -51,7 +50,7 @@ abstract class FeedType implements Contract
     /**
      * @inheritDoc
      */
-    public function blueprint(Form $form): ?Blueprint
+    public function configSections(Form $form): ?array
     {
         return null;
     }
