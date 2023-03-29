@@ -123,6 +123,13 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../config/advanced-forms.php' => config_path('statamic/advanced-forms.php'),
         ], 'advanced-forms-config');
 
+        $this->publishes([
+            __DIR__ . '/../database/migrations/create_advanced_forms_submissions_table.stub' => $this->migrationsPath('create_advanced_forms_submissions_table.php'),
+            __DIR__ . '/../database/migrations/create_advanced_forms_submission_values_table.stub' => $this->migrationsPath('create_advanced_forms_submission_values_table.php'),
+            __DIR__ . '/../database/migrations/create_advanced_forms_notification_notes_table.stub' => $this->migrationsPath('create_advanced_forms_notification_notes_table.php'),
+            __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
+        ], 'advanced-forms-migrations');
+
         $this
             ->bootStache()
             ->bootNav()
@@ -305,5 +312,16 @@ class ServiceProvider extends AddonServiceProvider
         }
 
         return $this;
+    }
+
+    /**
+     * Get the migrations path.
+     *
+     * @param string $filename
+     * @return string
+     */
+    protected function migrationsPath($filename)
+    {
+        return database_path('migrations/' . date('Y_m_d_His', time()) . "_{$filename}.php");
     }
 }
