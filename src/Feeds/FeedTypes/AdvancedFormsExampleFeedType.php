@@ -1,6 +1,6 @@
 <?php
 
-namespace WithCandour\StatamicAdvancedForms\FeedTypes;
+namespace WithCandour\StatamicAdvancedForms\Feeds\FeedTypes;
 
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed;

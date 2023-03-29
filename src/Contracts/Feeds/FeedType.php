@@ -2,7 +2,6 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Feeds;
 
-use Statamic\Fields\Blueprint;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;

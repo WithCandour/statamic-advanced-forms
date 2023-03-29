@@ -7,10 +7,12 @@ use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Facades\Action;
 use Statamic\Facades\Blueprint;
+use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Facades\Notification as NotificationFacade;
+use WithCandour\StatamicAdvancedForms\Facades\NotificationRuleType;
 
 class NotificationsController extends Controller
 {
@@ -162,6 +164,8 @@ class NotificationsController extends Controller
 
     protected function editFormBlueprint(Form $form)
     {
+        ray($this->notificationRuleTypesAsFieldSets($form))->green();
+
         $sections = [
             'name' => [
                 'display' => __('Name'),
@@ -221,18 +225,113 @@ class NotificationsController extends Controller
                         'instructions' => 'Use curly brackets to use submitted value.<br>For example: **New `{{ enquiry_subject }}` enquiry**',
                         'type' => 'text',
                         'validate' => 'required',
-                    ]
+                    ],
+                    'html_view' => [
+                        'type' => 'template',
+                        'display' => __('HTML view'),
+                        'instructions' => __('statamic::messages.form_configure_email_html_instructions'),
+                        'folder' => config('statamic.advanced-forms.email_view_folder'),
+                    ],
+                    'text_view' => [
+                        'type' => 'template',
+                        'display' => __('Text view'),
+                        'instructions' => __('statamic::messages.form_configure_email_text_instructions'),
+                        'folder' => config('statamic.advanced-forms.email_view_folder'),
+                    ],
+                    'markdown' => [
+                        'type' => 'toggle',
+                        'display' => __('Markdown'),
+                        'instructions' => __('statamic::messages.form_configure_email_markdown_instructions'),
+                    ],
+                    'attachments' => [
+                        'type' => 'toggle',
+                        'display' => __('Attachments'),
+                        'instructions' => __('statamic::messages.form_configure_email_attachments_instructions'),
+                    ],
                 ]
             ],
             'conditions' => [
                 'display' => 'Conditions',
                 'fields' => [
-
+                    'enable_conditional_logic' => [
+                        'type' => 'toggle',
+                        'display' => 'Enable conditional sending',
+                        'instructions' => 'Set to `true` to restrict when this notification should be sent.'
+                    ],
+                    'conditional_logic_method' => [
+                        'type' => 'button_group',
+                        'display' => 'Send when',
+                        'options' => [
+                            'all' => 'All conditions pass',
+                            'any' => 'Any conditions pass'
+                        ],
+                        'default' => 'all',
+                        'if' => [
+                            'enable_conditional_logic' => 'equals true'
+                        ],
+                    ],
+                    'conditional_logic_conditions' => [
+                        'type' => 'replicator',
+                        'display' => 'Conditions',
+                        'sets' => $this->notificationRuleTypesAsFieldSets($form),
+                        'if' => [
+                            'enable_conditional_logic' => 'equals true'
+                        ],
+                    ]
                 ]
             ]
 
         ];
 
         return Blueprint::makeFromSections($sections);
+    }
+
+    /**
+     * Get the rule types as an array of replicator sets.
+     *
+     * @param Form $form
+     * @return array
+     */
+    private function notificationRuleTypesAsFieldSets(Form $form): array
+    {
+        $ruleTypeHandles = NotificationRuleType::handles();
+
+        return \collect($ruleTypeHandles)
+            ->mapWithKeys(function ($handle, $key) use ($form) {
+
+                /**
+                 * @var \WithCandour\StatamicAdvancedForms\Contracts\Notifications\Rules\RuleType
+                 */
+                $ruleType = NotificationRuleType::find($handle);
+
+                $fields = \array_merge(
+                    $ruleType->fields($form),
+                    [
+                        'condition' => [
+                            'handle' => 'condition',
+                            'field' => [
+                                'type' => 'select',
+                                'display' => 'Condition',
+                                'options' => \collect($ruleType->conditions())
+                                    ->mapWithKeys(fn ($condition) => [$condition->value => Str::title(Str::humanize($condition->value))]),
+                            ]
+                        ],
+                    ],
+                    [
+                        'value' => [
+                            'handle' => 'value',
+                            'field' => $ruleType->valueFieldSettings()
+                        ],
+                    ],
+                );
+
+                return [
+                    $handle => [
+                        'display' => $ruleType->title(),
+                        'fields' => $fields,
+                    ]
+                ];
+            })
+            ->toArray();
     }
 }

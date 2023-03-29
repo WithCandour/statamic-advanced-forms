@@ -52,4 +52,15 @@ return [
 
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email View Folder
+    |--------------------------------------------------------------------------
+    |
+    | The folder under resources/views where your email templates are found.
+    |
+    */
+
+    'email_view_folder' => null,
 ];

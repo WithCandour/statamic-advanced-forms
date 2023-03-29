@@ -20,6 +20,7 @@ use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository as Feed
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as FeedContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Notifications\Rules\RuleTypeRepository as RuleTypeRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedsRepository as FeedsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
@@ -29,15 +30,20 @@ use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore
 use WithCandour\StatamicAdvancedForms\Events;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedType;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedTypeRepository;
-use WithCandour\StatamicAdvancedForms\FeedTypes\AdvancedFormsExampleFeedType;
+use WithCandour\StatamicAdvancedForms\Feeds\FeedTypes\AdvancedFormsExampleFeedType;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleType;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypes\DayOfWeekRuleType;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypes\FieldValueRuleType;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypes\TimeOfDayRuleType;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FeedsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypeRepository;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FeedsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
@@ -55,6 +61,7 @@ class ServiceProvider extends AddonServiceProvider
         FeedsRepositoryContract::class => FeedsRepository::class,
         NotificationsRepositoryContract::class => NotificationsRepository::class,
         FeedTypeRepositoryContract::class => FeedTypeRepository::class,
+        RuleTypeRepositoryContract::class => RuleTypeRepository::class,
     ];
 
     /**
@@ -82,6 +89,15 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     /**
+     * @var array
+     */
+    protected $notificationRuleTypes = [
+        DayOfWeekRuleType::class,
+        FieldValueRuleType::class,
+        TimeOfDayRuleType::class,
+    ];
+
+    /**
      * @inheritDoc
      */
     protected $routes = [
@@ -101,7 +117,11 @@ class ServiceProvider extends AddonServiceProvider
 
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'advanced-forms');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/advanced-forms.php', 'advanced-forms');
+        $this->mergeConfigFrom(__DIR__ . '/../config/advanced-forms.php', 'statamic.advanced-forms');
+
+        $this->publishes([
+            __DIR__ . '/../config/advanced-forms.php' => config_path('statamic/advanced-forms.php'),
+        ], 'advanced-forms-config');
 
         $this
             ->bootStache()
@@ -120,7 +140,7 @@ class ServiceProvider extends AddonServiceProvider
      */
     public function bootStache(): self
     {
-        $stores = \config('advanced-forms.stache.stores', []);
+        $stores = \config('statamic.advanced-forms.stache.stores', []);
 
         foreach($stores as $store) {
             $stacheStore = app($store['class'])->directory($store['directory']);
@@ -244,10 +264,12 @@ class ServiceProvider extends AddonServiceProvider
         $types = [
             'advanced_forms_feed_types' => [
                 'class' => FeedType::class,
-                // TODO: Add functionality to automatically register feed types in the app directory
-                // 'directory' => 'AdvancedForms/FeedTypes',
                 'extensions' => $this->feedTypes,
             ],
+            'advanced_forms_notification_rule_types' => [
+                'class' => RuleType::class,
+                'extensions' => $this->notificationRuleTypes,
+            ]
         ];
 
         foreach($types as $key => $type) {

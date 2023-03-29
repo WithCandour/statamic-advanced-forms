@@ -42,7 +42,7 @@ abstract class FeedType implements Contract
      */
     public static function selectable(): bool
     {
-        $disabledFeedTypes = \config('advanced-forms.disabled_feed_types', []);
+        $disabledFeedTypes = \config('statamic.advanced-forms.disabled_feed_types', []);
 
         return !\in_array(self::handle(), $disabledFeedTypes);
     }
