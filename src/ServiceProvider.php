@@ -21,9 +21,13 @@ use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as FeedContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Notifications\Rules\RuleTypeRepository as RuleTypeRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedNotesRepository as FeedNotesRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedsRepository as FeedsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationNotesRepository as NotificationNotesRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationsRepository as NotificationsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\SubmissionsRepository as SubmissionsRepositoryContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Repositories\SubmissionValuesRepository as SubmissionValuesRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FeedsStore as FeedsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\FormsStore as FormsStoreContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Stache\Stores\NotificationsStore as NotificationsStoreContract;
@@ -44,6 +48,10 @@ use WithCandour\StatamicAdvancedForms\Repositories\Stache\FeedsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
 use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypeRepository;
+use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\FeedNotesRepository;
+use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\NotificationNotesRepository;
+use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\SubmissionsRepository;
+use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\SubmissionValuesRepository;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FeedsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
@@ -59,9 +67,13 @@ class ServiceProvider extends AddonServiceProvider
         NotificationsStoreContract::class => NotificationsStore::class,
         FormsRepositoryContract::class => FormsRepository::class,
         FeedsRepositoryContract::class => FeedsRepository::class,
+        FeedNotesRepositoryContract::class => FeedNotesRepository::class,
         NotificationsRepositoryContract::class => NotificationsRepository::class,
+        NotificationNotesRepositoryContract::class => NotificationNotesRepository::class,
         FeedTypeRepositoryContract::class => FeedTypeRepository::class,
         RuleTypeRepositoryContract::class => RuleTypeRepository::class,
+        SubmissionsRepositoryContract::class => SubmissionsRepository::class,
+        SubmissionValuesRepositoryContract::class => SubmissionValuesRepository::class
     ];
 
     /**

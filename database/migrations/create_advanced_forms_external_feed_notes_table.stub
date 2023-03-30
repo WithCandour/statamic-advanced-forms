@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('feed_id');
             $table->enum('type', ['SUCCESS', 'ERROR', 'INFO', 'WARNING']);
             $table->longText('note');
-            $table->date('date');
+            $table->timestamp('created_at');
         });
     }
 

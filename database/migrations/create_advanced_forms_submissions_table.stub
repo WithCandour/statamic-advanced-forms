@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('advanced_forms_submissions', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->string('form_id');
+            $table->timestamp('created_at');
         });
     }
 
