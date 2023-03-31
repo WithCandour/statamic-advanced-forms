@@ -14,8 +14,9 @@ class SubmissionValuesRepository implements Contract
      */
     public function make(Submission $submission): SubmissionValuesContract
     {
-        $values = new SubmissionValues();
-        $values->setSubmission($submission);
+        $values = new SubmissionValues([
+            'submission_id' => $submission->id(),
+        ]);
 
         return $values;
     }

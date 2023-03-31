@@ -5,7 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Facades;
 use Illuminate\Support\Facades\Facade;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationNotesRepository;
 
-class NotificationNnote extends Facade
+class NotificationNote extends Facade
 {
     /**
      * @see \WithCandour\StatamicAdvancedForms\Contracts\Repositories\NotificationNotesRepository

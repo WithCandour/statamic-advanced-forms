@@ -55,6 +55,7 @@ use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\SubmissionValuesRepo
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FeedsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
+use WithCandour\StatamicAdvancedForms\Tags\AdvancedFormTags;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -113,11 +114,16 @@ class ServiceProvider extends AddonServiceProvider
      * @inheritDoc
      */
     protected $routes = [
+        'actions' => __DIR__ . '/../routes/actions.php',
         'cp' => __DIR__ . '/../routes/cp.php',
     ];
 
     protected $scripts = [
         __DIR__ . '/../public/js/advanced-forms.js',
+    ];
+
+    protected $tags = [
+        AdvancedFormTags::class,
     ];
 
     /**

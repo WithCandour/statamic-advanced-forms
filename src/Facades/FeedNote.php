@@ -5,7 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Facades;
 use Illuminate\Support\Facades\Facade;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedNotesRepository;
 
-class FeedNnote extends Facade
+class FeedNote extends Facade
 {
     /**
      * @see \WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedNotesRepository

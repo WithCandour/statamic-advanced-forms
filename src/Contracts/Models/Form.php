@@ -59,6 +59,20 @@ interface Form
     public function paginatedFields(?bool $value = null);
 
     /**
+     * Determine whether this form contains file fields.
+     *
+     * @return bool
+     */
+    public function hasFiles(): bool;
+
+    /**
+     * Create a submission for this form.
+     *
+     * @return Submission
+     */
+    public function makeSubmission(): Submission;
+
+    /**
      * Get the show url of the form.
      *
      * @return string
@@ -71,6 +85,13 @@ interface Form
      * @return string
      */
     public function deleteUrl(): string;
+
+    /**
+     * Get the action url of the form.
+     *
+     * @return string
+     */
+    public function actionUrl(): string;
 
     /**
      * Save the form.

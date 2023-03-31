@@ -65,4 +65,19 @@ interface Note
      * @return Carbon
      */
     public function date(): Carbon;
+
+    /**
+     * Save the note.
+     *
+     * @param array $options
+     * @return self
+     */
+    public function save(array $options = []);
+
+    /**
+     * Delete the note.
+     *
+     * @return void
+     */
+    public function delete();
 }

@@ -4,9 +4,13 @@ namespace WithCandour\StatamicAdvancedForms\Models;
 
 use Statamic\Facades\Blueprint as BlueprintFacade;
 use Statamic\Fields\Blueprint;
+use Statamic\Fields\Field;
+use Statamic\Fieldtypes\Assets\Assets as AssetsFieldtype;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Facades\Feed;
 use WithCandour\StatamicAdvancedForms\Facades\Notification;
+use WithCandour\StatamicAdvancedForms\Facades\Submission as SubmissionFacade;
 
 abstract class AbstractForm implements Contract
 {
@@ -50,9 +54,35 @@ abstract class AbstractForm implements Contract
     /**
      * @inheritDoc
      */
+    public function hasFiles(): bool
+    {
+        return $this->blueprint()->fields()->all()->some(function (Field $field) {
+            return $field->fieldtype() instanceof AssetsFieldtype;
+        });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function makeSubmission(): Submission
+    {
+        return SubmissionFacade::make($this);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function showUrl(): string
     {
         return cp_route('advanced-forms.show', $this->id());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function actionUrl(): string
+    {
+        return route('statamic.advanced-forms.submit', $this->id());
     }
 
     /**

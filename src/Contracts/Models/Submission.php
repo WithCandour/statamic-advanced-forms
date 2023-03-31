@@ -3,6 +3,7 @@
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 interface Submission
 {
@@ -36,11 +37,18 @@ interface Submission
     public function setForm(Form $form): self;
 
     /**
-     * Get a submission values model for this submission.
+     * Create a values model for this submission.
      *
      * @return SubmissionValues
      */
-    public function values(): SubmissionValues;
+    public function makeValues(): SubmissionValues;
+
+    /**
+     * Get a submission values model for this submission.
+     *
+     * @return SubmissionValues|null
+     */
+    public function values(): ?SubmissionValues;
 
     /**
      * Create a notification note for this submission.
@@ -48,14 +56,14 @@ interface Submission
      * @param Notification $notification
      * @return NotificationNote
      */
-    public function createNoteForNotification(Notification $notification): NotificationNote;
+    public function makeNoteForNotification(Notification $notification): NotificationNote;
 
     /**
      * Get all notification notes for this submission.
      *
      * @return NotificationNote[]
      */
-    public function notificationNotes(): array;
+    public function notificationNotes(): Collection;
 
     /**
      * Create a feed note for this submission.
@@ -63,14 +71,14 @@ interface Submission
      * @param Feed $feed
      * @return FeedNote
      */
-    public function createNoteForFeed(Feed $feed): FeedNote;
+    public function makeNoteForFeed(Feed $feed): FeedNote;
 
     /**
      * Get all feed notes for this submission.
      *
-     * @return FeedNote[]
+     * @return Collection
      */
-    public function feedNotes(): array;
+    public function feedNotes(): Collection;
 
     /**
      * Get the show url of the submission.
@@ -89,14 +97,15 @@ interface Submission
     /**
      * Save the submission.
      *
-     * @return void
+     * @param array $options
+     * @return self
      */
-    public function save(): self;
+    public function save(array $options = []);
 
     /**
      * Delete the submission.
      *
      * @return void
      */
-    public function delete(): void;
+    public function delete();
 }
