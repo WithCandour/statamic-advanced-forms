@@ -96,7 +96,7 @@ class FormController extends Controller
 
         $formHandle = $submission->form()->handle();
 
-        session()->flash(self::FORM_SESSION_PREFIX . $formHandle . 'success', __('Submission successful'));
+        session()->flash(self::FORM_SESSION_PREFIX . $formHandle . '.success', __('Submission successful'));
 
         return back();
     }

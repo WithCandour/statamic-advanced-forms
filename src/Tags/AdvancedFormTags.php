@@ -39,11 +39,15 @@ class AdvancedFormTags extends Tags
     {
         $form = $this->form();
 
+        $data = $this->getFormSession($this->formHandle());
+
         $data['action_url'] = $this->params->get('action', $form->actionUrl());
         $data['method'] = $this->params->get('method', 'POST');
         $data['csrf_field'] = $this->params->get('csrf', true) ? csrf_field() : null;
         $data['enctype'] = ($this->params->get('files', false) || $form->hasFiles()) ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
         $data['pages'] = $this->getPages();
+
+        ray($data)->green();
 
         return $this->parse($data);
     }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('advanced_forms_submission_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('submission_id')->index();
-            $table->json('data');
+            $table->jsonb('data');
         });
     }
 

@@ -20,10 +20,6 @@ class SubmissionValues extends Model implements Contract
         'data' => 'json',
     ];
 
-    protected $attributes = [
-        'data' => [],
-    ];
-
     /**
      * @inheritDoc
      */

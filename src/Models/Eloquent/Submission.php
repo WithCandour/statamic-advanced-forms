@@ -20,10 +20,6 @@ use WithCandour\StatamicAdvancedForms\Facades\SubmissionValues as SubmissionValu
 
 class Submission extends Model implements Contract
 {
-    use HasTimestamps;
-
-    const UPDATED_AT = null;
-
     protected $table = 'advanced_forms_submissions';
 
     protected $casts = [

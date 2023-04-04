@@ -14,10 +14,6 @@ use WithCandour\StatamicAdvancedForms\Models\NoteType;
 
 class FeedNote extends Model implements Contract
 {
-    use HasTimestamps;
-
-    const UPDATED_AT = null;
-
     protected $table = 'advanced_forms_external_feed_notes';
 
     protected $casts = [
