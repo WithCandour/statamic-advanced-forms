@@ -164,8 +164,6 @@ class NotificationsController extends Controller
 
     protected function editFormBlueprint(Form $form)
     {
-        ray($this->notificationRuleTypesAsFieldSets($form))->green();
-
         $sections = [
             'name' => [
                 'display' => __('Name'),

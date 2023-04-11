@@ -7,7 +7,9 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
+use WithCandour\StatamicAdvancedForms\Events\AdvancedFormSubmitting;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormNotFoundException;
+use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormSubmissionRejectedException;
 use WithCandour\StatamicAdvancedForms\Facades\Form;
 
 class FormController extends Controller
@@ -41,9 +43,15 @@ class FormController extends Controller
 
         try {
             $fields->validate();
+
+            // Allow listeners to reject forms (captcha etc)
+            throw_if(AdvancedFormSubmitting::dispatch($form, $submissionValues) === false, new AdvancedFormSubmissionRejectedException);
+
             $submission->save();
         } catch (ValidationException $validationException) {
             return $this->formFailure($validationException->errors(), $form->handle());
+        } catch (AdvancedFormSubmissionRejectedException $rejectionException) {
+            return $this->formSuccess();
         }
 
         // Save the submission values
@@ -81,14 +89,14 @@ class FormController extends Controller
     /**
      * Return a success state.
      *
-     * @param Submission $submission
+     * @param Submission|null $submission
      */
-    private function formSuccess(Submission $submission)
+    private function formSuccess(?Submission $submission = null)
     {
         if (request()->ajax()) {
             return response([
                 'success' => true,
-                'submission' => $submission->id(),
+                'submission' => $submission?->id() ?? null,
             ]);
         }
 

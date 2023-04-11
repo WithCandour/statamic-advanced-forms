@@ -47,8 +47,6 @@ class AdvancedFormTags extends Tags
         $data['enctype'] = ($this->params->get('files', false) || $form->hasFiles()) ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
         $data['pages'] = $this->getPages();
 
-        ray($data)->green();
-
         return $this->parse($data);
     }
 
