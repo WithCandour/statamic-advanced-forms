@@ -6,9 +6,19 @@ use Statamic\Facades\Blueprint;
 use Statamic\Fields\Blueprint as StatamicBlueprint;
 use Statamic\Fields\Section;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as Contract;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 
 abstract class AbstractFeed implements Contract
 {
+    /**
+     * @inheritDoc
+     */
+    public function process(Submission $submission): void
+    {
+        $type = $this->type();
+        $type->processSubmission($submission, $this);
+    }
+
     /**
      * @inheritDoc
      */

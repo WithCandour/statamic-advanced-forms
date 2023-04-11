@@ -79,7 +79,7 @@ class Submission extends Model implements Contract
     /**
      * @inheritDoc
      */
-    public function values(): SubmissionValues
+    public function values(): ?SubmissionValues
     {
         return SubmissionValuesFacade::findBySubmission($this);
     }

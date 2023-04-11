@@ -50,7 +50,7 @@ class SubmissionValues extends Model implements Contract
      */
     public function get($key, $fallback = null)
     {
-        return $this->attributes['data'][$key] ?? $fallback;
+        return $this->data()[$key] ?? $fallback;
     }
 
     /**
@@ -58,7 +58,7 @@ class SubmissionValues extends Model implements Contract
      */
     public function set($key, $value)
     {
-        $this->attributes['data'][$key] = $value;
+        // No setting of submission values allowed
 
         return $this;
     }

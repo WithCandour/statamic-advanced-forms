@@ -24,7 +24,7 @@ class SubmissionValuesRepository implements Contract
     /**
      * @inheritDoc
      */
-    public function findBySubmission(Submission $submission): SubmissionValuesContract
+    public function findBySubmission(Submission $submission): ?SubmissionValuesContract
     {
         return SubmissionValues::query()
             ->where('submission_id', $submission->id())

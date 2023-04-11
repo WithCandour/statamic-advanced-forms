@@ -46,6 +46,13 @@ interface Feed
     public function type(?FeedType $type = null);
 
     /**
+     * Process a submission for this feed.
+     *
+     * @param Submission $submission
+     */
+    public function process(Submission $submission): void;
+
+    /**
      * Get the blueprint for the config options in this feed.
      *
      * @return Blueprint

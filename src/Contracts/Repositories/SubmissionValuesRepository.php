@@ -19,7 +19,7 @@ interface SubmissionValuesRepository
      * Find the submission values for a given submission.
      *
      * @param Submission $submission
-     * @return Collection
+     * @return SubmissionValues|null
      */
-    public function findBySubmission(Submission $submission): SubmissionValues;
+    public function findBySubmission(Submission $submission): ?SubmissionValues;
 }

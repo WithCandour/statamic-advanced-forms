@@ -230,22 +230,6 @@ class NotificationsController extends Controller
                         'instructions' => __('statamic::messages.form_configure_email_html_instructions'),
                         'folder' => config('statamic.advanced-forms.email_view_folder'),
                     ],
-                    'text_view' => [
-                        'type' => 'template',
-                        'display' => __('Text view'),
-                        'instructions' => __('statamic::messages.form_configure_email_text_instructions'),
-                        'folder' => config('statamic.advanced-forms.email_view_folder'),
-                    ],
-                    'markdown' => [
-                        'type' => 'toggle',
-                        'display' => __('Markdown'),
-                        'instructions' => __('statamic::messages.form_configure_email_markdown_instructions'),
-                    ],
-                    'attachments' => [
-                        'type' => 'toggle',
-                        'display' => __('Attachments'),
-                        'instructions' => __('statamic::messages.form_configure_email_attachments_instructions'),
-                    ],
                 ]
             ],
             'conditions' => [

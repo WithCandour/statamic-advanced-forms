@@ -11,6 +11,7 @@ use Statamic\Fields\Field;
 use Statamic\Fields\Fields;
 use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
+use WithCandour\StatamicAdvancedForms\Contracts\Processors\FeedProcessor;
 use WithCandour\StatamicAdvancedForms\Events\AdvancedFormSubmitting;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormNotFoundException;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormSubmissionRejectedException;
@@ -24,6 +25,16 @@ class FormController extends Controller
         'assets',
         'anonymous_assets'
     ];
+
+    protected FeedProcessor $feedProcessor;
+
+    /**
+     * @param FeedProcessor $feedProcessor
+     */
+    public function __construct(FeedProcessor $feedProcessor)
+    {
+        $this->feedProcessor = $feedProcessor;
+    }
 
     /**
      * Handle a form submission.
@@ -76,6 +87,8 @@ class FormController extends Controller
             ->data($fields->addValues($submissionValues)->process()->values());
 
         $submissionValues->save();
+
+        $this->feedProcessor->process($submission);
 
         return $this->formSuccess($submission);
     }
