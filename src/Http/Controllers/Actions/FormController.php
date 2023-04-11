@@ -3,8 +3,12 @@
 namespace WithCandour\StatamicAdvancedForms\Http\Controllers\Actions;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
+use Statamic\Fields\Field;
+use Statamic\Fields\Fields;
 use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Events\AdvancedFormSubmitting;
@@ -15,6 +19,11 @@ use WithCandour\StatamicAdvancedForms\Facades\Form;
 class FormController extends Controller
 {
     const FORM_SESSION_PREFIX = 'advanced_form.';
+
+    const ASSET_FIELDTYPES = [
+        'assets',
+        'anonymous_assets'
+    ];
 
     /**
      * Handle a form submission.
@@ -30,22 +39,29 @@ class FormController extends Controller
             throw new AdvancedFormNotFoundException($handle);
         }
 
-        $submissionValues = \collect($request->all())
+        $requestValues = \collect($request->all())
             ->filter(fn ($value, $key) => !Str::startsWith($key, '_'))
             ->all();
 
         $fields = $form
             ->blueprint()
-            ->fields()
-            ->addValues($submissionValues);
+            ->fields();
+
+        $assetValues = $this->normalizeAssetsValues($fields, $request);
+
+        $submissionValues = \array_merge($requestValues, $assetValues);
+
+        $fieldValues = $fields->addValues($submissionValues);
 
         $submission = $form->makeSubmission();
 
         try {
-            $fields->validate();
+            $fieldValues->validate($this->extraRules($fieldValues));
 
             // Allow listeners to reject forms (captcha etc)
             throw_if(AdvancedFormSubmitting::dispatch($form, $submissionValues) === false, new AdvancedFormSubmissionRejectedException);
+
+            $submissionValues = \array_merge($submissionValues, $submission->uploadFiles($assetValues));
 
             $submission->save();
         } catch (ValidationException $validationException) {
@@ -57,7 +73,7 @@ class FormController extends Controller
         // Save the submission values
         $submissionValues = $submission
             ->makeValues()
-            ->data($fields->values());
+            ->data($fields->addValues($submissionValues)->process()->values());
 
         $submissionValues->save();
 
@@ -105,5 +121,46 @@ class FormController extends Controller
         session()->flash(self::FORM_SESSION_PREFIX . $formHandle . '.success', __('Submission successful'));
 
         return back();
+    }
+
+    /**
+     * Normalize the values for any assets fieldtypes.
+     *
+     * @param Fields $fields
+     * @param Request $request
+     * @return array
+     */
+    protected function normalizeAssetsValues(Fields $fields, Request $request): array
+    {
+        return $fields
+            ->all()
+            ->filter(function (Field $field) {
+                return \in_array($field->fieldtype()->handle(), self::ASSET_FIELDTYPES) &&
+                request()->hasFile($field->handle());
+            })
+            ->map(function (Field $field) use ($request) {
+                return Arr::wrap($request->file($field->handle()));
+            })
+            ->all();
+    }
+
+    /**
+     * Get extra validation rules for the submission
+     *
+     * @param Fields $fields
+     * @return array
+     */
+    protected function extraRules(Fields $fields): array
+    {
+        $assetFieldRules = $fields->all()
+            ->filter(function ($field) {
+                return \in_array($field->fieldtype()->handle(), self::ASSET_FIELDTYPES);
+            })
+            ->mapWithKeys(function ($field) {
+                return [$field->handle().'.*' => 'file'];
+            })
+            ->all();
+
+        return $assetFieldRules;
     }
 }

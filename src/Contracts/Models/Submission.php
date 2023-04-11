@@ -59,6 +59,14 @@ interface Submission
     public function values(): ?SubmissionValues;
 
     /**
+     * Upload the files for a given submission.
+     *
+     * @param array $files
+     * @return array
+     */
+    public function uploadFiles($files): array;
+
+    /**
      * Create a notification note for this submission.
      *
      * @param Notification $notification

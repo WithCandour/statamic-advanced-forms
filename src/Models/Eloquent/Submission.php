@@ -5,6 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Models\Eloquent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Statamic\Forms\Uploaders\AssetsUploader;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\FeedNote;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
@@ -98,6 +99,16 @@ class Submission extends Model implements Contract
     public function belongsToForm(Form $form): bool
     {
         return $this->form_id === $form->id();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function uploadFiles($files): array
+    {
+        return \collect($files)->map(function (array $files, string $handle) {
+            return AssetsUploader::field($this->form()->blueprint()->field($handle))->upload($files);
+        })->all();
     }
 
     /**

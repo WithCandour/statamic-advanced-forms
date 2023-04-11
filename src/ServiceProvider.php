@@ -38,6 +38,7 @@ use WithCandour\StatamicAdvancedForms\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedTypes\AdvancedFormsExampleFeedType;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -93,6 +94,7 @@ class ServiceProvider extends AddonServiceProvider
     protected $fieldtypes = [
         AdvancedFormsFieldtype::class,
         AdvancedFormsFieldSelectFieldtype::class,
+        AnonymousAssets::class,
     ];
 
     /**
@@ -239,8 +241,8 @@ class ServiceProvider extends AddonServiceProvider
                                 ->label('Delete notifications'),
                         ]),
 
-                    Permission::make('download advanced forms assets')
-                        ->label('Download files'),
+                    Permission::make('download advanced forms anonymous assets')
+                        ->label('Download anonymised files'),
                 ]);
             })->label('View forms');
         });
