@@ -91,6 +91,7 @@ class FormsController extends Controller
 
         $notifications = $form->notifications();
         $feeds = $form->feeds();
+        $submissions = $form->submissions();
 
         $breadcrumb = Breadcrumbs::make([
             [
@@ -121,14 +122,19 @@ class FormsController extends Controller
             'form' => $form,
             'notifications' => \collect($notifications),
             'feeds' => \collect($feeds),
+            'submissions' => \collect($submissions),
             'notifications_initial_columns' => [
                 Column::make('title')->label(__('Title')),
             ],
             'feeds_initial_columns' => [
                 Column::make('title')->label(__('Title')),
             ],
+            'submissions_initial_columns' => [
+                Column::make('date')->label(__('Date')),
+            ],
             'notifications_action_url' => cp_route('advanced-forms.notifications.actions.run'),
             'feeds_action_url' => cp_route('advanced-forms.feeds.actions.run'),
+            'submissions_action_url' => cp_route('advanced-forms.submissions.actions.run'),
             'fields_page_count' => $form->blueprint()->sections()->count(),
             'fields_field_count' => $form->blueprint()->fields()->all()->count(),
             'feed_types' => $selectableFeedTypes,

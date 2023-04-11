@@ -35,7 +35,9 @@ class SubmissionsRepository implements Contract
      */
     public function find(int $id): ?SubmissionContract
     {
-        return Submission::find($id);
+        return Submission::query()
+            ->where('id', $id)
+            ->first();
     }
 
     /**

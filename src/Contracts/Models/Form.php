@@ -66,6 +66,13 @@ interface Form
     public function hasFiles(): bool;
 
     /**
+     * Get the submissions for this form.
+     *
+     * @return \WithCandour\StatamicAdvancedForms\Contracts\Models\Submission[]
+     */
+    public function submissions(): array;
+
+    /**
      * Create a submission for this form.
      *
      * @return Submission
@@ -92,6 +99,13 @@ interface Form
      * @return string
      */
     public function actionUrl(): string;
+
+    /**
+     * Get the submissions url for this form.
+     *
+     * @return string
+     */
+    public function submissionsUrl(): string;
 
     /**
      * Save the form.

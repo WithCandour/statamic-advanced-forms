@@ -3,7 +3,6 @@
 namespace WithCandour\StatamicAdvancedForms\Models\Eloquent;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed;
@@ -25,6 +24,24 @@ class Submission extends Model implements Contract
     protected $casts = [
         'created_at' => 'datetime'
     ];
+
+    protected static function booted(): void
+    {
+        // Delete any associated values and notes when the submission is deleted
+        static::deleting(function (Submission $submission) {
+            if ($values = $submission->values()) {
+                $values->delete();
+            }
+
+            if ($feedNotes = $submission->feedNotes()) {
+                $feedNotes->each(fn (FeedNote $feedNote) => $feedNote->delete());
+            }
+
+            if ($notificationNotes = $submission->notificationNotes()) {
+                $notificationNotes->each(fn (NotificationNote $notificationNote) => $notificationNote->delete());
+            }
+        });
+    }
 
     /**
      * @inheritDoc
@@ -73,6 +90,14 @@ class Submission extends Model implements Contract
     {
         $this->form_id = $form->id();
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function belongsToForm(Form $form): bool
+    {
+        return $this->form_id === $form->id();
     }
 
     /**

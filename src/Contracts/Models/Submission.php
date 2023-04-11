@@ -37,6 +37,14 @@ interface Submission
     public function setForm(Form $form): self;
 
     /**
+     * Determine whether this submission belongs to a given form.
+     *
+     * @param Form $form
+     * @return bool
+     */
+    public function belongsToForm(Form $form): bool;
+
+    /**
      * Create a values model for this submission.
      *
      * @return SubmissionValues
@@ -61,7 +69,7 @@ interface Submission
     /**
      * Get all notification notes for this submission.
      *
-     * @return NotificationNote[]
+     * @return Collection
      */
     public function notificationNotes(): Collection;
 

@@ -7,15 +7,33 @@
     <h1 class="m-0">{{ $title }}</h1>
     <a href="{{ cp_route('advanced-forms.edit', $form->id()) }}" class="btn">{{ __('Edit') }}</a>
 </div>
-<div class="card p-0 mb-3">
-    <div class="p-2">
-        <h2>{{ __('advanced-forms::submissions.recent') }}</h2>
+<div class="card p-2 mb-3">
+    <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center">
+            <div class="w-5 h-5 mr-2">@cp_svg('drawer-file')</div>
+            <h2>{{ __('advanced-forms::submissions.recent') }}</h2>
+        </div>
+        <a href="{{ cp_route('advanced-forms.submissions.index',  $form->id()) }}" class="btn">
+            {{ __('View all') }}
+        </a>
     </div>
+    @if($submissions->isEmpty())
+        <div class="text-center border-2 border-dashed rounded-md p-3">
+            <h3 class="mb-1 text-grey text-sm">No submissions</h3>
+        </div>
+    @else
+        <advanced-forms-submissions-listing
+            :initial-per-page="10"
+            :initial-columns="{{ json_encode($submissions_initial_columns) }}"
+            form-id="{{ $form->id() }}"
+            action-url="{{ $submissions_action_url }}"
+        ></advanced-forms-submissions-listing>
+    @endif
 </div>
 <div class="card p-2 mb-3">
     <div class="flex justify-between items-center mb-1">
         <div class="flex items-center">
-            <div class="w-5 h-5 mr-2">@cp_svg('drawer-file')</div>
+            <div class="w-5 h-5 mr-2">@cp_svg('fieldsets')</div>
             <h2>{{ __('advanced-forms::fields.title') }}</h2>
         </div>
         <a href="{{ cp_route('advanced-forms.fields.edit',  $form->id()) }}" class="btn">

@@ -17,7 +17,7 @@ class SubmissionValues extends Model implements Contract
     protected $guarded = [];
 
     protected $casts = [
-        'data' => 'json',
+        'data' => 'array',
     ];
 
     /**
@@ -69,7 +69,7 @@ class SubmissionValues extends Model implements Contract
     public function data($data = null)
     {
         if (func_num_args() === 0) {
-            return $this->attributes['data'];
+            return $this->getAttribute('data');
         }
 
         $this->attributes['data'] = $data;

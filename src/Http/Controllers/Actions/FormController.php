@@ -51,8 +51,6 @@ class FormController extends Controller
             ->makeValues()
             ->data($fields->values());
 
-        ray($submissionValues)->green();
-
         $submissionValues->save();
 
         return $this->formSuccess($submission);

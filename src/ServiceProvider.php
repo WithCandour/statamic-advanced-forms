@@ -16,6 +16,7 @@ use WithCandour\StatamicAdvancedForms\Actions\Forms\DeleteFormsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DeleteNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\DisableNotificationsAction;
 use WithCandour\StatamicAdvancedForms\Actions\Notifications\EnableNotificationsAction;
+use WithCandour\StatamicAdvancedForms\Actions\Submissions\DeleteSubmissionsAction;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository as FeedTypeRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Feed as FeedContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
@@ -261,6 +262,7 @@ class ServiceProvider extends AddonServiceProvider
         EnableNotificationsAction::register();
         DisableNotificationsAction::register();
         DeleteNotificationsAction::register();
+        DeleteSubmissionsAction::register();
 
         return $this;
     }

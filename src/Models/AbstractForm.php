@@ -64,6 +64,15 @@ abstract class AbstractForm implements Contract
     /**
      * @inheritDoc
      */
+    public function submissions(): array
+    {
+        return SubmissionFacade::findByForm($this)
+            ->all();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function makeSubmission(): Submission
     {
         return SubmissionFacade::make($this);
@@ -83,6 +92,14 @@ abstract class AbstractForm implements Contract
     public function actionUrl(): string
     {
         return route('statamic.advanced-forms.submit', $this->id());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function submissionsUrl(): string
+    {
+        return cp_route('advanced-forms.submissions.index', $this->id());
     }
 
     /**

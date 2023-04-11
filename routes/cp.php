@@ -23,4 +23,10 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
 
         Route::post('advanced-forms/feeds/actions', 'Actions\\FeedActionController@run')->name('advanced-forms.feeds.actions.run');
         Route::post('advanced-forms/feeds/actions/list', 'Actions\\FeedActionController@bulkActions')->name('advanced-forms.feeds.actions.bulk');
+
+        Route::resource('advanced-forms.submissions', 'SubmissionsController')
+            ->only(['index', 'destroy', 'show']);
+
+        Route::post('advanced-forms/submissions/actions', 'Actions\\SubmissionActionController@run')->name('advanced-forms.submissions.actions.run');
+        Route::post('advanced-forms/submissions/actions/list', 'Actions\\SubmissionActionController@bulkActions')->name('advanced-forms.submissions.actions.bulk');
     });
