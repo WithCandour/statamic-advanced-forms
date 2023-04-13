@@ -12,6 +12,7 @@ use Statamic\Fields\Fields;
 use Statamic\Support\Str;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Contracts\Processors\FeedProcessor;
+use WithCandour\StatamicAdvancedForms\Contracts\Processors\NotificationProcessor;
 use WithCandour\StatamicAdvancedForms\Events\AdvancedFormSubmitting;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormNotFoundException;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormSubmissionRejectedException;
@@ -28,12 +29,15 @@ class FormController extends Controller
 
     protected FeedProcessor $feedProcessor;
 
+    protected NotificationProcessor $notificationProcessor;
+
     /**
      * @param FeedProcessor $feedProcessor
      */
-    public function __construct(FeedProcessor $feedProcessor)
+    public function __construct(FeedProcessor $feedProcessor, NotificationProcessor $notificationProcessor)
     {
         $this->feedProcessor = $feedProcessor;
+        $this->notificationProcessor = $notificationProcessor;
     }
 
     /**
@@ -89,6 +93,7 @@ class FormController extends Controller
         $submissionValues->save();
 
         $this->feedProcessor->process($submission);
+        $this->notificationProcessor->process($submission);
 
         return $this->formSuccess($submission);
     }

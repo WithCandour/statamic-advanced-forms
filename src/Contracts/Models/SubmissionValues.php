@@ -2,6 +2,8 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
+use Statamic\Fields\Blueprint;
+
 interface SubmissionValues
 {
     /**
@@ -39,4 +41,18 @@ interface SubmissionValues
      * @return void
      */
     public function delete();
+
+     /**
+     * Get the blueprint for these values.
+     *
+     * @return Blueprint
+     */
+    public function blueprint(): Blueprint;
+
+    /**
+     * Generate an augmented array of values.
+     *
+     * @return array
+     */
+    public function toAugmentedArray(): array;
 }

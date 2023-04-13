@@ -68,4 +68,12 @@ interface Notification
      * @return mixed
      */
     public function get($key, $fallback = null);
+
+    /**
+     * Send the notification.
+     *
+     * @param Submission $submission
+     * @return void
+     */
+    public function send(Submission $submission): void;
 }

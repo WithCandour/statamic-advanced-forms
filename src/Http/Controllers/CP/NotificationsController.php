@@ -210,6 +210,7 @@ class NotificationsController extends Controller
                         'instructions' => 'Select an email field to use as the recipient email address.',
                         'type' => 'advanced_forms_field_select',
                         'form' => $form->id(),
+                        'max_items' => 1,
                         'input_type_requirement' => [
                             'email'
                         ],
@@ -218,9 +219,14 @@ class NotificationsController extends Controller
                         ],
                         'validate' => 'required_if:send_to_type,form_field'
                     ],
+                    'send_from_email' => [
+                        'display' => 'Send-From Email Address',
+                        'instructions' => 'Enter an email address that this email should come from',
+                        'type' => 'text',
+                        'validate' => 'required|email'
+                    ],
                     'email_subject' => [
                         'display' => 'Subject line',
-                        'instructions' => 'Use curly brackets to use submitted value.<br>For example: **New `{{ enquiry_subject }}` enquiry**',
                         'type' => 'text',
                         'validate' => 'required',
                     ],

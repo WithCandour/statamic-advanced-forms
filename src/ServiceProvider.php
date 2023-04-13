@@ -23,6 +23,7 @@ use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as FormContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as NotificationContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Notifications\Rules\RuleTypeRepository as RuleTypeRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Processors\FeedProcessor as FeedProcessorContract;
+use WithCandour\StatamicAdvancedForms\Contracts\Processors\NotificationProcessor as NotificationProcessorContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedNotesRepository as FeedNotesRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FormsRepository as FormsRepositoryContract;
 use WithCandour\StatamicAdvancedForms\Contracts\Repositories\FeedsRepository as FeedsRepositoryContract;
@@ -52,6 +53,7 @@ use WithCandour\StatamicAdvancedForms\Repositories\Stache\FormsRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Stache\NotificationsRepository;
 use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypeRepository;
 use WithCandour\StatamicAdvancedForms\Processors\FeedProcessor;
+use WithCandour\StatamicAdvancedForms\Processors\NotificationProcessor;
 use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\FeedNotesRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\NotificationNotesRepository;
 use WithCandour\StatamicAdvancedForms\Repositories\Eloquent\SubmissionsRepository;
@@ -80,6 +82,7 @@ class ServiceProvider extends AddonServiceProvider
         SubmissionsRepositoryContract::class => SubmissionsRepository::class,
         SubmissionValuesRepositoryContract::class => SubmissionValuesRepository::class,
         FeedProcessorContract::class => FeedProcessor::class,
+        NotificationProcessorContract::class => NotificationProcessor::class,
     ];
 
     /**

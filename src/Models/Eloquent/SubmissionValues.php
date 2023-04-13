@@ -3,7 +3,11 @@
 namespace WithCandour\StatamicAdvancedForms\Models\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use Statamic\Contracts\Data\Augmentable;
 use Statamic\Data\ContainsData;
+use Statamic\Data\HasAugmentedData;
+use Statamic\Fields\Blueprint;
+use Statamic\Fields\Field;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\SubmissionValues as Contract;
 use WithCandour\StatamicAdvancedForms\Facades\Submission as SubmissionFacade;
@@ -59,7 +63,6 @@ class SubmissionValues extends Model implements Contract
     public function set($key, $value)
     {
         // No setting of submission values allowed
-
         return $this;
     }
 
@@ -74,5 +77,26 @@ class SubmissionValues extends Model implements Contract
 
         $this->attributes['data'] = $data;
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function blueprint(): Blueprint
+    {
+        return $this->submission()->form()->blueprint();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toAugmentedArray(): array
+    {
+        return $this->blueprint()
+            ->fields()
+            ->addValues($this->data())
+            ->augment()
+            ->values()
+            ->all();
     }
 }

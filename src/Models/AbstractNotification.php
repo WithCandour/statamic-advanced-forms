@@ -3,6 +3,8 @@
 namespace WithCandour\StatamicAdvancedForms\Models;
 
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Notification as Contract;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
+use WithCandour\StatamicAdvancedForms\Jobs\SendNotification;
 
 abstract class AbstractNotification implements Contract
 {
@@ -32,5 +34,13 @@ abstract class AbstractNotification implements Contract
                 'notification' => $this->id(),
             ]
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function send(Submission $submission): void
+    {
+        SendNotification::dispatch($this, $submission);
     }
 }

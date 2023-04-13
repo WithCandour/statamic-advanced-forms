@@ -45,8 +45,6 @@ class AdvancedFormsExampleFeedType extends FeedType
                 ]
             ]);
 
-            ray($response)->green();
-
             $responseNote = <<<STRING
             **Added email address as post body!**
 
