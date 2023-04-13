@@ -6,6 +6,9 @@
         {{ if fieldtype == "assets" }}
             {{ value }}{{ permalink }}{{ if !last }}, {{ /if }}{{ /value }}
 
+        {{ elseif fieldtype == 'anonymous_assets' }}
+            {{ value }}<a href="{{ name }}">Download</a>{{ if !last }}, {{ /if }}{{ /value }}
+
         {{ elseif fieldtype == "select" && !config:multiple }}
             {{ value:label ?? value }}
 

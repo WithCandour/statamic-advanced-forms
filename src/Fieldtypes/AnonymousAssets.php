@@ -24,7 +24,10 @@ class AnonymousAssets extends AssetsFieldtype
         $actionRoute = config('statamic.routes.action', '!');
 
         $urls = \collect($data)
-            ->map(fn($id) => '/' . $actionRoute . '/statamic-advanced-forms/download-anonymous-asset?key=' . Crypt::encryptString($id));
+            ->map(fn($id) => '/' . $actionRoute . '/statamic-advanced-forms/download-anonymous-asset?key=' . Crypt::encryptString($id))
+            ->map(function($value) {
+                return URL::makeAbsolute($value);
+            });
 
         return $this->config('max_files') === 1 ? $urls->first() : $urls->all();
     }
@@ -47,7 +50,10 @@ class AnonymousAssets extends AssetsFieldtype
      */
     public function shallowAugment($values)
     {
-        $values = collect(Arr::wrap($values));
+        $values = collect(Arr::wrap($values))
+            ->map(function($value) {
+                return URL::makeAbsolute($value);
+            });
 
         return $this->config('max_files') === 1 ? $values->first() : $values->all();
     }
