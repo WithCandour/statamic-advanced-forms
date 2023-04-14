@@ -149,7 +149,98 @@ class AdvancedFormsExampleFeedType extends FeedType
 Feed types should extend the `WithCandour\StatamicAdvancedForms\Feeds\FeedType` class and can be registered in your service provider (in the same way as you'd register a custo field type).
 
 ### Notifications
+Notifications are used to send emails when form submissions are created, they build on the functionality within Statamic forms in that basic emails can be created, one addition is that users can select a field in the form to use as the "Email to" address, this allows CMS users to configure submission confirmation emails that will be sent out to the user that submitted the form.
 
 #### Notification conditions
+In addition to the basic email settings, conditional logic can be applied to notifications to determine whether they should be sent or not.
 
-### Notes
+Out of the box, the addon supplies 3 different types of notification condition:
+- Time of day: The notification should be sent if the current time is before/after a specified time
+- Day of week: The notification should be sent if the current day is/is not listed in the condition settings
+- Field value: The notification should be sent if a value in the form submission is equal to a specified value
+
+#### Custom conditions
+Custom notification condition types can be registered, they should extend the `WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleType` class and have the following methods:
+- `passes(Submission $submission, ConditionOperators $operator, mixed $value = null, mixed $fields = null)`: The logic that determines whether a notification with this condition should be sent.
+- `fields(Form $form)`: Additional supporting fields that will provide data for this condition when it is added to a notification
+- `valueFieldSettings()`: An array of blueprint field settings that should be applied to the `value` field.
+- `conditionalOperators()`: An array of `WithCandour\StatamicAdvancedForms\Notifications\Rules\ConditionOperators` values that apply to this condition.
+
+##### Example
+```php
+<?php
+
+namespace WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleTypes;
+
+use Carbon\Carbon;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\ConditionOperators;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\RuleType;
+
+class DayOfWeekRuleType extends RuleType
+{
+    protected static $title = 'Current day';
+
+    /**
+     * @inheritDoc
+     */
+    public function fields(Form $form): array
+    {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function conditionOperators(): array
+    {
+        return [
+            ConditionOperators::IS,
+            ConditionOperators::IS_NOT
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function valueFieldSettings(): array
+    {
+        return [
+            'display' => 'Day(s)',
+            'type' => 'select',
+            'options' => [
+                '0' => 'Sunday',
+                '1' => 'Monday',
+                '2' => 'Tuesday',
+                '3' => 'Wednesday',
+                '4' => 'Thursday',
+                '5' => 'Friday',
+                '6' => 'Saturday'
+            ],
+            'multiple' => true,
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function passes(
+        Submission $submission,
+        ConditionOperators $operator,
+        mixed $value = null,
+        mixed $fields = null
+    ): bool {
+        $dayOfWeek = Carbon::now()->format('l');
+
+        $value = \is_array($value) ? \array_values($value) : [];
+
+        if ($operator === ConditionOperators::IS) {
+            return \in_array($dayOfWeek, $value);
+        }
+
+        return !\in_array($dayOfWeek, $value);
+    }
+}
+
+```
