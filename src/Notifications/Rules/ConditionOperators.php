@@ -2,7 +2,7 @@
 
 namespace WithCandour\StatamicAdvancedForms\Notifications\Rules;
 
-enum Conditions: string
+enum ConditionOperators: string
 {
     case IS = 'is';
     case IS_NOT = 'is_not';

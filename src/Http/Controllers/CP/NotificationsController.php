@@ -238,8 +238,8 @@ class NotificationsController extends Controller
                     ],
                 ]
             ],
-            'conditions' => [
-                'display' => 'Conditions',
+            'conditional_logic' => [
+                'display' => 'Conditional Logic',
                 'fields' => [
                     'enable_conditional_logic' => [
                         'type' => 'toggle',
@@ -300,7 +300,7 @@ class NotificationsController extends Controller
                             'field' => [
                                 'type' => 'select',
                                 'display' => 'Condition',
-                                'options' => \collect($ruleType->conditions())
+                                'options' => \collect($ruleType->conditionOperators())
                                     ->mapWithKeys(fn ($condition) => [$condition->value => Str::title(Str::humanize($condition->value))]),
                             ]
                         ],

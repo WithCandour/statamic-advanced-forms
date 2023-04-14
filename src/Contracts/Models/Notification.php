@@ -70,6 +70,14 @@ interface Notification
     public function get($key, $fallback = null);
 
     /**
+     * Determine whether this notification should be sent for a given submission.
+     *
+     * @param Submission $submission
+     * @return bool
+     */
+    public function shouldSend(Submission $submission): bool;
+
+    /**
      * Send the notification.
      *
      * @param Submission $submission

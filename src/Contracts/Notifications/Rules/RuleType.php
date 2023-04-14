@@ -2,8 +2,9 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Notifications\Rules;
 
-use WithCandour\StatamicAdvancedForms\Notifications\Rules\Conditions;
+use WithCandour\StatamicAdvancedForms\Notifications\Rules\ConditionOperators;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 
 interface RuleType
 {
@@ -28,11 +29,11 @@ interface RuleType
     public function fields(Form $form): array;
 
     /**
-     * Get the conditions which may be applied for this rule.
+     * Get the condition operators which may be applied for this rule.
      *
-     * @return Conditions[]
+     * @return ConditionOperators[]
      */
-    public function conditions(): array;
+    public function conditionOperators(): array;
 
     /**
      * Get the value field settings.
@@ -40,4 +41,20 @@ interface RuleType
      * @return array
      */
     public function valueFieldSettings(): array;
+
+    /**
+     * Determine whether this rule passes for a given submission and operator.
+     *
+     * @param Submission $submission
+     * @param ConditionOperators $operator
+     * @param mixed $value
+     * @param mixed $fields
+     * @return bool
+     */
+    public function passes(
+        Submission $submission,
+        ConditionOperators $operator,
+        mixed $value = null,
+        mixed $fields = null
+    ): bool;
 }
