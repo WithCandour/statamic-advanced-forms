@@ -10,10 +10,14 @@
     "dependencies": {
         "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.43",
+        "marked": "^4.3.0",
         "postcss": "^8.2.4",
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12",
         "yarn": "^1.22.19"
+    },
+    "devDependencies": {
+        "@types/marked": "^4.0.8"
     }
 }

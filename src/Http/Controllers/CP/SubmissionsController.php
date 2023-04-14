@@ -7,7 +7,9 @@ use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
 use Statamic\Extensions\Pagination\LengthAwarePaginator;
 use Statamic\Facades\Config;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\FeedNote;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
+use WithCandour\StatamicAdvancedForms\Contracts\Models\NotificationNote;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Facades\Submission as SubmissionFacade;
@@ -95,6 +97,41 @@ class SubmissionsController extends Controller
 
         $title = $submission->date()->format('M j, Y @ H:i');
 
+        $feedNotes = $submission
+            ->feedNotes()
+            ->map(function (FeedNote $note) {
+                return [
+                    'id' => $note->id(),
+                    'type' => $note->noteType()->value,
+                    'note' => $note->note(),
+                    'date' => $note->date()->format('d/m/y H:i'),
+                    'feed' => [
+                        'id' => $note->feed()->id(),
+                        'name' => $note->feed()->title(),
+                    ],
+                ];
+            });
+
+            $notificationNotes = $submission
+                ->notificationNotes()
+                ->map(function (NotificationNote $note) {
+                    return [
+                        'id' => $note->id(),
+                        'type' => $note->noteType()->value,
+                        'note' => $note->note(),
+                        'date' => $note->date()->format('d/m/y H:i'),
+                        'notification' => [
+                            'id' => $note->notification()->id(),
+                            'name' => $note->notification()->title(),
+                        ],
+                    ];
+                });;
+
+        ray([
+            $feedNotes,
+            $notificationNotes,
+        ])->orange();
+
         $breadcrumb = Breadcrumbs::make([
             [
                 'text' => __('advanced-forms::messages.title'),
@@ -120,6 +157,8 @@ class SubmissionsController extends Controller
             'blueprint' => $blueprint->toPublishArray(),
             'breadcrumb' => $breadcrumb,
             'values' => $fields->values(),
+            'feed_notes' => $feedNotes,
+            'notification_notes' => $notificationNotes,
             'meta' => $fields->meta(),
             'title' => $title,
         ]);

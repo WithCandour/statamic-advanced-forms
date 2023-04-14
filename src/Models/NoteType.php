@@ -2,10 +2,10 @@
 
 namespace WithCandour\StatamicAdvancedForms\Models;
 
-enum NoteType
+enum NoteType: string
 {
-    case SUCCESS;
-    case ERROR;
-    case INFO;
-    case WARNING;
+    case SUCCESS = 'SUCCESS';
+    case ERROR = 'ERROR';
+    case INFO = 'INFO';
+    case WARNING = 'WARNING';
 }

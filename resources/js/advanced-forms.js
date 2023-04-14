@@ -9,6 +9,8 @@ import FeedsCreateForm from './components/cp/feeds/CreateForm';
 import FeedsEditForm from './components/cp/feeds/EditForm';
 import FeedsListing from './components/cp/feeds/Listing';
 import FeedCreateButton from './components/cp/feeds/CreateButton';
+import SubmissionNotes from './components/cp/submissions/Notes';
+import SubmissionNote from './components/cp/submissions/Note';
 import AnonymousAssetsFieldtype from './components/cp/fieldtypes/AnonymousAssetsFieldtype';
 
 Statamic.booting(() => {
@@ -24,6 +26,8 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-feed-edit-form', FeedsEditForm);
     Statamic.component('advanced-forms-feeds-listing', FeedsListing);
     Statamic.component('advanced-forms-create-button', FeedCreateButton);
+    Statamic.component('advanced-forms-submission-notes', SubmissionNotes);
+    Statamic.component('advanced-forms-submission-note', SubmissionNote);
 
     // Fieldtypes
     Statamic.component('anonymous_assets-fieldtype', AnonymousAssetsFieldtype);
