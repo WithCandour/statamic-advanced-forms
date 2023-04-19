@@ -104,3 +104,12 @@ $submission
     ->setNote("My note text")
     ->save();
 ```
+
+## Fieldtypes
+This addon provides two custom field types for interacting with advanced forms and an `AnonymousAssets` fieldtype for use within forms themselves.
+
+### AdvancedFormsForm
+This fieldtype allows you to select a form from a list of user-generated forms in the CMS.
+
+### AdvancedFormsFieldSelect
+This fieldtype allows you to select a field from within a given form (a form **must** be configured for this fieldtype to work).

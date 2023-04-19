@@ -20,3 +20,6 @@ Notification events also get logged in the database so you can see if a notifica
 Configure your form submissions to be automatically sent to external feeds (think newsletter signup forms), and allow CMS users to map fields from the submission to third-party fields.
 
 For developers, this addon gives you the ability to build your own feed types to hook into any third-party system and report back to the CMS (via notes).
+
+### Anonymised uploads
+Protect sensitive files uploaded to your forms by selecting an asset container where the visibility is set to `private`, when a file is uploaded it won't be publicly accessible by a download URL will be saved against the submission, only authorised CMS users will be able to download the file via this link.
