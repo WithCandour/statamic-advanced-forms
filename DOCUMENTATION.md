@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This addon does required you to use a database with your Statamic site, the migrations provided by the addon will be copied to your project's database directory during the installation process.
+This addon does require you to use a database with your Statamic site, the migrations provided by the addon will be copied to your project's database directory during the installation process.
 
 ## Installation
 
