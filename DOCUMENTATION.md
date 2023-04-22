@@ -113,3 +113,28 @@ This fieldtype allows you to select a form from a list of user-generated forms i
 
 ### AdvancedFormsFieldSelect
 This fieldtype allows you to select a field from within a given form (a form **must** be configured for this fieldtype to work).
+
+### AnonymousAssets
+This fieldtype is designed to be used in user-facing forms for uploading assets which should not be stored within the public assets area of the CMS, to use this field properly the configured assets container should have a `visibility` setting of `private`. When the field values are processed they are transformed into a URL string (or an array of strings if the user has uploaded multiple files) which contains a unique token - this URL can be used for downloading the assets at a later date.
+
+#### Permissions
+In order for a user to download the assets, they must have the "Download anonymised files" permission in their role (or be a super user).
+
+## Development
+
+### Installation
+In order to work on the addon locally it can be cloned into a directory within your project root (something like `addons/advanced-forms` works well). After this you can adjust your `composer.json` file, adding a `repositories` key which will install/symlink the addon directory rather than downloading it from packagist:
+
+```
+"repositories": [
+    {
+       "type": "path",
+        "url": "addons/advanced-forms"
+    }
+],
+```
+
+### Control Panel
+The addon contains a number of Vue components which are used within Statamic's control panel, these live inside the `resources/js` directory. The components are compiled using Laravel Mix, in order to edit the components you will need to first install the frontend dependencies using `yarn install` inside the addon directory. Then you may run `yarn production` to build a production bundle (`watch` and `development` scripts are also available).
+
+**Note:** During development it's worthwhile symlinking the built JS file inside the addon directory to your project's `public/vendor` directory. This can be achieved by running `ln -s /addons/advanced-forms/public/js public/vendor/statamic-advanced-forms/public/js`.
