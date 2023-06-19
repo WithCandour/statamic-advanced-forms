@@ -12,6 +12,7 @@ import FeedCreateButton from './components/cp/feeds/CreateButton';
 import SubmissionNotes from './components/cp/submissions/Notes';
 import SubmissionNote from './components/cp/submissions/Note';
 import AnonymousAssetsFieldtype from './components/cp/fieldtypes/AnonymousAssetsFieldtype';
+import AddressLookupFieldtype from './components/cp/fieldtypes/AddressLookupFieldtype';
 
 Statamic.booting(() => {
     // CP views
@@ -30,5 +31,6 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-submission-note', SubmissionNote);
 
     // Fieldtypes
-    Statamic.component('anonymous_assets-fieldtype', AnonymousAssetsFieldtype);
+    Statamic.$components.register('anonymous_assets-fieldtype', AnonymousAssetsFieldtype);
+    Statamic.$components.register('address_lookup-fieldtype', AddressLookupFieldtype);
 });
