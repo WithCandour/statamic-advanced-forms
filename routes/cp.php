@@ -18,9 +18,6 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
     ->group(function () {
 
         Route::prefix('advanced-forms')->group(function () {
-            Route::get('settings', [SettingsController::class, 'index'])
-                ->name('advanced-forms.settings.index');
-
             Route::post('actions', [FormActionController::class, 'run'])
                 ->name('advanced-forms.actions.run');
                 
