@@ -1,6 +1,7 @@
 <div id="{{ handle }}">
 
     {{# Country Input #}}
+    {{ if config.allow_country_select }}
     <div>
         <label for="safb__{{ handle }}__country">Country</label>
         <select name="{{ handle }}[country]" id="safb__{{ handle }}__country">
@@ -236,6 +237,7 @@
             <option value="ZW">Zimbabwe</option>
         </select>
     </div>
+    {{ /if }}
 
     {{# Search Input #}}
     <div>
@@ -248,7 +250,7 @@
         </div>
     </div>
 
-    {{# Country Container #}}
+    {{# Address Container #}}
     <div id="safb__{{ handle }}__addressContainer"></div>
 
     {{# Failure Message #}}
@@ -295,7 +297,8 @@
         searchterm: '#safb__{{ handle }}__search',
         addressselectioncontainer: '#safb__{{ handle }}__addressContainer',
         noresultmessage: '#safb__{{ handle }}__noResultMessage',
-        countrycode: 'GB',
+        country: '{{ config.allow_country_select ? ("#safb__" + handle + "__country") : " " }}',
+        countrycode: '{{ config.country_code ?? " " }}',
         searchbutton: '#safb__{{ handle }}__searchButton', 
         organisation: '#safb__{{ handle }}__organisation',
         addressline1: '#safb__{{ handle }}__addressLineOne', 

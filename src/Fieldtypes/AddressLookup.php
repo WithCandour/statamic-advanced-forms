@@ -31,6 +31,25 @@ class AddressLookup extends Fieldtype
         return 0;
     }
 
+    public function configFieldItems(): array
+    {
+        return [
+            'allow_country_select' => [
+                'display' => __('advanced-forms::address-lookup.toggle.label'),
+                'instructions' => __('advanced-forms::address-lookup.toggle.instructions'),
+                'type' => 'toggle',
+                'default' => false,
+                'width' => 100
+            ],
+            'default_country_code' => [
+                'display' => __('advanced-forms::address-lookup.country_code.label'),
+                'instructions' => __('advanced-forms::address-lookup.country_code.instructions'),
+                'type' => 'text',
+                'default' => 'GB',
+                'width' => 100
+            ],
+        ];
+    }
 
 
     /**
