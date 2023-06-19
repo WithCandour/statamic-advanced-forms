@@ -12,8 +12,6 @@ use \WithCandour\StatamicAdvancedForms\Http\Controllers\CP\Actions\FeedActionCon
 use \WithCandour\StatamicAdvancedForms\Http\Controllers\CP\SubmissionsController;
 use \WithCandour\StatamicAdvancedForms\Http\Controllers\CP\Actions\SubmissionActionController;
 
-
-
 Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
     ->group(function () {
 
