@@ -63,4 +63,16 @@ return [
     */
 
     'email_view_folder' => null,
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lookup API Key
+    |--------------------------------------------------------------------------
+    |
+    | The API key for your lookup service.
+    |
+    */
+
+    'postcoder_api_key' => env('POSTCODER_API_KEY'),
 ];

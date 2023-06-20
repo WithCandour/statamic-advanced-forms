@@ -2,6 +2,7 @@
 
 namespace WithCandour\StatamicAdvancedForms;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Git;
@@ -41,6 +42,7 @@ use WithCandour\StatamicAdvancedForms\Feeds\FeedTypes\AdvancedFormsExampleFeedTy
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -101,6 +103,7 @@ class ServiceProvider extends AddonServiceProvider
         AdvancedFormsFieldtype::class,
         AdvancedFormsFieldSelectFieldtype::class,
         AnonymousAssets::class,
+        AddressLookup::class,
     ];
 
     /**
@@ -128,7 +131,11 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $scripts = [
-        __DIR__ . '/../public/js/advanced-forms.js',
+        __DIR__ . '/../public/js/advanced-forms.js'
+    ];
+
+    protected $publishables = [
+        __DIR__ . '/../resources/js/address-lookup-service.js' => 'js/address-lookup-service.js',
     ];
 
     protected $tags = [
@@ -156,6 +163,12 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../database/migrations/create_advanced_forms_notification_notes_table.stub' => $this->migrationsPath('create_advanced_forms_notification_notes_table.php'),
             __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
         ], 'advanced-forms-migrations');
+
+        // Make custom fields selectable in forms, if the POSTCODER_API_KEY exists.
+        if (env('POSTCODER_API_KEY'))
+        {
+            AddressLookup::makeSelectableInForms();
+        }
 
         $this
             ->bootStache()
