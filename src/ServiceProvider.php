@@ -164,8 +164,11 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
         ], 'advanced-forms-migrations');
 
-        // Make custom fields selectable in forms
-        AddressLookup::makeSelectableInForms();
+        // Make custom fields selectable in forms, if the POSTCODER_API_KEY exists.
+        if (env('POSTCODER_API_KEY'))
+        {
+            AddressLookup::makeSelectableInForms();
+        }
 
         $this
             ->bootStache()
