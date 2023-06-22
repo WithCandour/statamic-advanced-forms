@@ -165,7 +165,7 @@ class ServiceProvider extends AddonServiceProvider
         ], 'advanced-forms-migrations');
 
         // Make custom fields selectable in forms, if the POSTCODER_API_KEY exists.
-        if (env('POSTCODER_API_KEY'))
+        if (env('POSTCODER_API_KEY') !== null && env('POSTCODER_API_KEY' !== ''))
         {
             AddressLookup::makeSelectableInForms();
         }
