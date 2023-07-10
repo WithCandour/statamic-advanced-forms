@@ -10,6 +10,7 @@ use Statamic\Facades\Action;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
+use Statamic\Facades\Search;
 
 class FormsController extends Controller
 {
@@ -51,6 +52,26 @@ class FormsController extends Controller
                 'actionUrl' => cp_route('advanced-forms.actions.run'),
             ]
         );
+    }
+
+    public function apiSearch(Request $request)
+    {
+        $this->authorize('access advanced forms');
+        
+        $forms = FormFacade::all()
+            ->map(function (Form $form) {
+                return [
+                    'id' => $form->id(),
+                    'handle' => $form->handle(),
+                    'title' => $form->title(),
+                    'show_url' => $form->showUrl(),
+                    'actions' => Action::for($form),
+                ];
+            })->filter(function ($item) use ($request) {
+                return false !== stristr($item['title'], $request['params']['q']);
+            });
+
+        return $forms;
     }
 
     public function create()

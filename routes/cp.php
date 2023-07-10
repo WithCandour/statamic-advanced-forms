@@ -12,7 +12,34 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
         Route::get('advanced-forms/{advanced_form}/fields', 'FieldsController@index')->name('advanced-forms.fields.edit');
         Route::patch('advanced-forms/{advanced_form}/fields', 'FieldsController@update')->name('advanced-forms.fields.update');
 
-        Route::resource('advanced-forms.notifications', 'NotificationsController')
+        Route::patch('{advanced_form}/fields', [FieldsController::class, 'update'])
+            ->name('advanced-forms.fields.update');
+
+        Route::post('notifications/actions', [NotificationActionController::class, 'run'])
+            ->name('advanced-forms.notifications.actions.run');
+
+        Route::post('notifications/actions/list', [NotificationActionController::class, 'bulkActions'])
+            ->name('advanced-forms.notifications.actions.bulk');
+
+        Route::post('feeds/actions', [FeedActionController::class, 'run'])
+            ->name('advanced-forms.feeds.actions.run');
+
+        Route::post('feeds/actions/list', [FeedActionController::class, 'bulkActions'])
+            ->name('advanced-forms.feeds.actions.bulk');
+
+        Route::post('submissions/actions', [SubmissionActionController::class, 'run'])
+            ->name('advanced-forms.submissions.actions.run');
+            
+        Route::post('submissions/actions/list', [SubmissionActionController::class, 'bulkActions'])
+            ->name('advanced-forms.submissions.actions.bulk');
+
+        Route::prefix('advanced-forms/api')->group(function () {
+            Route::post('search', [FormsController::class, 'apiSearch'])->name('advanced-forms.api.search');
+        });
+
+        Route::resource('advanced-forms', FormsController::class);
+
+        Route::resource('advanced-forms.notifications', NotificationsController::class)
             ->only(['index', 'create', 'store', 'update', 'edit', 'destroy']);
 
         Route::post('advanced-forms/notifications/actions', 'Actions\\NotificationActionController@run')->name('advanced-forms.notifications.actions.run');
