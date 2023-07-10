@@ -20,6 +20,7 @@ class FormsController extends Controller
 
         $columns = [
             Column::make('title')->label(__('Title')),
+            Column::make('submissions')->label(__('Entries')),
         ];
 
         $forms = FormFacade::all()
@@ -28,6 +29,7 @@ class FormsController extends Controller
                     'id' => $form->id(),
                     'handle' => $form->handle(),
                     'title' => $form->title(),
+                    'submissions' => collect($form->submissions())->count(),
                     'show_url' => $form->showUrl(),
                     'actions' => Action::for($form),
                 ];
