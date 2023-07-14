@@ -271,7 +271,7 @@ class NotificationsController extends Controller
 
         ];
 
-        return Blueprint::makeFromSections($sections);
+        return Blueprint::makeFromTabs($sections);
     }
 
     /**
