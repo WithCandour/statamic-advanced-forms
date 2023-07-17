@@ -6,7 +6,27 @@ use Statamic\Fields\Fieldtype;
 
 class SectionDivider extends Fieldtype
 {
+    protected $categories = ['special'];
+
     protected $canCreate = false;
+
+    public function configFieldItems(): array
+    {
+        return [
+            'section_divider_heading_title' => [
+                'display' => 'Section Divider Heading Title',
+                'type' => 'text',
+                'default' => '',
+                'width' => 100
+            ],
+            'section_divider_heading_content' => [
+                'display' => 'Section Divider Heading Content',
+                'type' => 'textarea',
+                'default' => '',
+                'width' => 100
+            ],
+        ];
+    }
 
     public function preProcess($data)
     {
@@ -34,33 +54,13 @@ class SectionDivider extends Fieldtype
         return 1;
     }
 
-    // public function configFieldItems(): array
-    // {
-    //     return [
-    //         'allow_country_select' => [
-    //             'display' => __('advanced-forms::address-lookup.toggle.label'),
-    //             'instructions' => __('advanced-forms::address-lookup.toggle.instructions'),
-    //             'type' => 'toggle',
-    //             'default' => false,
-    //             'width' => 100
-    //         ],
-    //         'default_country_code' => [
-    //             'display' => __('advanced-forms::address-lookup.country_code.label'),
-    //             'instructions' => __('advanced-forms::address-lookup.country_code.instructions'),
-    //             'type' => 'text',
-    //             'default' => 'GB',
-    //             'width' => 100
-    //         ],
-    //     ];
-    // }
-
 
     /**
      * @inheritDoc
      */
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.address_lookup';
+        $default = 'statamic-advanced-forms::fieldtypes.section_divider';
 
         return view()->exists($default)
             ? $default

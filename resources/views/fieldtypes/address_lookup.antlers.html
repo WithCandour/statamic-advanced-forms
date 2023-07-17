@@ -1,8 +1,8 @@
-<div id="{{ handle }}">
+<div class="statamic-advanced-forms__address-lookup" id="{{ handle }}">
 
     {{# Country Input #}}
-    {{ if config.allow_country_select }}
-    <div>
+    {{ if allow_country_select }}
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__country">Country</label>
         <select name="{{ handle }}[country]" id="safb__{{ handle }}__country">
             <option value="AU">Australia</option>
@@ -240,7 +240,7 @@
     {{ /if }}
 
     {{# Search Input #}}
-    <div>
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__search">Search for an address or postcode</label>
         <button type="button" id="safb__{{ handle }}__searchButton">
             Search
@@ -251,21 +251,21 @@
     </div>
 
     {{# Address Container #}}
-    <div id="safb__{{ handle }}__addressContainer"></div>
+    <div class="statamic-advanced-forms__address-lookup__input-container" id="safb__{{ handle }}__addressContainer"></div>
 
     {{# Failure Message #}}
-    <div id="safb__{{ handle }}__noResultMessage">
+    <div class="statamic-advanced-forms__address-lookup__input-container" id="safb__{{ handle }}__noResultMessage">
         Address not found, please enter manually.
     </div>
 
     {{# Organisation Input #}}
-    <div>
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__organisation">Organisation</label>
         <input type="text" name="{{ handle }}[organisation]" id="safb__{{ handle }}__organisation" />
     </div>
 
     {{# Address Inputs #}}
-    <div>
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__addressLineOne">Address</label>
         <input type="text" name="{{ handle }}[address_line_one]" id="safb__{{ handle }}__addressLineOne" />
         <input type="text" name="{{ handle }}[address_line_two]" id="safb__{{ handle }}__addressLineTwo" />
@@ -273,13 +273,13 @@
     </div>
 
     {{# Town Input #}}
-    <div>
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__postTown">Town</label>
         <input type="text" name="{{ handle }}[posttown]" id="safb__{{ handle }}__postTown" />
     </div>
 
     {{# Postcode Input #}}
-    <div>
+    <div class="statamic-advanced-forms__address-lookup__input-container">
         <label for="safb__{{ handle }}__postCode">Postcode</label>
         <input type="text" name="{{ handle }}[postcode]" id="safb__{{ handle }}__postCode">
     </div>

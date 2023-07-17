@@ -24,10 +24,18 @@ interface Form
     /**
      * Get or set the form title.
      *
-     * @param string|null $handle
+     * @param string|null $title
      * @return string|void
      */
     public function title(?string $title = null);
+
+    /**
+     * Get or set the form description.
+     *
+     * @param string|null $description
+     * @return string|void
+     */
+    public function description(?string $description = null);
 
     /**
      * Get the form fields blueprint.

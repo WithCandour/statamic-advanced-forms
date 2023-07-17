@@ -6,6 +6,8 @@ use Statamic\Fields\Fieldtype;
 
 class AddressLookup extends Fieldtype
 {
+    protected $categories = ['special'];
+    
     protected $canCreate = false;
 
     public function preProcess($data)

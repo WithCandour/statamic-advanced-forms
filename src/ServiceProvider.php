@@ -43,6 +43,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsF
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\SectionDivider;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -104,6 +105,7 @@ class ServiceProvider extends AddonServiceProvider
         AdvancedFormsFieldSelectFieldtype::class,
         AnonymousAssets::class,
         AddressLookup::class,
+        SectionDivider::class,
     ];
 
     /**

@@ -3,15 +3,23 @@
 
         <div class="rounded p-3 lg:px-7 lg:py-5 shadow bg-white">
             <header class="text-center mb-6">
-                <h1 class="mb-3" v-text="heading" />
-                <p class="text-grey" v-text="introduction" />
+                <h1 class="mb-3">{{ heading }}</h1>
+                <p class="text-grey">{{ introduction }}</p>
             </header>
             <div class="mb-5">
-                <label class="font-bold text-base mb-sm" for="name">{{ __('Title') }}</label>
+                <label class="font-bold text-base mb-sm">{{ __('Title') }}</label>
                 <input type="text" v-model="title" class="input-text" autofocus tabindex="1">
                 <div class="text-2xs text-grey-60 mt-1 flex items-center" v-if="title_instructions">
                     {{  title_instructions  }}
                 </div>
+            </div>
+            <div class="mb-5">
+                <label class="font-bold text-base mb-sm">{{ __('Handle') }}</label>
+                <input type="text" v-model="handle" class="input-text" tabindex="2">
+            </div>
+            <div class="mb-5">
+                <label class="font-bold text-base mb-sm">{{ __('Description') }}</label>
+                <input type="text" v-model="description" class="input-text" tabindex="3" />
             </div>
         </div>
 
@@ -48,6 +56,8 @@ export default {
     data() {
         return {
             title: null,
+            handle: null,
+            description: null,
         }
     },
 
@@ -59,11 +69,21 @@ export default {
 
     methods: {
         submit() {
-            this.$axios.post(this.route, {title: this.title, handle: this.handle}).then(response => {
+            this.$axios.post(this.route, {
+                title: this.title,
+                description: this.description, 
+                handle: this.handle
+            }).then(response => {
                 window.location = response.data.redirect;
             }).catch(error => {
                 this.$toast.error(error.response.data.message);
             });
+        }
+    },
+
+    watch: {
+        'title': function(val) {
+            this.handle = this.$slugify(val, '_');
         }
     },
 

@@ -43,6 +43,16 @@ class Form extends AbstractForm implements Contract
             ->args(func_get_args());
     }
 
+     /**
+     * @inheritDoc
+     */
+    public function description(?string $description = null)
+    {
+        return $this
+            ->fluentlyGetOrSet('description')
+            ->args(func_get_args());
+    }
+
     /**
      * @inheritDoc
      */

@@ -66,11 +66,13 @@ class FormsController extends Controller
 
         $data = $request->validate([
             'title' => 'required',
+            'description' => '',
             'handle' => 'required|alpha_dash',
         ]);
 
         $form = FormFacade::make($data['handle']);
         $form->title($data['title']);
+        $form->description($data['description']);
 
         $form->save();
 
