@@ -2,6 +2,7 @@
 
 namespace WithCandour\StatamicAdvancedForms\Contracts\Models;
 
+use Illuminate\Support\Collection;
 use Statamic\Fields\Blueprint;
 
 interface Form
@@ -78,7 +79,7 @@ interface Form
      *
      * @return \WithCandour\StatamicAdvancedForms\Contracts\Models\Submission[]
      */
-    public function submissions(): array;
+    public function submissions(): Collection;
 
     /**
      * Create a submission for this form.

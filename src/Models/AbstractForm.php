@@ -5,6 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Models;
 use Statamic\Facades\Blueprint as BlueprintFacade;
 use Statamic\Fields\Blueprint;
 use Statamic\Fields\Field;
+use Illuminate\Support\Collection;
 use Statamic\Fieldtypes\Assets\Assets as AssetsFieldtype;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form as Contract;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
@@ -64,10 +65,12 @@ abstract class AbstractForm implements Contract
     /**
      * @inheritDoc
      */
-    public function submissions(): array
+    public function submissions(): Collection
     {
-        return SubmissionFacade::findByForm($this)
-            ->all();
+        return collect(
+            SubmissionFacade::findByForm($this)
+            ->all()
+        );
     }
 
     /**
