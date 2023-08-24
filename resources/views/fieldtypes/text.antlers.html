@@ -1,0 +1,12 @@
+<input 
+    type="text" 
+    name="{{ handle }}"
+    
+    {{ if config.allow_url_prefill }} 
+    value="{{ get:handle }}"
+    {{ /if }}
+
+    {{ if validate|contains:required }}
+    required
+    {{ /if }}
+/>
