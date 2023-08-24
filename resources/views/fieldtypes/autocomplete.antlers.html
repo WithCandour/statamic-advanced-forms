@@ -1,0 +1,49 @@
+<div class="statamic-advanced-forms__autocomplete">
+    <input type="text" id="{{ handle }}__target" />
+
+    <input type="hidden" id="{{ handle }}__values" data-options="{{ options }}" />
+
+    <div class="autocomplete-container">
+        <ul>
+        </ul>
+    </div>
+</div>
+
+<script>
+    let lines = document.getElementById('{{ handle }}__values').dataset.options.split('\n');
+    let list = document.querySelector('.autocomplete-container > ul');
+
+    lines.forEach(function( item ){
+        let newLine = document.createElement("li")
+        newLine.innerText = item;
+        list.appendChild(newLine);
+        newLine.style.display = "none";
+    });
+
+    let target = document.getElementById('{{ handle }}__target');
+    let ul = document.querySelector('.autocomplete-container > ul');
+    let items = ul.getElementsByTagName('li');
+    let li = Array.prototype.slice.call(items);
+  
+    target.addEventListener('input', function (event) {
+        var i;
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            if (li[i].innerText.indexOf(target.value) > -1) {
+                li[i].style.display = "block";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    });
+
+    if (li.length > 0) {
+        li.forEach(function( item ){
+            item.addEventListener('click', function (event) {
+                target.value = item.innerText;
+            })
+        });
+    }
+
+
+</script>
