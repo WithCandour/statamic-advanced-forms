@@ -12,8 +12,6 @@ class Autocomplete extends Fieldtype
 
     public function preProcess($data)
     {
-        //$data['postcoder_api_key'] = env('POSTCODER_API_KEY');
-
         return $data;
     }
 
