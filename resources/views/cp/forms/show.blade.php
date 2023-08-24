@@ -7,7 +7,7 @@
     <h1 class="m-0">{{ $title }}</h1>
     <a href="{{ cp_route('advanced-forms.edit', $form->id()) }}" class="btn">{{ __('Edit') }}</a>
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
             <h2>{{ __('advanced-forms::submissions.recent') }}</h2>
@@ -29,7 +29,7 @@
         ></advanced-forms-submissions-listing>
     @endif
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-1">
         <div class="flex items-center">
             <h2>{{ __('advanced-forms::fields.title') }}</h2>
@@ -43,7 +43,7 @@
         <div class="mr-2 badge-pill-sm"><span class="text-grey-80 font-medium">Fields:</span> {{ $fields_field_count }}</div>
     </div>
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
             <div>
@@ -70,7 +70,7 @@
         ></advanced-forms-notifications-listing>
     @endif
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
             <div>
