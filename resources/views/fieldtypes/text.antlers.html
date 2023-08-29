@@ -1,12 +1,8 @@
+{{ dynamic = 'handle' }}
+{{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+
 <input 
     type="text" 
-    name="{{ handle }}"
-    
-    {{ if config.allow_url_prefill }} 
-    value="{{ get:handle }}"
-    {{ /if }}
-
-    {{ if validate|contains:required }}
-    required
-    {{ /if }}
-/>
+    class="afb_text_field" 
+    value="{{ prefill | sanitize }}" 
+/> 
