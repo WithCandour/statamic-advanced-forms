@@ -26,6 +26,6 @@
         }
     },
     "require": {
-        "statamic/cms": "^4.*"
+        "statamic/cms": "^4.0"
     }
 }
