@@ -28,7 +28,7 @@
         </div>
 
         <sections
-            :initial-sections="blueprint.sections"
+            :initial-sections="blueprint.tabs[0].sections"
             :add-section-text="__('advanced-forms::fields.add_page')"
             :single-section="!blueprint.paginated"
             @updated="sectionsUpdated"
@@ -42,7 +42,7 @@
 
 export default {
     components: {
-        Sections: Statamic.$app.components['BlueprintBuilder'].components['Sections']
+        Sections: Statamic.$app.components.BlueprintBuilder.components.Tabs.components.TabContent.components.Sections
     },
 
     props: {
@@ -70,6 +70,7 @@ export default {
 
         Statamic.$config.set('isFormBlueprint', true);
     },
+
 
     watch: {
         sections(sections) {

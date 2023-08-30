@@ -31,6 +31,11 @@ class AddressLookup extends Fieldtype
         return 0;
     }
 
+    public function selectableInForms() : bool
+    {
+        return 1;
+    }
+
     public function configFieldItems(): array
     {
         return [

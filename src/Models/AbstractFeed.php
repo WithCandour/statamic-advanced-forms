@@ -49,7 +49,7 @@ abstract class AbstractFeed implements Contract
 
         $sections = $defaultSections->merge($typeBlueprintSections);
 
-        return Blueprint::makeFromSections($sections);
+        return Blueprint::makeFromTabs($sections);
     }
 
     /**
