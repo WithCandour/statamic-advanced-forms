@@ -165,7 +165,7 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../database/migrations/create_advanced_forms_notification_notes_table.stub' => $this->migrationsPath('create_advanced_forms_notification_notes_table.php'),
             __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
         ], 'advanced-forms-migrations');
-
+        
         AddressLookup::makeSelectableInForms();
 
         $this
