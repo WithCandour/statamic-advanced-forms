@@ -64,13 +64,17 @@ class FormsController extends Controller
     {
         $this->authorize('create advanced forms');
 
-        $data = $request->validate([
+        $request->validate([
             'title' => 'required',
             'handle' => 'required|alpha_dash',
         ]);
 
+        $data = $request;
+
         $form = FormFacade::make($data['handle']);
         $form->title($data['title']);
+        $form->expiresEntries($data['expiresEntries']);
+        $form->entryLifespan($data['entryLifespan']);
 
         $form->save();
 
@@ -123,6 +127,8 @@ class FormsController extends Controller
             'notifications' => \collect($notifications),
             'feeds' => \collect($feeds),
             'submissions' => \collect($submissions),
+            'expires_entries' => $form->expiresEntries(),
+            'entry_lifespan' => $form->entryLifespan(),
             'notifications_initial_columns' => [
                 Column::make('title')->label(__('Title')),
             ],
@@ -176,11 +182,15 @@ class FormsController extends Controller
             return $this->pageNotFound();
         }
 
-        $data = $request->validate([
-            'title' => 'required',
+        $request->validate([
+            'title' => 'required'
         ]);
 
+        $data = $request;
+
         $form->title($data['title']);
+        $form->expiresEntries($data['expiresEntries']);
+        $form->entryLifespan($data['entryLifespan']);
 
         $form->save();
 
