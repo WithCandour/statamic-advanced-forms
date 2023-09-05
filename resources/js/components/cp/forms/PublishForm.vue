@@ -19,10 +19,10 @@
             />
 
             <form-group
-                v-if="expiresEntries === true"
+                v-if="expiresEntries == true"
                 handle="entry_lifespan"
                 class="border-b"
-                :display="__('Entry Lifespan')"
+                :display="__('Entry Lifespan (Days)')"
                 :errors="errors.entry_lifespan"
                 v-model="entryLifespan"
             />
@@ -50,9 +50,9 @@ export default {
         return {
             error: null,
             errors: {},
-            title: this.initialTitle,
-            expiresEntries: this.initialExpires,
-            entryLifespan: this.initialLifespan,
+            title: null,
+            expiresEntries: null,
+            entryLifespan: null,
         }
     },
 
@@ -64,6 +64,12 @@ export default {
                 entryLifespan: this.entryLifespan,
             }
         },
+    },
+
+    created() {
+        this.title = this.initialTitle,
+        this.expiresEntries = this.initialExpires,
+        this.entryLifespan = this.initialLifespan
     },
 
     methods: {
