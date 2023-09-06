@@ -43,6 +43,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsF
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
+use WithCandour\StatamicAdvancedForms\Jobs\ExpireSubmissions;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -360,5 +361,10 @@ class ServiceProvider extends AddonServiceProvider
     protected function migrationsPath($filename)
     {
         return database_path('migrations/' . date('Y_m_d_His', time()) . "_{$filename}.php");
+    }
+
+    protected function schedule($schedule)
+    {
+        $schedule->job(new ExpireSubmissions)->daily();
     }
 }
