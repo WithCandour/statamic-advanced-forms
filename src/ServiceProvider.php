@@ -44,6 +44,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as Adv
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Jobs\ExpireSubmissions;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\Text;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -105,6 +106,7 @@ class ServiceProvider extends AddonServiceProvider
         AdvancedFormsFieldSelectFieldtype::class,
         AnonymousAssets::class,
         AddressLookup::class,
+        Text::class,
     ];
 
     /**
@@ -164,7 +166,7 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../database/migrations/create_advanced_forms_notification_notes_table.stub' => $this->migrationsPath('create_advanced_forms_notification_notes_table.php'),
             __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
         ], 'advanced-forms-migrations');
-
+        
         AddressLookup::makeSelectableInForms();
 
         $this

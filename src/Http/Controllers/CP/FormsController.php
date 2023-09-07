@@ -2,7 +2,6 @@
 
 namespace WithCandour\StatamicAdvancedForms\Http\Controllers\CP;
 
-use Facades\Statamic\Fields\FieldtypeRepository;
 use Illuminate\Http\Request;
 use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
@@ -141,7 +140,7 @@ class FormsController extends Controller
             'notifications_action_url' => cp_route('advanced-forms.notifications.actions.run'),
             'feeds_action_url' => cp_route('advanced-forms.feeds.actions.run'),
             'submissions_action_url' => cp_route('advanced-forms.submissions.actions.run'),
-            'fields_page_count' => $form->blueprint()->tabs()->count(),
+            'fields_page_count' => $form->blueprint()->tabs()->first()->sections()->count(),
             'fields_field_count' => $form->blueprint()->fields()->all()->count(),
             'feed_types' => $selectableFeedTypes,
             'breadcrumb' => $breadcrumb,
