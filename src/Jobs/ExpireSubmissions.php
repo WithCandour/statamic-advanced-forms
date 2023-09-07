@@ -5,9 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Jobs;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
-//use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Facades\Form;
-use WithCandour\StatamicAdvancedForms\Facades\Submission;
 use Carbon\Carbon;
 
 class ExpireSubmissions
