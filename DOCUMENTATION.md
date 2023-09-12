@@ -117,6 +117,9 @@ This fieldtype allows you to select a field from within a given form (a form **m
 ### AnonymousAssets
 This fieldtype is designed to be used in user-facing forms for uploading assets which should not be stored within the public assets area of the CMS, to use this field properly the configured assets container should have a `visibility` setting of `private`. When the field values are processed they are transformed into a URL string (or an array of strings if the user has uploaded multiple files) which contains a unique token - this URL can be used for downloading the assets at a later date.
 
+### AddressLookup
+This fieldtype allows a user to implement an address lookup field on the front end of their forms. This is a front-end input that interacts with the Postcoder API.
+
 #### Permissions
 In order for a user to download the assets, they must have the "Download anonymised files" permission in their role (or be a super user).
 

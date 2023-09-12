@@ -41,13 +41,31 @@ class AdvancedFormTags extends Tags
 
         $data = $this->getFormSession($this->formHandle());
 
-        $data['action_url'] = $this->params->get('action', $form->actionUrl());
-        $data['method'] = $this->params->get('method', 'POST');
+        $action = $this->params->get('action', $form->actionUrl());
+        $method = $this->params->get('method', 'POST');
+        $knownParams = ['redirect', 'error_redirect', 'allow_request_redirect', 'csrf', 'files', 'js'];
+
         $data['csrf_field'] = $this->params->get('csrf', true) ? csrf_field() : null;
         $data['enctype'] = ($this->params->get('files', false) || $form->hasFiles()) ? 'multipart/form-data' : 'application/x-www-form-urlencoded';
         $data['pages'] = $this->getPages();
 
-        return $this->parse($data);
+        $attrs = [];
+
+        $params = [];
+
+        if (! $this->parser) {
+            return array_merge([
+                'attrs' => $this->formAttrs($action, $method, $knownParams, $attrs),
+                'params' => $this->formMetaPrefix($this->formParams($method, $params)),
+            ], $data);
+        }
+
+        $html = $this->formOpen($action, $method, $knownParams, $attrs);
+        $html .= $this->formMetaFields($params);
+        $html .= $this->parse($data);
+        $html .= $this->formClose();
+
+        return $html;
     }
 
     /**
@@ -99,11 +117,10 @@ class AdvancedFormTags extends Tags
             return [];
         }
 
-        return $blueprint->sections()
+        return $blueprint->tabs()->first()->sections()
             ->map(function (Section $section) {
                 return [
                     'title' => $section->display(),
-                    'handle' => $section->handle(),
                     'fields' => $section
                         ->fields()
                         ->all()

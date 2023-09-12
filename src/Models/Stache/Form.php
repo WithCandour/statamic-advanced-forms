@@ -59,6 +59,32 @@ class Form extends AbstractForm implements Contract
     /**
      * @inheritDoc
      */
+    public function expiresEntries(?bool $value = false)
+    {
+        return $this
+            ->fluentlyGetOrSet('expires_entries')
+            ->getter(function ($value) {
+                return $value ?? false;
+            })
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function entryLifespan(?int $days = 30)
+    {
+        return $this
+            ->fluentlyGetOrSet('entry_lifespan')
+            ->getter(function ($days) {
+                return $days;
+            })
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function path(): string
     {
         return vsprintf('%s/%s.%s', [
@@ -84,6 +110,8 @@ class Form extends AbstractForm implements Contract
     {
         $data = [
             'title' => $this->title(),
+            'expires_entries' => $this->expiresEntries(),
+            'entry_lifespan' => $this->entryLifespan(),
             'paginated_fields' => $this->paginatedFields(),
         ];
 

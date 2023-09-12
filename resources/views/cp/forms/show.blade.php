@@ -7,10 +7,9 @@
     <h1 class="m-0">{{ $title }}</h1>
     <a href="{{ cp_route('advanced-forms.edit', $form->id()) }}" class="btn">{{ __('Edit') }}</a>
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
-            <div class="w-5 h-5 mr-2">@cp_svg('drawer-file')</div>
             <h2>{{ __('advanced-forms::submissions.recent') }}</h2>
         </div>
         <a href="{{ cp_route('advanced-forms.submissions.index',  $form->id()) }}" class="btn">
@@ -30,10 +29,9 @@
         ></advanced-forms-submissions-listing>
     @endif
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-1">
         <div class="flex items-center">
-            <div class="w-5 h-5 mr-2">@cp_svg('fieldsets')</div>
             <h2>{{ __('advanced-forms::fields.title') }}</h2>
         </div>
         <a href="{{ cp_route('advanced-forms.fields.edit',  $form->id()) }}" class="btn">
@@ -45,10 +43,9 @@
         <div class="mr-2 badge-pill-sm"><span class="text-grey-80 font-medium">Fields:</span> {{ $fields_field_count }}</div>
     </div>
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
-            <div class="w-5 h-5 mr-2">@cp_svg('email-utility')</div>
             <div>
                 <h2>{{ __('advanced-forms::notifications.title') }}</h2>
                 <p class="text-sm text-grey">{{ __('advanced-forms::notifications.introduction') }}</p>
@@ -60,7 +57,7 @@
     </div>
     @if($notifications->isEmpty())
         <div class="text-center border-2 border-dashed rounded-md p-3">
-            <h3 class="mb-1 text-grey text-sm">No notifcations configured</h3>
+            <h3 class="mb-1 text-grey text-sm">No notifications configured</h3>
             <a href="{{ cp_route('advanced-forms.notifications.create',  $form->id()) }}" class="btn-primary">
                 {{ __('Create') }}
             </a>
@@ -73,10 +70,9 @@
         ></advanced-forms-notifications-listing>
     @endif
 </div>
-<div class="card p-2 mb-3">
+<div class="card p-3 mb-3">
     <div class="flex justify-between items-center mb-3">
         <div class="flex items-center">
-            <div class="w-5 h-5 mr-2">@cp_svg('synchronize')</div>
             <div>
                 <h2>{{ __('advanced-forms::feeds.title') }}</h2>
                 <p class="text-sm text-grey">{{ __('advanced-forms::feeds.introduction') }}</p>

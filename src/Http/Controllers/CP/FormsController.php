@@ -2,7 +2,6 @@
 
 namespace WithCandour\StatamicAdvancedForms\Http\Controllers\CP;
 
-use Facades\Statamic\Fields\FieldtypeRepository;
 use Illuminate\Http\Request;
 use Statamic\CP\Breadcrumbs;
 use Statamic\CP\Column;
@@ -85,13 +84,17 @@ class FormsController extends Controller
     {
         $this->authorize('create advanced forms');
 
-        $data = $request->validate([
+        $request->validate([
             'title' => 'required',
             'handle' => 'required|alpha_dash',
         ]);
 
+        $data = $request;
+
         $form = FormFacade::make($data['handle']);
         $form->title($data['title']);
+        $form->expiresEntries($data['expiresEntries']);
+        $form->entryLifespan($data['entryLifespan']);
 
         $form->save();
 
@@ -144,6 +147,8 @@ class FormsController extends Controller
             'notifications' => \collect($notifications),
             'feeds' => \collect($feeds),
             'submissions' => \collect($submissions),
+            'expires_entries' => $form->expiresEntries(),
+            'entry_lifespan' => $form->entryLifespan(),
             'notifications_initial_columns' => [
                 Column::make('title')->label(__('Title')),
             ],
@@ -156,7 +161,7 @@ class FormsController extends Controller
             'notifications_action_url' => cp_route('advanced-forms.notifications.actions.run'),
             'feeds_action_url' => cp_route('advanced-forms.feeds.actions.run'),
             'submissions_action_url' => cp_route('advanced-forms.submissions.actions.run'),
-            'fields_page_count' => $form->blueprint()->sections()->count(),
+            'fields_page_count' => $form->blueprint()->tabs()->first()->sections()->count(),
             'fields_field_count' => $form->blueprint()->fields()->all()->count(),
             'feed_types' => $selectableFeedTypes,
             'breadcrumb' => $breadcrumb,
@@ -197,11 +202,15 @@ class FormsController extends Controller
             return $this->pageNotFound();
         }
 
-        $data = $request->validate([
-            'title' => 'required',
+        $request->validate([
+            'title' => 'required'
         ]);
 
+        $data = $request;
+
         $form->title($data['title']);
+        $form->expiresEntries($data['expiresEntries']);
+        $form->entryLifespan($data['entryLifespan']);
 
         $form->save();
 

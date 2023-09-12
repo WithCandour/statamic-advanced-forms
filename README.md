@@ -23,3 +23,7 @@ For developers, this addon gives you the ability to build your own feed types to
 
 ### Anonymised uploads
 Protect sensitive files uploaded to your forms by selecting an asset container where the visibility is set to `private`, when a file is uploaded it won't be publicly accessible by a download URL will be saved against the submission, only authorised CMS users will be able to download the file via this link.
+
+### Address Lookup
+Add address lookup functionality into your forms with our Address Lookup field, using the Postcoder API. Simply add your Postcoder API key into your .env file:
+`POSTCODER_API_KEY=YOUR_KEY_GOES_HERE`
