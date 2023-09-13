@@ -1,0 +1,8 @@
+{{ dynamic = 'handle' }}
+{{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+
+<input 
+    type="week" 
+    class="afb_week_field" 
+    value="{{ prefill | sanitize }}" 
+/> 

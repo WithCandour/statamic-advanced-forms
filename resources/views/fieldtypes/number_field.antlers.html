@@ -1,0 +1,8 @@
+{{ dynamic = 'handle' }}
+{{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+
+<input 
+    type="number" 
+    class="afb_number_field" 
+    value="{{ prefill | sanitize }}" 
+/> 

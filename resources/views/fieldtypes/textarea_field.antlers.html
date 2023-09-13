@@ -1,0 +1,6 @@
+{{ dynamic = 'handle' }}
+{{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+
+<textarea class="afb_textarea_field">
+    {{ prefill | sanitise }}
+</textarea>

@@ -40,11 +40,25 @@ use WithCandour\StatamicAdvancedForms\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Feeds\FeedTypes\AdvancedFormsExampleFeedType;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedForms as AdvancedFormsFieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as AdvancedFormsFieldSelectFieldtype;
+
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Autocomplete;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\DateField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\EmailField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\HiddenField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\MonthField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\NumberField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\PasswordField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TelField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TextareaField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TextField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TimeField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\UrlField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\WeekField;
+
 use WithCandour\StatamicAdvancedForms\Jobs\ExpireSubmissions;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\Text;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Notification;
@@ -107,7 +121,19 @@ class ServiceProvider extends AddonServiceProvider
         AnonymousAssets::class,
         AddressLookup::class,
         Autocomplete::class,
-        Text::class,
+        ColorField::class,
+        DateField::class,
+        EmailField::class,
+        HiddenField::class,
+        MonthField::class,
+        NumberField::class,
+        PasswordField::class,
+        TelField::class,
+        TextareaField::class,
+        TextField::class,
+        TimeField::class,
+        UrlField::class,
+        WeekField::class,
     ];
 
     /**
@@ -169,8 +195,6 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../database/migrations/create_advanced_forms_notification_notes_table.stub' => $this->migrationsPath('create_advanced_forms_notification_notes_table.php'),
             __DIR__ . '/../database/migrations/create_advanced_forms_external_feed_notes_table.stub' => $this->migrationsPath('create_advanced_forms_external_feed_notes_table.php'),
         ], 'advanced-forms-migrations');
-        
-        AddressLookup::makeSelectableInForms();
 
         $this
             ->bootStache()

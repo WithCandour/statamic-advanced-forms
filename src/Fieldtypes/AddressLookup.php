@@ -7,6 +7,7 @@ use Statamic\Fields\Fieldtype;
 class AddressLookup extends Fieldtype
 {
     protected $canCreate = false;
+    protected $categories = ['advanced_form'];
 
     public function preProcess($data)
     {
@@ -31,6 +32,9 @@ class AddressLookup extends Fieldtype
         return 0;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function selectableInForms() : bool
     {
         return 1;

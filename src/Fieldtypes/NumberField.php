@@ -2,36 +2,18 @@
 
 namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
-use Statamic\Fieldtypes\Text as CoreText;
+use Statamic\Fields\Fieldtype;
 
-class Text extends CoreText
+class NumberField extends Fieldtype
 {
+    protected $categories = ['special'];
+
     public function configFieldItems(): array
     {
         return [
             [
                 'display' => __('Input Behavior'),
                 'fields' => [
-                    'input_type' => [
-                        'display' => __('Input Type'),
-                        'instructions' => __('statamic::fieldtypes.text.config.input_type'),
-                        'type' => 'select',
-                        'default' => 'text',
-                        'options' => [
-                            'color',
-                            'date',
-                            'email',
-                            'hidden',
-                            'month',
-                            'number',
-                            'password',
-                            'tel',
-                            'text',
-                            'time',
-                            'url',
-                            'week',
-                        ],
-                    ],
                     'placeholder' => [
                         'display' => __('Placeholder'),
                         'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
@@ -70,6 +52,14 @@ class Text extends CoreText
     public function selectable() : bool
     {
         return 0;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function selectableInForms() : bool
+    {
+        return 1;
     }
     
     public function view()

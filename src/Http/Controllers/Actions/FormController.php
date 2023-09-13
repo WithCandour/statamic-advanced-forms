@@ -71,7 +71,14 @@ class FormController extends Controller
         $submission = $form->makeSubmission();
 
         try {
-            $fieldValues->validate($this->extraRules($fieldValues));
+            // handle validation on a per-field basis.
+
+            // if captcha... if unique... etc
+            $fieldValues->validate(
+
+                // if extrarules contains unique.
+                $this->extraRules($fieldValues)
+            );
 
             // Allow listeners to reject forms (captcha etc)
             throw_if(AdvancedFormSubmitting::dispatch($form, $submissionValues) === false, new AdvancedFormSubmissionRejectedException);

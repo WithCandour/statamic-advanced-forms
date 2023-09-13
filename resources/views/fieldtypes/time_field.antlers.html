@@ -1,0 +1,8 @@
+{{ dynamic = 'handle' }}
+{{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+
+<input 
+    type="time" 
+    class="afb_time_field" 
+    value="{{ prefill | sanitize }}" 
+/> 
