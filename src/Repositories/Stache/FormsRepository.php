@@ -75,4 +75,21 @@ class FormsRepository implements Contract
     {
         $this->store->delete($form);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function search(string $query): Collection
+    {
+        return $this->store->index('handle')->items();
+
+        //return $forms->where('title', 'LIKE', '%' . $query . '%')->get();
+
+        // return Submission::query()
+        //     ->where('id', $id)
+        //     ->get();
+
+        // $results = $this->store->index('title')->items()->flip()->where('title', 'LIKE', '%' . $query . '%');
+        // return \collect($this->store->getItems($results));
+    }
 }

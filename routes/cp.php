@@ -47,6 +47,10 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
                 ->name('advanced-forms.submissions.actions.bulk');
         });
 
+        Route::prefix('advanced-forms/api')->group(function () {
+            Route::post('search', [FormsController::class, 'apiSearch'])->name('advanced-forms.api.search');
+        });
+
         Route::resource('advanced-forms', FormsController::class);
 
         Route::resource('advanced-forms.notifications', NotificationsController::class)

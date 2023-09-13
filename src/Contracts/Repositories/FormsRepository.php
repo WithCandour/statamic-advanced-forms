@@ -52,4 +52,12 @@ interface FormsRepository
      * @return void
      */
     public function delete(Form $form): void;
+
+    /**
+     * Search for forms.
+     *
+     * @param string $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search(string $query): Collection;
 }

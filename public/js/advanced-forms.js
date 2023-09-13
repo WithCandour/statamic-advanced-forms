@@ -406,8 +406,40 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       columns: this.initialColumns,
-      requestUrl: cp_url('advanced-forms')
+      requestUrl: cp_url('advanced-forms'),
+      searchQuery: ''
     };
+  },
+  computed: {
+    params: function params() {
+      return {
+        q: this.searchQuery
+      };
+    }
+  },
+  watch: {
+    searchQuery: function searchQuery() {
+      this.page = 1;
+      this.getForms();
+    }
+  },
+  methods: {
+    getForms: function getForms() {
+      var _this = this;
+      this.loading = true;
+      this.$axios.post(cp_url('/advanced-forms/api/search'), {
+        'params': this.params
+      }).then(function (response) {
+        _this.loading = false;
+        _this.initializing = false;
+        _this.rows = response.data.data;
+        _this.meta = response.data.meta;
+      })["catch"](function (e) {
+        _this.loading = false;
+        _this.error = true;
+        _this.$toast.error(__('Something went wrong'));
+      });
+    }
   }
 });
 
@@ -1351,7 +1383,18 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "card p-0 relative"
-  }, [_c("data-list-bulk-actions", {
+  }, [_c("div", {
+    staticClass: "data-list-header"
+  }, [_c("data-list-search", {
+    ref: "search",
+    model: {
+      value: _vm.searchQuery,
+      callback: function callback($$v) {
+        _vm.searchQuery = $$v;
+      },
+      expression: "searchQuery"
+    }
+  })], 1), _vm._v(" "), _c("data-list-bulk-actions", {
     staticClass: "rounded",
     attrs: {
       url: _vm.actionUrl
