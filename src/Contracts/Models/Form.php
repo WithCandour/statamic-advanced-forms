@@ -60,6 +60,20 @@ interface Form
     public function paginatedFields(?bool $value = null);
 
     /**
+     * Determine whether this form expires entries
+     *
+     * @return bool
+     */
+    public function expiresEntries(?bool $value = false);
+
+    /**
+     * Determine the time to live for entries before expiry
+     *
+     * @return int
+     */
+    public function entryLifespan(?int $value = 30);
+
+    /**
      * Determine whether this form contains file fields.
      *
      * @return bool

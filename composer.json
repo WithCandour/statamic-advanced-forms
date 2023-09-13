@@ -25,5 +25,7 @@
             ]
         }
     },
-    "require": {}
+    "require": {
+        "statamic/cms": "^4.0"
+    }
 }

@@ -43,6 +43,10 @@ class FormsStore extends BasicStore implements Contract
 
         $form->paginatedFields($data['paginated_fields']);
 
+        $form->expiresEntries($data['expires_entries'] ?? null);
+
+        $form->entryLifespan($data['entry_lifespan'] ?? null);
+
         return $form;
     }
 

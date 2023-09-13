@@ -117,11 +117,10 @@ class AdvancedFormTags extends Tags
             return [];
         }
 
-        return $blueprint->sections()
+        return $blueprint->tabs()->first()->sections()
             ->map(function (Section $section) {
                 return [
                     'title' => $section->display(),
-                    'handle' => $section->handle(),
                     'fields' => $section
                         ->fields()
                         ->all()

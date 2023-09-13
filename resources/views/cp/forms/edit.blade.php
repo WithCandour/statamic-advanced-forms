@@ -10,6 +10,8 @@
         action="{{ cp_route('advanced-forms.update', $form->id()) }}"
         method="patch"
         initial-title="{{ $form->title() }}"
+        initial-expires="{{ $form->expiresEntries() }}"
+        initial-lifespan="{{ $form->entryLifespan() }}"
         index-url="{{ $form->showUrl() }}"
     ></advanced-forms-edit-form>
 @endsection
