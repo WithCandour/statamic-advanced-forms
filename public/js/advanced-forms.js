@@ -425,24 +425,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    initialTitle: String,
-    indexUrl: String,
-    action: String,
-    method: String
+    initialTitle: {
+      type: String
+    },
+    initialExpires: {
+      type: Boolean,
+      "default": false
+    },
+    initialLifespan: {
+      type: Number,
+      "default": 30
+    },
+    indexUrl: {
+      type: String
+    },
+    action: {
+      type: String
+    },
+    method: {
+      type: String
+    }
   },
   data: function data() {
     return {
       error: null,
       errors: {},
-      title: this.initialTitle
+      title: null,
+      expiresEntries: null,
+      entryLifespan: null
     };
   },
   computed: {
     payload: function payload() {
       return {
-        title: this.title
+        title: this.title,
+        expiresEntries: this.expiresEntries,
+        entryLifespan: this.entryLifespan
       };
     }
+  },
+  created: function created() {
+    this.title = this.initialTitle, this.expiresEntries = this.initialExpires, this.entryLifespan = this.initialLifespan;
   },
   methods: {
     clearErrors: function clearErrors() {
@@ -1397,8 +1420,7 @@ var render = function render() {
     attrs: {
       handle: "title",
       display: _vm.__("Title"),
-      errors: _vm.errors.title,
-      focus: true
+      errors: _vm.errors.title
     },
     model: {
       value: _vm.title,
@@ -1407,17 +1429,43 @@ var render = function render() {
       },
       expression: "title"
     }
-  })], 1), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("form-group", {
+    staticClass: "border-b",
+    attrs: {
+      handle: "expires_entries",
+      display: _vm.__("Expires Entries"),
+      errors: _vm.errors.expires_entries,
+      fieldtype: "toggle"
+    },
+    model: {
+      value: _vm.expiresEntries,
+      callback: function callback($$v) {
+        _vm.expiresEntries = $$v;
+      },
+      expression: "expiresEntries"
+    }
+  }), _vm._v(" "), _vm.expiresEntries == true ? _c("form-group", {
+    staticClass: "border-b",
+    attrs: {
+      handle: "entry_lifespan",
+      display: _vm.__("Entry Lifespan (Days)"),
+      errors: _vm.errors.entry_lifespan
+    },
+    model: {
+      value: _vm.entryLifespan,
+      callback: function callback($$v) {
+        _vm.entryLifespan = $$v;
+      },
+      expression: "entryLifespan"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "py-2 mt-3 border-t flex justify-between"
   }, [_c("a", {
     staticClass: "btn",
     attrs: {
       href: _vm.indexUrl
-    },
-    domProps: {
-      textContent: _vm._s(_vm.__("Cancel"))
     }
-  }), _vm._v(" "), _c("button", {
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c("button", {
     staticClass: "btn-primary",
     attrs: {
       type: "submit"
