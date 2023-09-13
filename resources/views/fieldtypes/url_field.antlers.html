@@ -1,8 +1,19 @@
 {{ dynamic = 'handle' }}
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
+{{ placeholder = label_type === 'placeholder' ? label : null }}
+
+{{ if label_type === 'label' }}
+<label for="afb_{{ handle }}">{{ label }}</label>
+{{ /if }}
 
 <input 
+    id="afb_{{ handle }}"
     type="url" 
     class="afb_url_field" 
     value="{{ prefill | sanitize }}" 
+    placeholder="{{ placeholder | sanitize }}"
 /> 
+
+{{ if label_type === 'label_below' }}
+<label for="afb_{{ handle }}">{{ label }}</label>
+{{ /if }}

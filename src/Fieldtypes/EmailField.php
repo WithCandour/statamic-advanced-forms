@@ -64,7 +64,7 @@ class EmailField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text';
+        $default = 'statamic-advanced-forms::fieldtypes.email_field';
 
         return view()->exists($default)
             ? $default

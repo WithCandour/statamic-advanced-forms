@@ -64,7 +64,7 @@ class WeekField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text';
+        $default = 'statamic-advanced-forms::fieldtypes.week_field';
 
         return view()->exists($default)
             ? $default

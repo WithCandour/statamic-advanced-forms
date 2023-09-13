@@ -46,6 +46,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Autocomplete;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\DateField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\DividerField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\EmailField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\HiddenField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\MonthField;
@@ -123,6 +124,7 @@ class ServiceProvider extends AddonServiceProvider
         Autocomplete::class,
         ColorField::class,
         DateField::class,
+        DividerField::class,
         EmailField::class,
         HiddenField::class,
         MonthField::class,

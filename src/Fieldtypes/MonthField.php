@@ -64,7 +64,7 @@ class MonthField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text';
+        $default = 'statamic-advanced-forms::fieldtypes.month_field';
 
         return view()->exists($default)
             ? $default

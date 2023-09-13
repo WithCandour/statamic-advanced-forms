@@ -64,7 +64,7 @@ class HiddenField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text';
+        $default = 'statamic-advanced-forms::fieldtypes.hidden_field';
 
         return view()->exists($default)
             ? $default

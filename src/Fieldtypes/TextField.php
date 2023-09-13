@@ -14,10 +14,21 @@ class TextField extends Fieldtype
             [
                 'display' => __('Input Behavior'),
                 'fields' => [
-                    'placeholder' => [
-                        'display' => __('Placeholder'),
+                    'label' => [
+                        'display' => __('Label'),
                         'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
                         'type' => 'text',
+                    ],
+                    'label_type' => [
+                        'display' => __('Label Type'),
+                        'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
+                        'type' => 'select',
+                        'options' => [
+                            'label' => 'Default Label (Above Field)',
+                            'label_below' => 'Label (Below Field)',
+                            'placeholder' => 'Placeholder'
+                        ],
+                        'default' => 'label',
                     ],
                     'default' => [
                         'display' => __('Default Value'),
@@ -64,7 +75,7 @@ class TextField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text';
+        $default = 'statamic-advanced-forms::fieldtypes.text_field';
 
         return view()->exists($default)
             ? $default
