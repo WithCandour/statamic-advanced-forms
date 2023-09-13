@@ -49,8 +49,13 @@ class TextField extends Fieldtype
                         'display' => 'Allow URL Prefill',
                         'instructions' => 'When active, the field will pull the value from a GET parameter in a URL of the same name as the field handle.',
                         'type' => 'toggle',
-                        'default' => false,
-                        'width' => 200
+                        'default' => false
+                    ],
+                    'submissions_unique' => [
+                        'display' => 'Unique Field',
+                        'instructions' => 'This is useful if you want to limit submissions to one per email address, for example.',
+                        'type' => 'toggle',
+                        'default' => false
                     ]
                 ]
             ]

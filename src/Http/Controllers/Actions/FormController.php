@@ -177,6 +177,18 @@ class FormController extends Controller
      */
     protected function extraRules(Fields $fields): array
     {
+
+        $uniqueFieldRules = $fields->all()
+            ->filter(function ($field) {
+                return $field->config()['submissions_unique'] ?? null;
+            })
+            ->mapWithKeys(function ($field) {
+                return [$field->handle() => 'unique'];
+            })
+            ->all();
+        
+        dd($uniqueFieldRules);
+
         $assetFieldRules = $fields->all()
             ->filter(function ($field) {
                 return \in_array($field->fieldtype()->handle(), self::ASSET_FIELDTYPES);
@@ -186,6 +198,6 @@ class FormController extends Controller
             })
             ->all();
 
-        return $assetFieldRules;
+        return array_merge($uniqueFieldRules, $assetFieldRules);
     }
 }
