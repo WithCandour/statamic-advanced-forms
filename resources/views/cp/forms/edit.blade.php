@@ -10,6 +10,8 @@
         action="{{ cp_route('advanced-forms.update', $form->id()) }}"
         method="patch"
         initial-title="{{ $form->title() }}"
+        initial-description="{{ $form->description() }}"
+        initial-confirmation="{{ $form->confirmationMessage() }}"
         initial-expires="{{ $form->expiresEntries() }}"
         initial-lifespan="{{ $form->entryLifespan() }}"
         index-url="{{ $form->showUrl() }}"

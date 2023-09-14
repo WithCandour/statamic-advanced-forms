@@ -95,6 +95,8 @@ class FormsController extends Controller
 
         $form = FormFacade::make($data['handle']);
         $form->title($data['title']);
+        $form->description($data['description']);
+        $form->confirmationMessage($data['confirmationMessage']);
         $form->expiresEntries($data['expiresEntries']);
         $form->entryLifespan($data['entryLifespan']);
 
@@ -151,6 +153,8 @@ class FormsController extends Controller
             'submissions' => \collect($submissions),
             'expires_entries' => $form->expiresEntries(),
             'entry_lifespan' => $form->entryLifespan(),
+            'description' => $form->description(),
+            'confirmation_message' => $form->confirmationMessage(),
             'notifications_initial_columns' => [
                 Column::make('title')->label(__('Title')),
             ],
@@ -211,6 +215,8 @@ class FormsController extends Controller
         $data = $request;
 
         $form->title($data['title']);
+        $form->description($data['description']);
+        $form->confirmationMessage($data['confirmationMessage']);
         $form->expiresEntries($data['expiresEntries']);
         $form->entryLifespan($data['entryLifespan']);
 

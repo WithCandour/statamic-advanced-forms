@@ -46,6 +46,26 @@ class Form extends AbstractForm implements Contract
     /**
      * @inheritDoc
      */
+    public function description(?string $description = null)
+    {
+        return $this
+            ->fluentlyGetOrSet('description')
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function confirmationMessage(?string $confirmationMessage = null)
+    {
+        return $this
+            ->fluentlyGetOrSet('confirmation_message')
+            ->args(func_get_args());
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function paginatedFields(?bool $value = null)
     {
         return $this

@@ -31,6 +31,22 @@ interface Form
     public function title(?string $title = null);
 
     /**
+     * Get or set the form description.
+     *
+     * @param string|null $handle
+     * @return string|void
+     */
+    public function description(?string $description = null);
+
+    /**
+     * Get or set the form confirmation message.
+     *
+     * @param string|null $handle
+     * @return string|void
+     */
+    public function confirmationMessage(?string $confirmationMessage = null);
+
+    /**
      * Get the form fields blueprint.
      *
      * @return \Statamic\Fields\Blueprint

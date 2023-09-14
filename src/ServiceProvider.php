@@ -44,6 +44,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as Adv
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Autocomplete;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\Captcha;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\DateField;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\DividerField;
@@ -122,6 +123,7 @@ class ServiceProvider extends AddonServiceProvider
         AnonymousAssets::class,
         AddressLookup::class,
         Autocomplete::class,
+        Captcha::class,
         ColorField::class,
         DateField::class,
         DividerField::class,
