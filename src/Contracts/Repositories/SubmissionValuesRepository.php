@@ -5,6 +5,7 @@ namespace WithCandour\StatamicAdvancedForms\Contracts\Repositories;
 use Illuminate\Support\Collection;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\SubmissionValues;
+use WithCandour\StatamicAdvancedForms\Models\Stache\Form;
 
 interface SubmissionValuesRepository
 {
@@ -22,4 +23,12 @@ interface SubmissionValuesRepository
      * @return SubmissionValues|null
      */
     public function findBySubmission(Submission $submission): ?SubmissionValues;
+
+    /**
+     * Find the submission values for a given form.
+     *
+     * @param Form $form
+     * @return SubmissionValues|null
+     */
+    public function findByForm(Form $form): ?Collection;
 }

@@ -12,6 +12,7 @@ use WithCandour\StatamicAdvancedForms\Contracts\Models\Submission;
 use WithCandour\StatamicAdvancedForms\Facades\Feed;
 use WithCandour\StatamicAdvancedForms\Facades\Notification;
 use WithCandour\StatamicAdvancedForms\Facades\Submission as SubmissionFacade;
+use WithCandour\StatamicAdvancedForms\Facades\SubmissionValues as SubmissionValuesFacade;
 
 abstract class AbstractForm implements Contract
 {
@@ -69,6 +70,17 @@ abstract class AbstractForm implements Contract
     {
         return collect(
             SubmissionFacade::findByForm($this)
+            ->all()
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function submissionValues(): Collection
+    {
+        return collect(
+            SubmissionValuesFacade::findByForm($this)
             ->all()
         );
     }

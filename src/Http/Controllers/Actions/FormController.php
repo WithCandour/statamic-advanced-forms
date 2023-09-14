@@ -17,6 +17,8 @@ use WithCandour\StatamicAdvancedForms\Events\AdvancedFormSubmitting;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormNotFoundException;
 use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormSubmissionRejectedException;
 use WithCandour\StatamicAdvancedForms\Facades\Form;
+use WithCandour\StatamicAdvancedForms\Forms\Rules\UniqueSubmission;
+use WithCandour\StatamicAdvancedForms\Models\Stache\Form as StacheForm;
 
 class FormController extends Controller
 {
@@ -71,13 +73,8 @@ class FormController extends Controller
         $submission = $form->makeSubmission();
 
         try {
-            // handle validation on a per-field basis.
-
-            // if captcha... if unique... etc
             $fieldValues->validate(
-
-                // if extrarules contains unique.
-                $this->extraRules($fieldValues)
+                $this->extraRules($form, $fieldValues)
             );
 
             // Allow listeners to reject forms (captcha etc)
@@ -175,19 +172,16 @@ class FormController extends Controller
      * @param Fields $fields
      * @return array
      */
-    protected function extraRules(Fields $fields): array
+    protected function extraRules(StacheForm $form, Fields $fields): array
     {
-
         $uniqueFieldRules = $fields->all()
             ->filter(function ($field) {
                 return $field->config()['submissions_unique'] ?? null;
             })
-            ->mapWithKeys(function ($field) {
-                return [$field->handle() => 'unique'];
+            ->mapWithKeys(function ($field) use ($form) {
+                return [$field->handle() => [new UniqueSubmission($form, $field->handle())]];
             })
             ->all();
-        
-        dd($uniqueFieldRules);
 
         $assetFieldRules = $fields->all()
             ->filter(function ($field) {
