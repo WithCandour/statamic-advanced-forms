@@ -41,6 +41,8 @@ class AdvancedFormTags extends Tags
 
         $data = $this->getFormSession($this->formHandle());
 
+        //dd($data);
+
         $action = $this->params->get('action', $form->actionUrl());
         $method = $this->params->get('method', 'POST');
         $knownParams = ['redirect', 'error_redirect', 'allow_request_redirect', 'csrf', 'files', 'js'];
@@ -60,12 +62,54 @@ class AdvancedFormTags extends Tags
             ], $data);
         }
 
-        $html = $this->formOpen($action, $method, $knownParams, $attrs);
+        $html = $this->flashMessage($data);
+        $html .= $this->formOpen($action, $method, $knownParams, $attrs);
         $html .= $this->formMetaFields($params);
         $html .= $this->parse($data);
         $html .= $this->formClose();
 
         return $html;
+    }
+
+    /**
+     * Get the flash for the form.
+     *
+     */
+    private function flashMessage($data)
+    {
+        if (!empty($data['errors'])) {
+            return $this->buildErrorFlash($data['errors']);
+        }
+
+        if (!empty($data['success'])) {
+            return $this->buildSuccessFlash($data['success']);
+        }
+    }
+
+    /**
+     * Get the success flash for the form.
+     *
+     * @return string
+     */
+    private function buildSuccessFlash(string $success) : string
+    {
+        return '<div class="afb__flash afb__flash--success">' . $success . '</div>';
+    }
+
+    /**
+     * Get the error flash for the form.
+     *
+     * @return string
+     */
+    private function buildErrorFlash(array $errors) : string
+    {
+        $errorList = null;
+            
+        foreach($errors as $error) { 
+            $errorList .= '<li>' . $error . '</li>';
+        } 
+
+        return '<div class="afb__flash afb__flash--error"><ul>' . $errorList . '</ul></div>';
     }
 
     /**

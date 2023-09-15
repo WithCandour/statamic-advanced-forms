@@ -138,9 +138,11 @@ class FormController extends Controller
             ]);
         }
 
-        $formHandle = $submission->form()->handle();
+        $form = $submission->form();
 
-        session()->flash(self::FORM_SESSION_PREFIX . $formHandle . '.success', __('Submission successful'));
+        $confirmationMessage = $form->confirmationMessage() ?? __('Submission successful');
+
+        session()->flash(self::FORM_SESSION_PREFIX . $form->handle() . '.success', $confirmationMessage);
 
         return back();
     }

@@ -17,6 +17,8 @@ class Form extends AbstractForm implements Contract
     protected $id;
     protected $title;
     protected $handle;
+    protected $description;
+    protected $confirmationMessage;
 
     public function id(): string
     {
@@ -130,6 +132,8 @@ class Form extends AbstractForm implements Contract
     {
         $data = [
             'title' => $this->title(),
+            'description' => $this->description(),
+            'confirmation_message' => $this->confirmationMessage(),
             'expires_entries' => $this->expiresEntries(),
             'entry_lifespan' => $this->entryLifespan(),
             'paginated_fields' => $this->paginatedFields(),
