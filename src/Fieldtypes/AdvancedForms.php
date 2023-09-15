@@ -2,7 +2,6 @@
 
 namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
-use Illuminate\Support\Collection;
 use Statamic\CP\Column;
 use Statamic\Fieldtypes\Relationship;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;

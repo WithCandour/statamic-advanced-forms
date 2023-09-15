@@ -50,6 +50,7 @@ class AdvancedFormTags extends Tags
         $data['pages'] = $this->getPages();
 
         $attrs = [];
+        $attrs['class'] = 'afb__form';
 
         $params = [];
 

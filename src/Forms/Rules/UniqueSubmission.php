@@ -32,6 +32,5 @@ class UniqueSubmission implements InvokableRule
                     $fail('The :attribute must be unique.');
                 };
             });
-
     }
 }

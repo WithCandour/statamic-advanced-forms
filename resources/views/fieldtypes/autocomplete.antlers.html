@@ -1,12 +1,21 @@
 <div class="statamic-advanced-forms__autocomplete">
-    <input type="text" id="{{ handle }}__target" />
 
-    <input type="hidden" id="{{ handle }}__values" data-options="{{ options }}" />
+    {{ if label_type === 'label' }}
+    <label for="afb_{{ handle }}">{{ label }}</label>
+    {{ /if }}
+
+    <input type="text" id="{{ handle }}__target" />
+    
+    {{ if label_type === 'label_below' }}
+    <label for="afb_{{ handle }}">{{ label }}</label>
+    {{ /if }}
 
     <div class="autocomplete-container">
         <ul>
         </ul>
     </div>
+
+    <input type="hidden" id="{{ handle }}__values" data-options="{{ options }}" />
 </div>
 
 <script>

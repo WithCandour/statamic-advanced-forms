@@ -14,10 +14,21 @@ class TelField extends Fieldtype
             [
                 'display' => __('Input Behavior'),
                 'fields' => [
-                    'placeholder' => [
-                        'display' => __('Placeholder'),
+                    'label' => [
+                        'display' => __('Label'),
                         'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
                         'type' => 'text',
+                    ],
+                    'label_type' => [
+                        'display' => __('Label Type'),
+                        'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
+                        'type' => 'select',
+                        'options' => [
+                            'label' => 'Default Label (Above Field)',
+                            'label_below' => 'Label (Below Field)',
+                            'placeholder' => 'Placeholder'
+                        ],
+                        'default' => 'label',
                     ],
                     'default' => [
                         'display' => __('Default Value'),
@@ -38,8 +49,13 @@ class TelField extends Fieldtype
                         'display' => 'Allow URL Prefill',
                         'instructions' => 'When active, the field will pull the value from a GET parameter in a URL of the same name as the field handle.',
                         'type' => 'toggle',
-                        'default' => false,
-                        'width' => 200
+                        'default' => false
+                    ],
+                    'submissions_unique' => [
+                        'display' => 'Unique Field',
+                        'instructions' => 'This is useful if you want to limit submissions to one per email address, for example.',
+                        'type' => 'toggle',
+                        'default' => false
                     ]
                 ]
             ]

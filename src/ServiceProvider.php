@@ -168,6 +168,10 @@ class ServiceProvider extends AddonServiceProvider
         __DIR__ . '/../public/js/advanced-forms.js',
     ];
 
+    protected $stylesheets = [
+        __DIR__ . '/../public/css/advanced-forms.css',
+    ];
+
     protected $publishables = [
         __DIR__ . '/../resources/js/address-lookup-service.js' => 'js/address-lookup-service.js',
     ];
