@@ -18,6 +18,8 @@
         "yarn": "^1.22.19"
     },
     "devDependencies": {
-        "@types/marked": "^4.0.8"
+        "@types/marked": "^4.0.8",
+        "less": "^4.2.0",
+        "less-loader": "^11.1.3"
     }
 }
