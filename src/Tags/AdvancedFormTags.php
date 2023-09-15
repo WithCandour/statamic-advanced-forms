@@ -41,8 +41,6 @@ class AdvancedFormTags extends Tags
 
         $data = $this->getFormSession($this->formHandle());
 
-        //dd($data);
-
         $action = $this->params->get('action', $form->actionUrl());
         $method = $this->params->get('method', 'POST');
         $knownParams = ['redirect', 'error_redirect', 'allow_request_redirect', 'csrf', 'files', 'js'];
