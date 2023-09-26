@@ -4,10 +4,10 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class DateField extends Fieldtype
+class EmailInput extends Fieldtype
 {
     protected $categories = ['special'];
-    
+
     public function configFieldItems(): array
     {
         return [
@@ -80,7 +80,7 @@ class DateField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.date_field';
+        $default = 'statamic-advanced-forms::fieldtypes.email_field';
 
         return view()->exists($default)
             ? $default

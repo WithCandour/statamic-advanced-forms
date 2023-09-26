@@ -4,7 +4,7 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class DividerField extends Fieldtype
+class Divider extends Fieldtype
 {
     protected $categories = ['special'];
     

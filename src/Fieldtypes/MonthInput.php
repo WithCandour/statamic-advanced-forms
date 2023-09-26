@@ -4,10 +4,10 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class NumberField extends Fieldtype
+class MonthInput extends Fieldtype
 {
     protected $categories = ['special'];
-
+    
     public function configFieldItems(): array
     {
         return [
@@ -80,7 +80,7 @@ class NumberField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.number_field';
+        $default = 'statamic-advanced-forms::fieldtypes.month_field';
 
         return view()->exists($default)
             ? $default

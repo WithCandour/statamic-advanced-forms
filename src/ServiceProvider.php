@@ -45,20 +45,20 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Autocomplete;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Captcha;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\DateField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\DividerField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\EmailField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\HiddenField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\MonthField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\NumberField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\PasswordField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\TelField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\TextareaField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\TextField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\TimeField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\UrlField;
-use WithCandour\StatamicAdvancedForms\Fieldtypes\WeekField;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\DateInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\Divider;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\EmailInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\HiddenInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\MonthInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\NumberInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\PasswordInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TelInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TextareaInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TextInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\TimeInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\UrlInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\WeekInput;
 
 use WithCandour\StatamicAdvancedForms\Jobs\ExpireSubmissions;
 use WithCandour\StatamicAdvancedForms\Models\Stache\Feed;
@@ -124,20 +124,20 @@ class ServiceProvider extends AddonServiceProvider
         AddressLookup::class,
         Autocomplete::class,
         Captcha::class,
-        ColorField::class,
-        DateField::class,
-        DividerField::class,
-        EmailField::class,
-        HiddenField::class,
-        MonthField::class,
-        NumberField::class,
-        PasswordField::class,
-        TelField::class,
-        TextareaField::class,
-        TextField::class,
-        TimeField::class,
-        UrlField::class,
-        WeekField::class,
+        ColorInput::class,
+        DateInput::class,
+        Divider::class,
+        EmailInput::class,
+        HiddenInput::class,
+        MonthInput::class,
+        NumberInput::class,
+        PasswordInput::class,
+        TelInput::class,
+        TextareaInput::class,
+        TextInput::class,
+        TimeInput::class,
+        UrlInput::class,
+        WeekInput::class,
     ];
 
     /**

@@ -4,7 +4,7 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class WeekField extends Fieldtype
+class DateInput extends Fieldtype
 {
     protected $categories = ['special'];
     
@@ -80,7 +80,7 @@ class WeekField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.week_field';
+        $default = 'statamic-advanced-forms::fieldtypes.date_field';
 
         return view()->exists($default)
             ? $default

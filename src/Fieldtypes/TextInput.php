@@ -4,10 +4,10 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class TimeField extends Fieldtype
+class TextInput extends Fieldtype
 {
     protected $categories = ['special'];
-    
+
     public function configFieldItems(): array
     {
         return [
@@ -80,7 +80,7 @@ class TimeField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.time_field';
+        $default = 'statamic-advanced-forms::fieldtypes.text_field';
 
         return view()->exists($default)
             ? $default

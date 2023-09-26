@@ -4,10 +4,10 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class EmailField extends Fieldtype
+class PasswordInput extends Fieldtype
 {
     protected $categories = ['special'];
-
+    
     public function configFieldItems(): array
     {
         return [
@@ -49,13 +49,8 @@ class EmailField extends Fieldtype
                         'display' => 'Allow URL Prefill',
                         'instructions' => 'When active, the field will pull the value from a GET parameter in a URL of the same name as the field handle.',
                         'type' => 'toggle',
-                        'default' => false
-                    ],
-                    'submissions_unique' => [
-                        'display' => 'Unique Field',
-                        'instructions' => 'This is useful if you want to limit submissions to one per email address, for example.',
-                        'type' => 'toggle',
-                        'default' => false
+                        'default' => false,
+                        'width' => 200
                     ]
                 ]
             ]
@@ -80,7 +75,7 @@ class EmailField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.email_field';
+        $default = 'statamic-advanced-forms::fieldtypes.password_field';
 
         return view()->exists($default)
             ? $default

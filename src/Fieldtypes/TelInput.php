@@ -4,7 +4,7 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class ColorField extends Fieldtype
+class TelInput extends Fieldtype
 {
     protected $categories = ['special'];
     
@@ -80,7 +80,7 @@ class ColorField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.color_field';
+        $default = 'statamic-advanced-forms::fieldtypes.tel_field';
 
         return view()->exists($default)
             ? $default

@@ -4,7 +4,7 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class TelField extends Fieldtype
+class TimeInput extends Fieldtype
 {
     protected $categories = ['special'];
     
@@ -80,7 +80,7 @@ class TelField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.tel_field';
+        $default = 'statamic-advanced-forms::fieldtypes.time_field';
 
         return view()->exists($default)
             ? $default

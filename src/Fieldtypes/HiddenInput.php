@@ -4,31 +4,20 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class TextField extends Fieldtype
+class HiddenInput extends Fieldtype
 {
     protected $categories = ['special'];
-
+    
     public function configFieldItems(): array
     {
         return [
             [
                 'display' => __('Input Behavior'),
                 'fields' => [
-                    'label' => [
-                        'display' => __('Label'),
+                    'placeholder' => [
+                        'display' => __('Placeholder'),
                         'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
                         'type' => 'text',
-                    ],
-                    'label_type' => [
-                        'display' => __('Label Type'),
-                        'instructions' => __('statamic::fieldtypes.text.config.placeholder'),
-                        'type' => 'select',
-                        'options' => [
-                            'label' => 'Default Label (Above Field)',
-                            'label_below' => 'Label (Below Field)',
-                            'placeholder' => 'Placeholder'
-                        ],
-                        'default' => 'label',
                     ],
                     'default' => [
                         'display' => __('Default Value'),
@@ -80,7 +69,7 @@ class TextField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.text_field';
+        $default = 'statamic-advanced-forms::fieldtypes.hidden_field';
 
         return view()->exists($default)
             ? $default

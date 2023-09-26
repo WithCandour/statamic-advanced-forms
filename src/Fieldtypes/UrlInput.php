@@ -4,10 +4,10 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 
-class TextareaField extends Fieldtype
+class UrlInput extends Fieldtype
 {
     protected $categories = ['special'];
-    
+
     public function configFieldItems(): array
     {
         return [
@@ -80,7 +80,7 @@ class TextareaField extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.textarea_field';
+        $default = 'statamic-advanced-forms::fieldtypes.url_field';
 
         return view()->exists($default)
             ? $default
