@@ -86,7 +86,7 @@ class NotificationsController extends Controller
         ];
     }
 
-    public function edit(string $formId, string $notificationId,Request $request)
+    public function edit(string $formId, string $notificationId, Request $request)
     {
         $this->authorize('edit advanced forms notifications');
 

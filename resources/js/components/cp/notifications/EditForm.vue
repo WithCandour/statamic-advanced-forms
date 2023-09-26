@@ -12,10 +12,11 @@
         @updated="values = $event"
     >
         <div slot-scope="{ setFieldValue, setFieldMeta }">
-            <configure-sections
+            <configure-tabs
                 @updated="setFieldValue"
                 @meta-updated="setFieldMeta"
-                :enable-sidebar="false"/>
+                :enable-sidebar="false"
+            />
 
             <div class="py-2 border-t flex justify-between">
                 <a :href="formUrl" class="btn" v-text="__('Cancel') "/>

@@ -991,7 +991,7 @@ var render = function render() {
       fn: function fn(_ref) {
         var setFieldValue = _ref.setFieldValue,
           setFieldMeta = _ref.setFieldMeta;
-        return _c("div", {}, [_c("configure-sections", {
+        return _c("div", {}, [_c("configure-tabs", {
           attrs: {
             "enable-sidebar": false
           },
@@ -1019,7 +1019,7 @@ var render = function render() {
           }
         }, [_vm._v(_vm._s(_vm.__("Save")))])])], 1);
       }
-    }], null, false, 2678181462)
+    }], null, false, 3269221288)
   }) : _vm._e();
 };
 var staticRenderFns = [];
@@ -1596,7 +1596,7 @@ var render = function render() {
       fn: function fn(_ref) {
         var setFieldValue = _ref.setFieldValue,
           setFieldMeta = _ref.setFieldMeta;
-        return _c("div", {}, [_c("configure-sections", {
+        return _c("div", {}, [_c("configure-tabs", {
           attrs: {
             "enable-sidebar": false
           },
@@ -1624,7 +1624,7 @@ var render = function render() {
           }
         }, [_vm._v(_vm._s(_vm.__("Save")))])])], 1);
       }
-    }], null, false, 2678181462)
+    }], null, false, 3269221288)
   }) : _vm._e();
 };
 var staticRenderFns = [];
