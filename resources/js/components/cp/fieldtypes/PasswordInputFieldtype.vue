@@ -1,5 +1,5 @@
 <template>
-    <text-input v-model="value" id="field_autocomplete" :disabled="readOnly" />
+    <password-input v-model="value" id="field_passwordInput" :disabled="readOnly" />
 </template>
 <script>
 

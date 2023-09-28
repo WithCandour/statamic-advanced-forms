@@ -1,5 +1,5 @@
 <template>
-    <text-input v-model="value" id="field_autocomplete" :disabled="readOnly" />
+    <text-input v-model="value" id="field_colorInput" :disabled="readOnly" />
 </template>
 <script>
 
