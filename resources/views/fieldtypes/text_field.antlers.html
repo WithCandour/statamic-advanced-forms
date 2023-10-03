@@ -1,6 +1,7 @@
 {{ dynamic = 'handle' }}
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
 {{ placeholder = label_type === 'placeholder' ? label : null }}
+{{ attribute = autocomplete_attribute ?? autocomplete }}
 
 {{ if label_type === 'label' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
@@ -13,6 +14,7 @@
     name="{{ handle }}"
     value="{{ prefill | sanitize }}"
     placeholder="{{ placeholder | sanitize }}"
+    autocomplete="{{ attribute }}" 
 />
 
 {{ if label_type === 'label_below' }}

@@ -45,6 +45,19 @@ class UrlInput extends Fieldtype
             [
                 'display' => __('Advanced Form Builder'),
                 'fields' => [
+                    'autocomplete' => [
+                        'display' => 'Allow Autocomplete',
+                        'instructions' => 'When active, the field will pull autocomplete values from the browser.',
+                        'type' => 'toggle',
+                        'default' => false,
+                        'width' => 100
+                    ],
+                    'autocomplete_attribute' => [
+                        'display' => 'Autocomplete Attribute',
+                        'instructions' => 'When autocomplete is active, you can specify which attribute you would like to select.',
+                        'type' => 'text',
+                        'width' => 100
+                    ],
                     'allow_url_prefill' => [
                         'display' => 'Allow URL Prefill',
                         'instructions' => 'When active, the field will pull the value from a GET parameter in a URL of the same name as the field handle.',

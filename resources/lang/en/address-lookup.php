@@ -1,7 +1,11 @@
 <?php
 
 return [
-    'toggle' => [
+    'autocomplete' => [
+        'label' => 'Allow Autocomplete',
+        'instructions' => 'Allow users to use browser autocomplete.',
+    ],
+    'allow_country_select' => [
         'label' => 'Allow Country Select',
         'instructions' => 'Allow users to select their own countries in a dropdown list.',
     ],

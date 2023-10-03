@@ -43,9 +43,16 @@ class AddressLookup extends Fieldtype
     public function configFieldItems(): array
     {
         return [
+            'autocomplete' => [
+                'display' => __('advanced-forms::address-lookup.autocomplete.label'),
+                'instructions' => __('advanced-forms::address-lookup.autocomplete.instructions'),
+                'type' => 'toggle',
+                'default' => false,
+                'width' => 100
+            ],
             'allow_country_select' => [
-                'display' => __('advanced-forms::address-lookup.toggle.label'),
-                'instructions' => __('advanced-forms::address-lookup.toggle.instructions'),
+                'display' => __('advanced-forms::address-lookup.allow_country_select.label'),
+                'instructions' => __('advanced-forms::address-lookup.allow_country_select.instructions'),
                 'type' => 'toggle',
                 'default' => false,
                 'width' => 100

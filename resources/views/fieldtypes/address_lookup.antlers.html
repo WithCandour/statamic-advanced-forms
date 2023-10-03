@@ -1,7 +1,7 @@
 <div id="{{ handle }}">
 
     {{# Country Input #}}
-    {{ if config.allow_country_select }}
+    {{ if allow_country_select }}
     <div>
         <label for="safb__{{ handle }}__country">Country</label>
         <select name="{{ handle }}[country]" id="safb__{{ handle }}__country">
@@ -261,27 +261,57 @@
     {{# Organisation Input #}}
     <div>
         <label for="safb__{{ handle }}__organisation">Organisation</label>
-        <input type="text" name="{{ handle }}[organisation]" id="safb__{{ handle }}__organisation" />
+        <input 
+            type="text" 
+            name="{{ handle }}[organisation]" 
+            id="safb__{{ handle }}__organisation"
+            autocomplete="{{ autocomplete ? 'organisation' : false }}" 
+        />
     </div>
 
     {{# Address Inputs #}}
     <div>
         <label for="safb__{{ handle }}__addressLineOne">Address</label>
-        <input type="text" name="{{ handle }}[address_line_one]" id="safb__{{ handle }}__addressLineOne" />
-        <input type="text" name="{{ handle }}[address_line_two]" id="safb__{{ handle }}__addressLineTwo" />
-        <input type="text" name="{{ handle }}[address_line_three]" id="safb__{{ handle }}__addressLineThree" />
+        <input 
+            type="text" 
+            name="{{ handle }}[address_line_one]" 
+            id="safb__{{ handle }}__addressLineOne"
+            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+        />
+        <input 
+            type="text" 
+            name="{{ handle }}[address_line_two]" 
+            id="safb__{{ handle }}__addressLineTwo" 
+            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+        />
+        <input 
+            type="text" 
+            name="{{ handle }}[address_line_three]" 
+            id="safb__{{ handle }}__addressLineThree" 
+            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+        />
     </div>
 
     {{# Town Input #}}
     <div>
         <label for="safb__{{ handle }}__postTown">Town</label>
-        <input type="text" name="{{ handle }}[posttown]" id="safb__{{ handle }}__postTown" />
+        <input 
+            type="text" 
+            name="{{ handle }}[posttown]" 
+            id="safb__{{ handle }}__postTown" 
+            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+        />
     </div>
 
     {{# Postcode Input #}}
     <div>
         <label for="safb__{{ handle }}__postCode">Postcode</label>
-        <input type="text" name="{{ handle }}[postcode]" id="safb__{{ handle }}__postCode">
+        <input 
+            type="text" 
+            name="{{ handle }}[postcode]" 
+            id="safb__{{ handle }}__postCode" 
+            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+        />
     </div>
     
 </div>
