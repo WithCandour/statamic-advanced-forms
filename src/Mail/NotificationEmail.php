@@ -37,6 +37,26 @@ class NotificationEmail extends Mailable
      */
     protected function addData(): self
     {
+        $type = $this->notification->get('content_type', 'fields');
+
+        switch($type) {
+            case 'fields':
+                $data = $this->getFields();
+                break;
+            case 'content':
+                $data = $this->getContent();
+        }
+
+        return $this->with($data);
+    }
+
+    /**
+     * Get the submission fields for the notification.
+     *
+     * @return array
+     */
+    protected function getFields(): array
+    {
         $augmented = $this->submission->values()?->toAugmentedArray() ?? [];
 
         $data = [
@@ -44,7 +64,22 @@ class NotificationEmail extends Mailable
             'date' => now(),
         ];
 
-        return $this->with($data);
+        return $data;
+    }
+
+    /**
+     * Get the content for the notification.
+     *
+     * @return array
+     */
+    protected function getContent(): array
+    {
+        $data = [
+            'content' => $this->notification->get('notification_content'),
+            'date' => now(),
+        ];
+
+        return $data;
     }
 
     /**
@@ -77,7 +112,18 @@ class NotificationEmail extends Mailable
      */
     public function addView(): self
     {
-        $this->view($this->notification->get('html_view') ?? 'advanced-forms::email.default');
+        $type = $this->notification->get('content_type', 'fields');
+
+        switch($type) {
+            case 'fields':
+                $default = 'advanced-forms::email.default';
+                break;
+            case 'content':
+                $default = 'advanced-forms::email.default_content';
+        }
+
+        $this->view($this->notification->get('html_view') ?? $default);
+
         return $this;
     }
 

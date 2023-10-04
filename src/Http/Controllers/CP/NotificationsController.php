@@ -236,18 +236,18 @@ class NotificationsController extends Controller
                         'inline' => true,
                         'default' => 'list',
                         'options' => [
-                            'list' => 'All Submission Fields',
-                            'custom' => 'Custom Content'
+                            'fields' => 'All Submission Fields',
+                            'content' => 'Text Content'
                         ],
                         'validate' => 'required'
                     ],
-                    'email_content' => [
-                        'display' => 'Email Content',
+                    'notification_content' => [
+                        'display' => 'Notification Content',
                         'type' => 'bard',
                         'if' => [
-                            'content_type' => 'equals custom'
+                            'content_type' => 'equals content'
                         ],
-                        'validate' => 'required_if:content_type,custom'
+                        'validate' => 'required_if:content_type,content'
                     ],
                     'html_view' => [
                         'type' => 'template',
