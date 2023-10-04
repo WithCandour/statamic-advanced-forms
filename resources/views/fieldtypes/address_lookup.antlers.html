@@ -272,30 +272,34 @@
             type="text" 
             name="{{ handle }}[organisation]" 
             id="safb__{{ handle }}__organisation"
-            autocomplete="{{ autocomplete ? 'organisation' : false }}" 
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}" 
         />
     </div>
 
     {{# Address Inputs #}}
     <div>
-        <label for="safb__{{ handle }}__addressLineOne">Address</label>
+        <label for="safb__{{ handle }}__addressLineOne">Address Line One</label>
         <input 
             type="text" 
             name="{{ handle }}[address_line_one]" 
             id="safb__{{ handle }}__addressLineOne"
-            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
+            autocomplete="{{ autocomplete ? 'address-line1' : 'false' }}"
         />
+
+        <label for="safb__{{ handle }}__addressLineTwo">Address Line Two</label>
         <input 
             type="text" 
             name="{{ handle }}[address_line_two]" 
             id="safb__{{ handle }}__addressLineTwo" 
-            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
+            autocomplete="{{ autocomplete ? 'address-line2' : 'false' }}"
         />
+
+        <label for="safb__{{ handle }}__addressLineThree">Address Line Three</label>
         <input 
             type="text" 
             name="{{ handle }}[address_line_three]" 
             id="safb__{{ handle }}__addressLineThree" 
-            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
+            autocomplete="{{ autocomplete ? 'address-line3' : 'false' }}"
         />
     </div>
 
@@ -306,7 +310,7 @@
             type="text" 
             name="{{ handle }}[posttown]" 
             id="safb__{{ handle }}__postTown" 
-            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
+            autocomplete="{{ autocomplete ? 'address-level1' : 'false' }}"
         />
     </div>
 
@@ -317,7 +321,7 @@
             type="text" 
             name="{{ handle }}[postcode]" 
             id="safb__{{ handle }}__postCode" 
-            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
+            autocomplete="{{ autocomplete ? 'postal-code' : 'false' }}"
         />
     </div>
     
