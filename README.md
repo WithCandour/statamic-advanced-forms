@@ -27,3 +27,7 @@ Protect sensitive files uploaded to your forms by selecting an asset container w
 ### Address Lookup
 Add address lookup functionality into your forms with our Address Lookup field, using the Postcoder API. Simply add your Postcoder API key into your .env file:
 `POSTCODER_API_KEY=YOUR_KEY_GOES_HERE`
+
+### Captcha
+Add a captcha into your forms with our Captcha field, using the reCaptcha. Simply add your reCaptcha API key into your .env file:
+`RECAPTCHA_API_KEY=YOUR_KEY_GOES_HERE`
