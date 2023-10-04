@@ -75,4 +75,16 @@ return [
     */
 
     'postcoder_api_key' => env('POSTCODER_API_KEY'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | reCAPTCHA API Key
+    |--------------------------------------------------------------------------
+    |
+    | The API key for reCAPTCHA.
+    |
+    */
+
+    'recaptcha_api_key' => env('RECAPTCHA_API_KEY'),
 ];

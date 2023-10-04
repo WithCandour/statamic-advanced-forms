@@ -1,3 +1,10 @@
+{{ sitekey = config:statamic:advanced-forms:recaptcha_site_key ?? null }}
+
+{{ if !sitekey }}
+<div>
+    <p>Please enter a valid Postcoder API key.</p>
+</div>  
+{{ else }}      
 <div id="{{ handle }}">
 
     {{# Country Input #}}
@@ -242,11 +249,11 @@
     {{# Search Input #}}
     <div>
         <label for="safb__{{ handle }}__search">Search for an address or postcode</label>
-        <button type="button" id="safb__{{ handle }}__searchButton">
-            Search
-        </button>
         <div class="search_wrap">
             <input type="text" id="safb__{{ handle }}__search" />
+            <button type="button" id="safb__{{ handle }}__searchButton">
+                Search
+            </button>
         </div>
     </div>
 
@@ -276,19 +283,19 @@
             type="text" 
             name="{{ handle }}[address_line_one]" 
             id="safb__{{ handle }}__addressLineOne"
-            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
         />
         <input 
             type="text" 
             name="{{ handle }}[address_line_two]" 
             id="safb__{{ handle }}__addressLineTwo" 
-            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
         />
         <input 
             type="text" 
             name="{{ handle }}[address_line_three]" 
             id="safb__{{ handle }}__addressLineThree" 
-            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
         />
     </div>
 
@@ -299,7 +306,7 @@
             type="text" 
             name="{{ handle }}[posttown]" 
             id="safb__{{ handle }}__postTown" 
-            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
         />
     </div>
 
@@ -310,12 +317,12 @@
             type="text" 
             name="{{ handle }}[postcode]" 
             id="safb__{{ handle }}__postCode" 
-            autocomplete="{{ autocomplete ? 'organisation' : false }}"
+            autocomplete="{{ autocomplete ? 'organisation' : 'false' }}"
         />
     </div>
     
 </div>
-
+{{ /if }}
 
 <script type="module">
     // import module

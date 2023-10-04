@@ -1,3 +1,10 @@
-<div class="g-recaptcha brochure__form__captcha" data-sitekey="{{ config:statamic:advanced-forms:captcha_site_key }}"></div>
+{{ sitekey = config:statamic:advanced-forms:recaptcha_site_key ?? null }}
+
+<div class="g-recaptcha brochure__form__captcha" data-sitekey="{{ config:statamic:advanced-forms:recaptcha_site_key }}"></div>
+{{ if !sitekey }}
+<div>
+    <p>Please enter a valid reCaptcha API key.</p>
+</div>        
+{{ /if }}
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
