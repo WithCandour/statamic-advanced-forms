@@ -234,11 +234,11 @@ class NotificationsController extends Controller
                         'display' => 'Content Type',
                         'type' => 'radio',
                         'inline' => true,
-                        'default' => 'list',
                         'options' => [
                             'fields' => 'All Submission Fields',
                             'content' => 'Text Content'
                         ],
+                        'default' => 'fields',
                         'validate' => 'required'
                     ],
                     'notification_content' => [
