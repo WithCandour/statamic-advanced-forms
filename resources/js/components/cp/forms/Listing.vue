@@ -10,12 +10,12 @@
             :visible-columns="columns"
             :columns="columns"
             :rows="items"
+            :search-query="searchQuery"
         >
             <div class="card p-0 relative">
 
                 <div class="data-list-header">
                     <data-list-search 
-                        ref="search"
                         v-model="searchQuery"
                     />
                 </div>
@@ -80,8 +80,7 @@ export default {
             this.$axios.post(cp_url('/advanced-forms/api/search'), {'params': this.params}).then(response => {
                 this.loading = false;
                 this.initializing = false;
-                this.rows = response.data.data;
-                this.meta = response.data.meta;
+                this.items = response.data;
             }).catch(e => {
                 this.loading = false;
                 this.error = true;
