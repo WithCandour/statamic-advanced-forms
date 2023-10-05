@@ -15,6 +15,7 @@ import AnonymousAssetsFieldtype from './components/cp/fieldtypes/AnonymousAssets
 import AddressLookupFieldtype from './components/cp/fieldtypes/AddressLookupFieldtype';
 import ColorInputFieldtype from './components/cp/fieldtypes/ColorInputFieldtype';
 import DateInputFieldtype from './components/cp/fieldtypes/DateInputFieldtype';
+import DividerFieldtype from './components/cp/fieldtypes/DividerFieldtype';
 import EmailInputFieldtype from './components/cp/fieldtypes/EmailInputFieldtype';
 import HiddenInputFieldtype from './components/cp/fieldtypes/HiddenInputFieldtype';
 import MonthInputFieldtype from './components/cp/fieldtypes/MonthInputFieldtype';
@@ -23,6 +24,7 @@ import PasswordInputFieldtype from './components/cp/fieldtypes/PasswordInputFiel
 import TelInputFieldtype from './components/cp/fieldtypes/TelInputFieldtype';
 import TextareaInputFieldtype from './components/cp/fieldtypes/TextareaInputFieldtype';
 import TextInputFieldtype from './components/cp/fieldtypes/TextInputFieldtype';
+import TimeInputFieldtype from './components/cp/fieldtypes/TimeInputFieldtype';
 import UrlInputFieldtype from './components/cp/fieldtypes/UrlInputFieldtype';
 import WeekInputFieldtype from './components/cp/fieldtypes/WeekInputFieldtype';
 
@@ -43,10 +45,11 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-submission-note', SubmissionNote);
 
     // Fieldtypes
-    Statamic.$components.register('anonymous_assets-fieldtype', AnonymousAssetsFieldtype);
+    Statamic.$components.register('anonymous-assets-fieldtype', AnonymousAssetsFieldtype);
     Statamic.$components.register('address_lookup-fieldtype', AddressLookupFieldtype);
     Statamic.$components.register('color_input-fieldtype', ColorInputFieldtype);
     Statamic.$components.register('date_input-fieldtype', DateInputFieldtype);
+    Statamic.$components.register('divider-fieldtype', DividerFieldtype);
     Statamic.$components.register('email_input-fieldtype', EmailInputFieldtype);
     Statamic.$components.register('hidden_input-fieldtype', HiddenInputFieldtype);
     Statamic.$components.register('month_input-fieldtype', MonthInputFieldtype);
@@ -55,6 +58,7 @@ Statamic.booting(() => {
     Statamic.$components.register('tel_input-fieldtype', TelInputFieldtype);
     Statamic.$components.register('textarea_input-fieldtype', TextareaInputFieldtype);
     Statamic.$components.register('text_input-fieldtype', TextInputFieldtype);
+    Statamic.$components.register('time_input-fieldtype', TimeInputFieldtype);
     Statamic.$components.register('url_input-fieldtype', UrlInputFieldtype);
     Statamic.$components.register('week_input-fieldtype', WeekInputFieldtype);
 });
