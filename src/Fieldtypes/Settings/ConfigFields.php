@@ -64,7 +64,7 @@ class ConfigFields
             'if' => [
                 'autocomplete' => 'equals true'
             ],
-            'default' => 'label',
+            'default' => 'on',
         ];
     }
 
