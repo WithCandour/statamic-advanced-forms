@@ -3,6 +3,7 @@
 namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\Settings\ConfigFields;
 
 class PasswordInput extends Fieldtype
 {
@@ -45,13 +46,7 @@ class PasswordInput extends Fieldtype
             [
                 'display' => __('Advanced Form Builder'),
                 'fields' => [
-                    'allow_url_prefill' => [
-                        'display' => 'Allow URL Prefill',
-                        'instructions' => 'When active, the field will pull the value from a GET parameter in a URL of the same name as the field handle.',
-                        'type' => 'toggle',
-                        'default' => false,
-                        'width' => 200
-                    ]
+                    'allow_url_prefill' => ConfigFields::enableDynamicPopulation(),
                 ]
             ]
         ];
