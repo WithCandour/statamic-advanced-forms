@@ -23,7 +23,6 @@ class ConfigFields
             'type' => 'select',
             'width' => 100,
             'options' => [
-                'off' => 'Off',
                 'on' => 'On',
                 'name' => 'Name',
                 'honorific-prefix' => 'Honorific Prefix (Mr, Miss, Dr, etc)',
