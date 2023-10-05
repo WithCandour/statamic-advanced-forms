@@ -127,11 +127,6 @@ class SubmissionsController extends Controller
                     ];
                 });;
 
-        ray([
-            $feedNotes,
-            $notificationNotes,
-        ])->orange();
-
         $breadcrumb = Breadcrumbs::make([
             [
                 'text' => __('advanced-forms::messages.title'),

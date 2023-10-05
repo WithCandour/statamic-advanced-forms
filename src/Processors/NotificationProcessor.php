@@ -18,8 +18,6 @@ class NotificationProcessor implements Contract
             ->filter(fn (Notification $notification) => $notification->shouldSend($submission))
             ->values();
 
-        ray($notificationsForSubmission)->green();
-
         $notificationsForSubmission->each(function (Notification $notification) use ($submission) {
             $notification->send($submission);
         });
