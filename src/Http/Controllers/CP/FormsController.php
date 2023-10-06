@@ -9,7 +9,6 @@ use Statamic\Facades\Action;
 use WithCandour\StatamicAdvancedForms\Contracts\Feeds\FeedTypeRepository;
 use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
-use Statamic\Facades\Search;
 
 class FormsController extends Controller
 {
@@ -55,7 +54,7 @@ class FormsController extends Controller
         );
     }
 
-    public function apiSearch(Request $request)
+    public function search(Request $request)
     {
         $this->authorize('access advanced forms');
         

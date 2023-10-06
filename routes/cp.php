@@ -48,7 +48,7 @@ Route::namespace('\WithCandour\StatamicAdvancedForms\Http\Controllers\CP')
         });
 
         Route::prefix('advanced-forms/api')->group(function () {
-            Route::post('search', [FormsController::class, 'apiSearch'])->name('advanced-forms.api.search');
+            Route::post('search', [FormsController::class, 'search'])->name('advanced-forms.api.search');
         });
 
         Route::resource('advanced-forms', FormsController::class);
