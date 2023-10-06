@@ -27,6 +27,8 @@ class NotificationEmail extends Mailable
             ->from($this->notification->get('send_from_email'))
             ->addData()
             ->addToAddress()
+            ->addCcAddress()
+            ->addBccAddress()
             ->addView();
     }
 
@@ -101,6 +103,30 @@ class NotificationEmail extends Mailable
             default:
                 $this->to($this->notification->get('send_to_email'));
         }
+
+        return $this;
+    }
+
+    /**
+     * Add the "cc" address for this notification email.
+     *
+     * @return self
+     */
+    public function addCcAddress(): self
+    {
+        $this->cc($this->notification->get('cc_email'));
+
+        return $this;
+    }
+
+     /**
+     * Add the "bcc" address for this notification email.
+     *
+     * @return self
+     */
+    public function addBccAddress(): self
+    {
+        $this->bcc($this->notification->get('bcc_email'));
 
         return $this;
     }

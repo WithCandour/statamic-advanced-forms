@@ -225,6 +225,18 @@ class NotificationsController extends Controller
                         'type' => 'text',
                         'validate' => 'required|email'
                     ],
+                    'cc_email' => [
+                        'display' => 'CC Email Address',
+                        'instructions' => 'Enter a comma separated list of cc recipient email addresses.',
+                        'type' => 'text',
+                        'placeholder' => 'example@example.com'
+                    ],
+                    'bcc_email' => [
+                        'display' => 'BCC Email Address',
+                        'instructions' => 'Enter a comma separated list of bcc recipient email addresses.',
+                        'type' => 'text',
+                        'placeholder' => 'example@example.com'
+                    ],
                     'email_subject' => [
                         'display' => 'Subject line',
                         'type' => 'text',
