@@ -1,6 +1,6 @@
-{{ sitekey = config:statamic:advanced-forms:recaptcha_site_key ?? null }}
+{{ postcoder_api_key = config:statamic:advanced-forms:postcoder_api_key ?? null }}
 
-{{ if !sitekey }}
+{{ if postcoder_api_key === null }}
 <div>
     <p>Please enter a valid Postcoder API key.</p>
 </div>  
@@ -330,16 +330,16 @@
 
 <script type="module">
     // import module
-    import PostcoderAddress from '/vendor/statamic-advanced-forms/js/address-lookup-service.js';
+    import PostcoderAddress from '/vendor/statamic-advanced-forms/js/address-lookup-service.js'
 
     // initialise
     new PostcoderAddress({
-        apikey: '{{ config:statamic:advanced-forms:postcoder_api_key }}', 
+        apikey: '{{ postcoder_api_key }}', 
         searchterm: '#safb__{{ handle }}__search',
         addressselectioncontainer: '#safb__{{ handle }}__addressContainer',
         noresultmessage: '#safb__{{ handle }}__noResultMessage',
         country: '{{ config.allow_country_select ? ("#safb__" + handle + "__country") : " " }}',
-        countrycode: '{{ config.country_code ?? " " }}',
+        countrycode: '{{ config.country_code ?? "UK" }}',
         searchbutton: '#safb__{{ handle }}__searchButton', 
         organisation: '#safb__{{ handle }}__organisation',
         addressline1: '#safb__{{ handle }}__addressLineOne', 
