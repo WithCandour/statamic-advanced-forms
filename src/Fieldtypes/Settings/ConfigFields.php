@@ -86,4 +86,27 @@ class ConfigFields
             'default' => false
         ];
     }
+
+    public static function enableCalculations()
+    {
+        return [
+            'display' => 'Enable Calculations',
+            'instructions' => 'This is useful if you want to dynamically populate a field based on a formula.',
+            'type' => 'toggle',
+            'default' => false
+        ];
+    }
+
+    public static function calculation()
+    {
+        return [
+            'display' => 'Calculation Formula',
+            'instructions' => '...',
+            'type' => 'textarea',
+            'width' => 100,
+            'if' => [
+                'enable_calculations' => 'equals true'
+            ]
+        ];
+    }
 }
