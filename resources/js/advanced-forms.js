@@ -13,6 +13,7 @@ import SubmissionNotes from './components/cp/submissions/Notes';
 import SubmissionNote from './components/cp/submissions/Note';
 import AnonymousAssetsFieldtype from './components/cp/fieldtypes/AnonymousAssetsFieldtype';
 import AddressLookupFieldtype from './components/cp/fieldtypes/AddressLookupFieldtype';
+import CalculatorFieldtype from './components/cp/fieldtypes/CalculatorFieldtype';
 import ColorInputFieldtype from './components/cp/fieldtypes/ColorInputFieldtype';
 import DateInputFieldtype from './components/cp/fieldtypes/DateInputFieldtype';
 import DividerFieldtype from './components/cp/fieldtypes/DividerFieldtype';
@@ -47,6 +48,7 @@ Statamic.booting(() => {
     // Fieldtypes
     Statamic.$components.register('anonymous-assets-fieldtype', AnonymousAssetsFieldtype);
     Statamic.$components.register('address_lookup-fieldtype', AddressLookupFieldtype);
+    Statamic.$components.register('calculator-fieldtype', CalculatorFieldtype);
     Statamic.$components.register('color_input-fieldtype', ColorInputFieldtype);
     Statamic.$components.register('date_input-fieldtype', DateInputFieldtype);
     Statamic.$components.register('divider-fieldtype', DividerFieldtype);
