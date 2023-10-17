@@ -4,6 +4,8 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Settings\ConfigFields;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 class NumberInput extends Fieldtype
 {
@@ -49,7 +51,9 @@ class NumberInput extends Fieldtype
                     'autocomplete' => ConfigFields::enableAutocomplete(),
                     'autocomplete_attribute' => ConfigFields::autocompleteAttribute(),
                     'allow_url_prefill' => ConfigFields::enableDynamicPopulation(),
-                    'submissions_unique' => ConfigFields::disableDuplicates()
+                    'submissions_unique' => ConfigFields::disableDuplicates(),
+                    'enable_calculations' => ConfigFields::enableCalculations(),
+                    'calculations' => ConfigFields::calculation(),
                 ]
             ]
         ];

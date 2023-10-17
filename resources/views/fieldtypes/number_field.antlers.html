@@ -2,6 +2,7 @@
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
 {{ placeholder = label_type === 'placeholder' ? label : null }}
 {{ attribute = autocomplete_attribute ?? autocomplete }}
+{{ calculations_enabled = (enable_calculations == true) ?? false}}
 
 {{ if label_type === 'label' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
@@ -15,8 +16,29 @@
     value="{{ prefill | sanitize }}" 
     placeholder="{{ placeholder | sanitize }}"
     autocomplete="{{ attribute }}" 
+    {{ if calculations_enabled }} readonly {{ /if }}
 /> 
 
 {{ if label_type === 'label_below' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
+{{ /if }}
+
+{{ if calculations_enabled }}
+<script>
+    let str = '{{ calculations | explode:' ' }}';
+    let fields = str.match(/(?<=\[)[^\][]*(?=])/g)
+
+    console.log(matches)
+    // when any number input changes...
+
+    // get calculation statement!
+    
+    // swap all shortcodes out for getElementById.value where shortcode contents are input id.
+
+    // parse the statement.
+
+    // return result.
+
+    // set value of this input to the result.
+</script>
 {{ /if }}
