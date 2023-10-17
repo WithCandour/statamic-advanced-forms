@@ -43,6 +43,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\AdvancedFormsFieldSelect as Adv
 
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AnonymousAssets;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\AddressLookup;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\Calculator;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Captcha;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\ColorInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\DateInput;
@@ -121,6 +122,7 @@ class ServiceProvider extends AddonServiceProvider
         AdvancedFormsFieldSelectFieldtype::class,
         AnonymousAssets::class,
         AddressLookup::class,
+        Calculator::class,
         Captcha::class,
         ColorInput::class,
         DateInput::class,
@@ -187,7 +189,7 @@ class ServiceProvider extends AddonServiceProvider
 
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'advanced-forms');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/advanced-forms.php', 'statamic.advanced-forms');
+        $this->mergeConfigFrom(__DIR__ . '/../config/advanced-forms.php', 'statamic/advanced-forms');
 
         $this->publishes([
             __DIR__ . '/../config/advanced-forms.php' => config_path('statamic/advanced-forms.php'),
