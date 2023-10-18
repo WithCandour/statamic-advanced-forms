@@ -23,22 +23,44 @@
 <label for="afb_{{ handle }}">{{ label }}</label>
 {{ /if }}
 
+
 {{ if calculations_enabled }}
 <script>
-    let str = '{{ calculations | explode:' ' }}';
-    let fields = str.match(/(?<=\[)[^\][]*(?=])/g)
+    let calculationFormula = {{ calculations | explode(" ") | to_json }}
+    let inputs = []
+    let newFormula = calculationFormula
+    let targetInput = document.getElementById('afb_{{ handle }}')
 
-    console.log(matches)
-    // when any number input changes...
+    // get inputs to watch
+    calculationFormula.forEach(function(item) {
+        if (item.startsWith('[') && item.endsWith(']')) {
+            let target = item.substring(1, item.length - 1)
+            let input = inputs.push(document.getElementById('afb_' + target))
+        }
+    });
 
-    // get calculation statement!
+    // when inputs change
+    inputs.forEach(function(input) {
+        input.addEventListener("change", function(event) {
+            return runCalculator();
+        })
+    })
     
-    // swap all shortcodes out for getElementById.value where shortcode contents are input id.
+    // parse formula with the value of the input.
+    function runCalculator() {
+        let mathString = '';
+        calculationFormula.forEach(function(item) {
+            if (item.startsWith('[') && item.endsWith(']')) {
+                let target = item.substring(1, item.length - 1)
+                mathString += document.getElementById('afb_' + target).value;
+            }
+            else {
+                mathString += item
+            }
+        });
 
-    // parse the statement.
-
-    // return result.
-
-    // set value of this input to the result.
+        // evaluate math string and update input
+        targetInput.value = Function("return " + mathString)()
+    }
 </script>
 {{ /if }}
