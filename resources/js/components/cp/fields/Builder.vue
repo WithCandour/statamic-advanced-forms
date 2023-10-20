@@ -39,7 +39,6 @@
 </template>
 
 <script>
-
 export default {
     components: {
         Sections: Statamic.$app.components.BlueprintBuilder.components.Tabs.components.TabContent.components.Sections
@@ -69,6 +68,7 @@ export default {
         });
 
         Statamic.$config.set('isFormBlueprint', true);
+        Statamic.$config.set('selectedFormFields', this.initialBlueprint.tabs[0].sections[0].fields);
     },
 
 
