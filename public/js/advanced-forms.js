@@ -308,6 +308,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       _this.save();
     });
     Statamic.$config.set('isFormBlueprint', true);
+    Statamic.$config.set('selectedFormFields', this.initialBlueprint.tabs[0].sections[0].fields);
   },
   watch: {
     sections: function sections(_sections) {
@@ -404,12 +405,29 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [Fieldtype],
   data: function data() {
     return {
-      //
+      formFields: []
     };
+  },
+  created: function created() {
+    this.formFields = Statamic.$config.get('selectedFormFields');
+  },
+  methods: {
+    addShortCodeToValue: function addShortCodeToValue(field) {
+      //this.value = this.value += '[' + field + ']'
+      this.update(this.value += '[' + field + ']');
+    },
+    updateValue: function updateValue() {
+      this.$emit('input', this.value);
+    }
   },
   computed: {
     options: function options() {
       return this.config.options;
+    },
+    selectableFields: function selectableFields() {
+      return this.formFields.filter(function (field) {
+        return field.icon === 'number_input' && field.config.enable_calculations === false;
+      });
     }
   }
 });
@@ -1632,7 +1650,35 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("p", [_vm._v("calculator field here")]), _vm._v("\n    " + _vm._s(_vm.options) + "\n")]);
+  return _c("div", [_c("span", {
+    staticClass: "font-bold text-sm"
+  }, [_vm._v("Select a shortcode")]), _vm._v(" "), _c("div", {
+    staticClass: "flex flex-wrap items-center justify-start mb-2"
+  }, _vm._l(_vm.selectableFields, function (field, index) {
+    return _c("div", {
+      key: "index",
+      staticClass: "mr-2 text-sm cursor-pointer hover:bg-black hover:text-white",
+      on: {
+        click: function click($event) {
+          return _vm.addShortCodeToValue(field.handle);
+        }
+      }
+    }, [_c("code", [_vm._v("[" + _vm._s(field.handle) + "]")])]);
+  }), 0), _vm._v(" "), _c("text-input", {
+    attrs: {
+      value: _vm.value,
+      id: "field_calculator"
+    },
+    on: {
+      input: _vm.updateDebounced,
+      focus: function focus($event) {
+        return _vm.$emit("focus");
+      },
+      blur: function blur($event) {
+        return _vm.$emit("blur");
+      }
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
