@@ -102,7 +102,7 @@ class ConfigFields
         return [
             'display' => 'Calculation Formula',
             'instructions' => 'Write your math formula in here using `[form_handle]` as a shortcode. This does not support the use of brackets.',
-            'type' => 'textarea',
+            'type' => 'calculator',
             'width' => 100,
             'if' => [
                 'enable_calculations' => 'equals true'
