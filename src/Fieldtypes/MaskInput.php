@@ -4,13 +4,11 @@ namespace WithCandour\StatamicAdvancedForms\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Settings\ConfigFields;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
-class NumberInput extends Fieldtype
+class MaskInput extends Fieldtype
 {
     protected $categories = ['special'];
-
+    
     public function configFieldItems(): array
     {
         return [
@@ -52,12 +50,9 @@ class NumberInput extends Fieldtype
                     'autocomplete_attribute' => ConfigFields::autocompleteAttribute(),
                     'allow_url_prefill' => ConfigFields::enableDynamicPopulation(),
                     'submissions_unique' => ConfigFields::disableDuplicates(),
-                    'enable_calculations' => ConfigFields::enableCalculations(),
-                    'calculations' => ConfigFields::calculation(),
-                    'enable_input_mask' => ConfigFields::enableInputMask(),
                     'enable_custom_mask' => ConfigFields::enableCustomMask(),
                     'custom_mask' => ConfigFields::customMask(),
-                    'mask_settings' => ConfigFields::numberFieldMaskSettings(),
+                    'mask_settings' => ConfigFields::maskFieldMaskSettings(),
                 ]
             ]
         ];
@@ -81,7 +76,7 @@ class NumberInput extends Fieldtype
     
     public function view()
     {
-        $default = 'statamic-advanced-forms::fieldtypes.number_field';
+        $default = 'statamic-advanced-forms::fieldtypes.mask_field';
 
         return view()->exists($default)
             ? $default

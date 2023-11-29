@@ -109,4 +109,105 @@ class ConfigFields
             ]
         ];
     }
+
+    public static function enableInputMask()
+    {
+        return [
+            'display' => 'Enable Input Mask',
+            'instructions' => 'When active, you can specify an input mask to be applied to the field.',
+            'type' => 'toggle',
+            'default' => false,
+            'width' => 100
+        ];
+    }
+
+    public static function enableCustomMask()
+    {
+        return [
+            'display' => 'Enable Custom Input Mask',
+            'instructions' => 'When active, you can specify your own input mask patterns.',
+            'type' => 'toggle',
+            'default' => false,
+            'width' => 100,
+            'if' => [
+                'enable_input_mask' => 'equals true'
+            ]
+        ];
+    }
+
+    public static function customMask()
+    {
+        return [
+            'display' => 'Custom Input Mask',
+            'instructions' => 'Custom Input Mask',
+            'type' => 'text',
+            'default' => false,
+            'width' => 100,
+            'if' => [
+                'enable_input_mask' => 'equals true',
+                'enable_custom_mask' => 'equals true'
+            ]
+        ];
+    }
+
+    public static function maskFieldMaskSettings() 
+    {
+        return [
+            'display' => 'Mask Settings',
+            'type' => 'select',
+            'width' => 100,
+            'options' => [
+                '{+44} (\\0) 0000-000-000' => 'UK Phone Number Inc Country Code',
+                '00000 000 000' => 'UK Phone Number Format',
+                '00/00/0000' => 'Date Format (DD/MM/YYYY)',
+                '00-00-0000' => 'Date Format (DD-MM-YYYY)',
+                '00.00.0000' => 'Date Format (DD.MM.YYYY)',
+                'aa 00 00 00 a' => 'UK National Insurance Number',
+                'aa0[0] 0aa' => 'UK Postcode'
+            ],
+            'if' => [
+                'enable_input_mask' => 'equals true',
+                'enable_custom_mask' => 'not equals true'
+            ]
+        ];
+    }
+
+    public static function numberFieldMaskSettings() 
+    {
+        return [
+            'display' => 'Mask Settings',
+            'type' => 'select',
+            'width' => 100,
+            'options' => [
+                '{+44} (\\0) 0000-000-000' => 'UK Phone Number Inc Country Code',
+                '00000 000 000' => 'UK Phone Number Format',
+                '00/00/0000' => 'Date Format (DD/MM/YYYY)',
+                '00-00-0000' => 'Date Format (DD-MM-YYYY)',
+                '00.00.0000' => 'Date Format (DD.MM.YYYY)',
+                'currency' => 'Currency Format'
+            ],
+            'if' => [
+                'enable_input_mask' => 'equals true',
+                'enable_custom_mask' => 'not equals true'
+            ]
+        ];
+    }
+
+    public static function currencySymbol() 
+    {
+        return [
+            'display' => 'Currency Symbol',
+            'type' => 'select',
+            'width' => 100,
+            'options' => [
+                '£' => 'GBP',
+                '$' => 'Dollar',
+                '€' => 'Euro'
+            ],
+            'if' => [
+                'enable_input_mask' => 'equals true',
+                'mask_settings' => 'equals currency'
+            ]
+        ];
+    }
 }

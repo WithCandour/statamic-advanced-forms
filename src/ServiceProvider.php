@@ -50,6 +50,7 @@ use WithCandour\StatamicAdvancedForms\Fieldtypes\DateInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\Divider;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\EmailInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\HiddenInput;
+use WithCandour\StatamicAdvancedForms\Fieldtypes\MaskInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\MonthInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\NumberInput;
 use WithCandour\StatamicAdvancedForms\Fieldtypes\PasswordInput;
@@ -129,6 +130,7 @@ class ServiceProvider extends AddonServiceProvider
         Divider::class,
         EmailInput::class,
         HiddenInput::class,
+        MaskInput::class,
         MonthInput::class,
         NumberInput::class,
         PasswordInput::class,
