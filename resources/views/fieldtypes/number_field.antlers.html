@@ -2,7 +2,9 @@
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
 {{ placeholder = label_type === 'placeholder' ? label : null }}
 {{ attribute = autocomplete_attribute ?? autocomplete }}
-{{ calculations_enabled = (enable_calculations == true) ?? false}}
+{{ calculations_enabled = (enable_calculations == true) ?? false }}
+{{ input_mask_enabled = (enable_input_mask == true) ?? false }}
+
 
 {{ if label_type === 'label' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
@@ -22,7 +24,6 @@
 {{ if label_type === 'label_below' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
 {{ /if }}
-
 
 {{ if calculations_enabled }}
 <script>
@@ -62,5 +63,17 @@
         // evaluate math string and update input
         targetInput.value = Function("return " + mathString)()
     }
+</script>
+{{ /if }}
+
+{{ if input_mask_enabled }}
+<script>
+    import IMask from 'imask'
+    new IMask(
+        document.getElementById('afb_{{ handle }}'),
+        {
+            mask: '{{ mask_pattern }}',
+            lazy: false,
+        });
 </script>
 {{ /if }}
