@@ -96,7 +96,7 @@ export default class PostcoderAddress {
         }
     
         // fetch the json formatted result from Postcoder and pass it to processResult
-        fetch(this.endpoint + country + '/' + searchterm + '?lines='+this.addresslines + '&exclude=organisation,country&page=' + page)
+        fetch(this.endpoint + country + '/' + searchterm + '?lines=' + this.addresslines + '&exclude=organisation,country&page=' + page)
         .then( response => {
             if (!response.ok) { 
             throw response 
@@ -113,7 +113,7 @@ export default class PostcoderAddress {
                 console.log('Postcoder request error ' + err.status + ' : ' + errorMessage)
             })
             }else{
-            console.log(err)
+                console.log(err)
             }
         })
     }
