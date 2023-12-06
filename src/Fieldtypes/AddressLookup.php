@@ -12,7 +12,7 @@ class AddressLookup extends Fieldtype
     public function preProcess($data)
     {
         $data['postcoder_api_key'] = env('POSTCODER_API_KEY');
-
+        $data['loqate_api_key'] = env('LOQATE_API_KEY');
         return $data;
     }
 

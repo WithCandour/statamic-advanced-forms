@@ -176,6 +176,7 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $publishables = [
         __DIR__ . '/../resources/js/address-lookup-service.js' => 'js/address-lookup-service.js',
+        __DIR__ . '/../resources/js/loqate-service.js' => 'js/loqate-service.js',
     ];
 
     protected $tags = [
