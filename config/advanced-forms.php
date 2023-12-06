@@ -75,6 +75,7 @@ return [
     */
 
     'postcoder_api_key' => env('POSTCODER_API_KEY'),
+    'loqate_api_key' => env('LOQATE_API_KEY'),
 
 
     /*
