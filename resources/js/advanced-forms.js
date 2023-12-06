@@ -46,7 +46,7 @@ Statamic.booting(() => {
     Statamic.component('advanced-forms-submission-note', SubmissionNote);
 
     // Fieldtypes
-    Statamic.$components.register('anonymous-assets-fieldtype', AnonymousAssetsFieldtype);
+    Statamic.$components.register('anonymous_assets-fieldtype', AnonymousAssetsFieldtype);
     Statamic.$components.register('address_lookup-fieldtype', AddressLookupFieldtype);
     Statamic.$components.register('calculator-fieldtype', CalculatorFieldtype);
     Statamic.$components.register('color_input-fieldtype', ColorInputFieldtype);
