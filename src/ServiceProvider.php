@@ -83,6 +83,7 @@ use WithCandour\StatamicAdvancedForms\Stache\Stores\FeedsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\FormsStore;
 use WithCandour\StatamicAdvancedForms\Stache\Stores\NotificationsStore;
 use WithCandour\StatamicAdvancedForms\Tags\AdvancedFormTags;
+use WithCandour\StatamicAdvancedForms\Tags\AdvancedFormMetaTags;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -181,6 +182,7 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $tags = [
         AdvancedFormTags::class,
+        AdvancedFormMetaTags::class,
     ];
 
     /**

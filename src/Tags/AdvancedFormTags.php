@@ -2,17 +2,11 @@
 
 namespace WithCandour\StatamicAdvancedForms\Tags;
 
-use Exception;
-use Statamic\Fields\Field;
-use Statamic\Fields\Section;
 use Statamic\Tags\Concerns\RendersForms;
-use Statamic\Tags\Tags;
 use WithCandour\StatamicAdvancedForms\Contracts\Models\Form;
-use WithCandour\StatamicAdvancedForms\Exceptions\AdvancedFormNotFoundException;
-use WithCandour\StatamicAdvancedForms\Facades\Form as FormFacade;
-use WithCandour\StatamicAdvancedForms\Http\Controllers\Actions\FormController;
+use WithCandour\StatamicAdvancedForms\Tags\AdvancedFormBaseTags;
 
-class AdvancedFormTags extends Tags
+class AdvancedFormTags extends AdvancedFormBaseTags
 {
     use RendersForms;
 
@@ -61,8 +55,7 @@ class AdvancedFormTags extends Tags
             ], $data);
         }
 
-        $html = $this->flashMessage($data);
-        $html .= $this->formOpen($action, $method, $knownParams, $attrs);
+        $html = $this->formOpen($action, $method, $knownParams, $attrs);
         $html .= $this->formMetaFields($params);
         $html .= $this->parse($data);
         $html .= $this->formClose();
@@ -70,167 +63,4 @@ class AdvancedFormTags extends Tags
         return $html;
     }
 
-    /**
-     * Get the flash for the form.
-     *
-     */
-    private function flashMessage($data)
-    {
-        if (!empty($data['errors'])) {
-            return $this->buildErrorFlash($data['errors']);
-        }
-
-        if (!empty($data['success'])) {
-            return $this->buildSuccessFlash($data['success']);
-        }
-    }
-
-    /**
-     * Get the success flash for the form.
-     *
-     * @return string
-     */
-    private function buildSuccessFlash(string $success) : string
-    {
-        return '<div class="afb__flash afb__flash--success">' . $success . '</div>';
-    }
-
-    /**
-     * Get the error flash for the form.
-     *
-     * @return string
-     */
-    private function buildErrorFlash(array $errors) : string
-    {
-        $errorList = null;
-            
-        foreach($errors as $error) { 
-            $errorList .= '<li>' . $error . '</li>';
-        } 
-
-        return '<div class="afb__flash afb__flash--error"><ul>' . $errorList . '</ul></div>';
-    }
-
-    /**
-     * Get the form for this tag.
-     *
-     * @return Form
-     */
-    protected function form(): Form
-    {
-        if (empty($this->form)) {
-            $handle = $this->formHandle();
-
-            if (!$handle) {
-                throw new Exception('Advanced form tag rendered without a form.');
-            }
-
-            $form = FormFacade::find($handle);
-
-            if (!$form) {
-                throw new AdvancedFormNotFoundException($handle);
-            }
-
-            $this->form = $form;
-        }
-
-        return $this->form;
-    }
-
-    /**
-     * Get the form handle for this tag.
-     *
-     * @return string|null
-     */
-    protected function formHandle(): ?string
-    {
-        return $this->params->get('form');
-    }
-
-    /**
-     * Get all pages for this form.
-     *
-     * @return array
-     */
-    protected function getPages(): array
-    {
-        $blueprint = $this->form()?->blueprint();
-
-        if (empty($blueprint)) {
-            return [];
-        }
-
-        return $blueprint->tabs()->first()->sections()
-            ->map(function (Section $section) {
-                return [
-                    'title' => $section->display(),
-                    'fields' => $section
-                        ->fields()
-                        ->all()
-                        ->map(function (Field $field) {
-                            return $this->getRenderableField($field, $this->sessionHandle());
-                        })
-                        ->values()
-                        ->toArray()
-                ];
-            })
-            ->values()
-            ->toArray();
-    }
-
-    /**
-     * Get the session handle.
-     *
-     * @return string
-     */
-    protected function sessionHandle(): string
-    {
-        $prefix = FormController::FORM_SESSION_PREFIX ?? 'advanced_forms.';
-        return $prefix .= $this->form()?->handle();
-    }
-
-    /**
-     * Get value from form session.
-     *
-     * @param string $formHandle
-     * @param string $key
-     */
-    protected function getFromFormSession($key)
-    {
-        return session()->get($this->sessionHandle() . ".$key");
-    }
-
-    /**
-     * Get form session error/success output.
-     *
-     * @param string $formHandle
-     * @return array
-     */
-    protected function getFormSession(string $formHandle): array
-    {
-        $data = [];
-
-        $errors = optional(session()->get('errors'))->getBag($this->sessionHandle());
-
-        $data['errors'] = $errors ? $errors->all() : [];
-        $data['error'] = $errors ? $this->getFirstErrorForEachField($errors) : [];
-        $data['success'] = $this->getFromFormSession('success');
-
-        return $data;
-    }
-
-    /**
-     * Get first error for each field.
-     *
-     * @param  \Illuminate\Support\MessageBag  $messageBag
-     * @return array
-     */
-    protected function getFirstErrorForEachField($messageBag)
-    {
-        return collect($messageBag->messages())
-            ->map(function ($errors, $field) {
-                return $errors[0];
-            })
-            ->all();
-    }
 }
