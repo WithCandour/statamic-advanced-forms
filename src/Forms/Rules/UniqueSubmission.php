@@ -28,7 +28,7 @@ class UniqueSubmission implements InvokableRule
     {
         $this->form->submissionValues()
             ->each(function($submissionValue) use ($value, $fail, $attribute){
-                if ($value === $submissionValue->data[$this->field]) {
+                if ( array_key_exists($this->field, $submissionValue->data) && $value === $submissionValue->data[$this->field]) {
                     $fail('The :attribute must be unique.');
                 };
             });
