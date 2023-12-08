@@ -2842,7 +2842,7 @@ Statamic.booting(function () {
   Statamic.component('advanced-forms-submission-note', _components_cp_submissions_Note__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
   // Fieldtypes
-  Statamic.$components.register('anonymous-assets-fieldtype', _components_cp_fieldtypes_AnonymousAssetsFieldtype__WEBPACK_IMPORTED_MODULE_13__["default"]);
+  Statamic.$components.register('anonymous_assets-fieldtype', _components_cp_fieldtypes_AnonymousAssetsFieldtype__WEBPACK_IMPORTED_MODULE_13__["default"]);
   Statamic.$components.register('address_lookup-fieldtype', _components_cp_fieldtypes_AddressLookupFieldtype__WEBPACK_IMPORTED_MODULE_14__["default"]);
   Statamic.$components.register('calculator-fieldtype', _components_cp_fieldtypes_CalculatorFieldtype__WEBPACK_IMPORTED_MODULE_15__["default"]);
   Statamic.$components.register('color_input-fieldtype', _components_cp_fieldtypes_ColorInputFieldtype__WEBPACK_IMPORTED_MODULE_16__["default"]);
