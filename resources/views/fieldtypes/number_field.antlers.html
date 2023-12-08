@@ -2,8 +2,8 @@
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
 {{ placeholder = label_type === 'placeholder' ? label : null }}
 {{ attribute = autocomplete_attribute ?? autocomplete }}
-{{ calculations_enabled = (enable_calculations == true) ?? false }}
-{{ input_mask_enabled = (enable_input_mask == true) ?? false }}
+{{ calculations_enabled = (enable_calculations === true) ?? false }}
+{{ input_mask_enabled = (enable_input_mask === true) ?? false }}
 {{ mask_pattern = enable_custom_mask === true ? custom_mask : mask_settings }}
 
 
@@ -19,25 +19,25 @@
     value="{{ prefill | sanitize }}" 
     placeholder="{{ placeholder | sanitize }}"
     autocomplete="{{ attribute }}" 
-    {{ if calculations_enabled }} readonly {{ /if }}
+    {{ if calculations_enabled === true }} readonly {{ /if }}
 /> 
 
 {{ if label_type === 'label_below' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
 {{ /if }}
 
-{{ if calculations_enabled }}
+{{ if calculations_enabled === true }}
 <script>
-    let calculationFormula = {{ calculations | explode(" ") | to_json }};
-    let inputs = [];
-    let newFormula = calculationFormula;
-    let targetInput = document.getElementById('afb_{{ handle }}');
+    var calculationFormula = {{ calculations | explode(" ") | to_json }};
+    var inputs = [];
+    var newFormula = calculationFormula;
+    var targetInput = document.getElementById('afb_{{ handle }}');
 
     // get inputs to watch
     calculationFormula.forEach(function(item) {
         if (item.startsWith('[') && item.endsWith(']')) {
-            let target = item.substring(1, item.length - 1)
-            let input = inputs.push(document.getElementById('afb_' + target))
+            var target = item.substring(1, item.length - 1)
+            var input = inputs.push(document.getElementById('afb_' + target))
         }
     });
 
@@ -50,10 +50,10 @@
     
     // parse formula with the value of the input.
     function runCalculator() {
-        let mathString = '';
+        var mathString = '';
         calculationFormula.forEach(function(item) {
             if (item.startsWith('[') && item.endsWith(']')) {
-                let target = item.substring(1, item.length - 1)
+                var target = item.substring(1, item.length - 1)
                 mathString += document.getElementById('afb_' + target).value;
             }
             else {
