@@ -2,6 +2,7 @@
 {{ prefill = allow_url_prefill ? (get[@dynamic] ?? null) : null }}
 {{ placeholder = label_type === 'placeholder' ? label : null }}
 {{ attribute = autocomplete_attribute ?? autocomplete }}
+{{ mask_pattern = enable_custom_mask === true ? custom_mask : mask_settings }}
 
 {{ if label_type === 'label' }}
 <label for="afb_{{ handle }}">{{ label }}</label>
@@ -21,8 +22,8 @@
 <label for="afb_{{ handle }}">{{ label }}</label>
 {{ /if }}
 
+<script src="https://unpkg.com/imask"></script>
 <script>
-    import IMask from 'imask'
     new IMask(
         document.getElementById('afb_{{ handle }}'),
         {

@@ -4,6 +4,7 @@
 {{ attribute = autocomplete_attribute ?? autocomplete }}
 {{ calculations_enabled = (enable_calculations == true) ?? false }}
 {{ input_mask_enabled = (enable_input_mask == true) ?? false }}
+{{ mask_pattern = enable_custom_mask === true ? custom_mask : mask_settings }}
 
 
 {{ if label_type === 'label' }}
@@ -12,7 +13,7 @@
 
 <input 
     id="afb_{{ handle }}"
-    type="number" 
+    type="{{ input_mask_enabled ? 'text' : 'number'}}" 
     class="afb_number_field" 
     name="{{ handle }}"
     value="{{ prefill | sanitize }}" 
@@ -27,10 +28,10 @@
 
 {{ if calculations_enabled }}
 <script>
-    let calculationFormula = {{ calculations | explode(" ") | to_json }}
-    let inputs = []
-    let newFormula = calculationFormula
-    let targetInput = document.getElementById('afb_{{ handle }}')
+    let calculationFormula = {{ calculations | explode(" ") | to_json }};
+    let inputs = [];
+    let newFormula = calculationFormula;
+    let targetInput = document.getElementById('afb_{{ handle }}');
 
     // get inputs to watch
     calculationFormula.forEach(function(item) {
@@ -67,8 +68,8 @@
 {{ /if }}
 
 {{ if input_mask_enabled }}
+<script src="https://unpkg.com/imask"></script>
 <script>
-    import IMask from 'imask'
     new IMask(
         document.getElementById('afb_{{ handle }}'),
         {

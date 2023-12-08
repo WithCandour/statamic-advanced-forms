@@ -20,7 +20,7 @@
         <div id="result"></div>
     </div>  
 
-    <div id="addressInputs">
+    <div id="{{ handle }}__addressInputs">
         <hr/>
         {{# Address Inputs #}}
         <div>
@@ -75,7 +75,7 @@
 </div>
 
 <script>
-    let addressInputs = document.getElementById("addressInputs");
+    let addressInputs = document.getElementById("{{ handle }}__addressInputs");
 
     addressInputs.style.display = 'none';
 
